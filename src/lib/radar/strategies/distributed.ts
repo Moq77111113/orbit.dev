@@ -1,8 +1,6 @@
 import type { Entry, Radar } from '~/types/radar.js';
-import {
-  PlacementStrategy,
-  type DistributedPlacementOptions,
-} from './index.js';
+import { PlacementStrategy } from './base.js';
+import type { DistributedPlacementOptions } from './types.js';
 
 export class DistributedStrategy extends PlacementStrategy<DistributedPlacementOptions> {
   place(radar: Radar, entry: Entry, ringWidth: number) {

@@ -1,5 +1,6 @@
 import type { Entry, Radar } from '~/types/radar.js';
-import { PlacementStrategy, type ClusteredPlacementOptions } from './index.js';
+import { PlacementStrategy } from './base.js';
+import type { ClusteredPlacementOptions } from './types.js';
 
 export class ClusteredStrategy extends PlacementStrategy<ClusteredPlacementOptions> {
   place(radar: Radar, entry: Entry, ringWidth: number) {

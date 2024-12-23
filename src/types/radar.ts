@@ -1,7 +1,6 @@
 type RingId = `rng-${number}`;
 type SectionId = `sec-${number}`;
 
-export type Container = { width: number; height: number };
 export type Ring = {
   id: RingId;
   name: string;
@@ -33,16 +32,3 @@ export type Radar = {
   sections: Section[];
   entries: Entry[];
 };
-
-export type Target = d3.Selection<SVGGElement, unknown, null, undefined>;
-
-export type Geometry = {
-  radius: number;
-  center: { x: number; y: number };
-};
-
-export type DrawOptions = {
-  geometry: Geometry;
-  radar: Radar;
-};
-export type DrawFunction = (target: Target, options: DrawOptions) => void;

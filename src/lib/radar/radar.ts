@@ -1,12 +1,13 @@
 import * as d3 from 'd3';
-import type { Geometry, Radar, Target } from '~/types/radar.js';
+import type { Container, Geometry, Target } from '~/types/radar-options.js';
+import type { Radar } from '~/types/radar.js';
 import type { RadarConfig } from '~/types/theme.js';
 import { defaultConfig } from '../theme.js';
 import { EntryService } from './services/entry.js';
 import { RingService } from './services/ring.js';
 import { SectionService } from './services/section.js';
-import { PlacementStrategy } from './services/strategies/index.js';
-import { RandomStrategy } from './services/strategies/random.js';
+import type { PlacementStrategy } from './strategies/index.js';
+import { RandomStrategy } from './strategies/random.js';
 
 type RadarServiceOptions = {
   strategy?: PlacementStrategy;
@@ -16,12 +17,11 @@ type RadarServiceOptions = {
 
 export class RadarService {
   #radar: Radar;
-
   #config: RadarConfig = defaultConfig;
-
-  #container: { width: number; height: number } = { width: 500, height: 500 };
+  #container: Container = { width: 500, height: 500 };
   #target: Target | null = null;
-  readonly strategy: PlacementStrategy = new RandomStrategy();
+  #strategy: PlacementStrategy = new RandomStrategy();
+
   readonly #ringService: RingService;
   readonly #sectionService: SectionService;
   readonly #entryService: EntryService;
@@ -34,7 +34,7 @@ export class RadarService {
     this.#entryService = new EntryService(this);
 
     if (options?.strategy) {
-      this.strategy = options.strategy;
+      this.#strategy = options.strategy;
     }
 
     if (options?.container) {
@@ -68,6 +68,10 @@ export class RadarService {
 
   get config() {
     return this.#config;
+  }
+
+  get strategy() {
+    return this.#strategy;
   }
 
   get geometry() {

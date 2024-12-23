@@ -1,6 +1,6 @@
 import type { Entry, Radar } from '~/types/radar.js';
-import { PlacementStrategy, type SpiralPlacementOptions } from './index.js';
-
+import { PlacementStrategy } from './base.js';
+import type { SpiralPlacementOptions } from './types.js';
 export class SpiralStrategy extends PlacementStrategy<SpiralPlacementOptions> {
   place(radar: Radar, entry: Entry, ringWidth: number) {
     const ctx = this.getContext(radar, entry, ringWidth);

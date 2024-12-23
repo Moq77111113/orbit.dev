@@ -1,5 +1,6 @@
 import type { Entry, Radar } from '~/types/radar.js';
-import { PlacementStrategy, type RandomPlacementOptions } from './index.js';
+import { PlacementStrategy } from './base.js';
+import type { RandomPlacementOptions } from './types.js';
 
 export class RandomStrategy extends PlacementStrategy<RandomPlacementOptions> {
   place(radar: Radar, entry: Entry, ringWidth: number) {

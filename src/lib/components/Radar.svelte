@@ -17,6 +17,8 @@
   let width = $state(baseWidth);
   let height = $state(baseHeight);
 
+  let svg: SVGElement;
+
   const radar = new RadarService(data, {
     container: {
       get width() {
@@ -27,7 +29,6 @@
       },
     },
   });
-  let svg: SVGElement;
 
   onMount(() => {
     radar.draw(svg);
@@ -41,13 +42,27 @@
   });
 </script>
 
-<svg
-  class="relative"
-  bind:this={svg}
-  {width}
-  {height}
-  viewBox={`0 0 ${width} ${height}`}
-/>
+<section class="flex w-full justify-between">
+  <div class="flex flex-col items-center">
+    <div class="flex">
+      {#each ['random', 'distributed', 'clustered', 'spiral'] as const as layout}
+        <button
+          class="px-2 py-1 bg-gray-200 rounded-lg m-1"
+          onclick={() => radar.changePosition(layout)}
+        >
+          {layout}
+        </button>
+      {/each}
+    </div>
+  </div>
+  <svg
+    class="relative"
+    bind:this={svg}
+    {width}
+    {height}
+    viewBox={`0 0 ${width} ${height}`}
+  />
+</section>
 
 <style>
 </style>

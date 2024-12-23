@@ -128,8 +128,9 @@ export class ListService extends DrawService {
         .append('text')
         .attr('class', 'ring-header')
         .attr('dy', yOffset + 'px')
+        .style('background-color', 'red')
         .style('font-weight', 'bold')
-        .style('font-size', '10px')
+        .style('font-size', '12px')
         .style('fill', ring.color || this.radar.config.theme.colors.ring)
         .text(ring.name);
 
@@ -138,8 +139,15 @@ export class ListService extends DrawService {
       entries.forEach((entry) => {
         const entryGroup = quadrant
           .append('g')
-          .attr('class', `entry-${entry.name}`)
-          .attr('transform', `translate(10, ${yOffset})`);
+          .attr('transform', `translate(10, ${yOffset})`)
+          .attr('fill', 'red')
+          .style('cursor', 'pointer')
+          .on('mouseover', (ev, i) => {
+            EntryService.triggerTooltip(entry);
+          })
+          .on('mouseout', (ev, i) => {
+            EntryService.hideTooltip(entry);
+          });
 
         this.drawEntryMarker(entryGroup, entry);
 
@@ -147,18 +155,19 @@ export class ListService extends DrawService {
           .append('text')
           .attr('x', 15)
           .attr('dy', '0.32em')
-          .style('font-size', '10px')
+          .style('font-size', '12px')
+          .attr('fill', this.radar.config.theme.colors.text)
           .text(entry.name);
 
-        yOffset += 10;
+        yOffset += 15;
       });
 
-      yOffset += 5;
+      yOffset += 10;
     });
   }
 
   private drawEntryMarker(group: Target, entry: Entry) {
-    const shape = EntryService.shape(entry, 20);
+    const shape = EntryService.createShape(entry, 20);
     shape(group).attr('fill', this.radar.config.theme.colors.text);
   }
 }

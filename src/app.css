@@ -3,13 +3,32 @@
 @import 'tailwindcss/utilities';
 
 div.tooltip {
-  @apply absolute p-2 text-black border max-w-52 rounded-lg pointer-events-none text-sm z-50 flex flex-col text-left space-y-4;
+  @apply absolute p-4 bg-white text-black border border-gray-300 rounded-lg pointer-events-none text-sm z-50 flex flex-col text-left space-y-3 max-w-xs shadow-xl transition-all duration-200 opacity-0 scale-95 transform hover:opacity-100 hover:scale-100 shadow-lg;
 }
 
 div.tooltip h3 {
-  @apply font-bold;
+  @apply font-semibold text-lg text-gray-700 tracking-tight;
 }
 
 div.tooltip p {
   @apply text-xs text-gray-700;
+}
+
+div.tooltip .tags {
+  @apply text-xs text-gray-500 italic;
+}
+
+div.tooltip .tags span {
+  @apply px-1 bg-gray-200 rounded-full;
+}
+
+div.tooltip .new {
+  @apply bg-green-500 max-w-fit text-white px-2 py-1 rounded-full text-xs font-medium;
+}
+div.tooltip .moved.moved-up {
+  @apply rounded-full max-w-fit text-green-700 font-bold;
+}
+
+div.tooltip .moved.moved-down {
+  @apply rounded-full max-w-fit text-red-700 font-bold;
 }

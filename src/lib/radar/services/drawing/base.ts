@@ -1,5 +1,5 @@
-import type { Target } from '~/types/radar.js';
-import type { RadarService } from '../radar.js';
+import type { Target } from '~/types/radar-options.js';
+import type { RadarService } from '../../radar.js';
 
 export abstract class DrawService {
   protected readonly radar: RadarService;

@@ -3,10 +3,12 @@ import type { Container, Geometry, Target } from '~/types/radar-options.js';
 import type { Radar, Ring, Section } from '~/types/radar.js';
 import type { RadarConfig } from '~/types/theme.js';
 import { defaultConfig } from '../theme.js';
-import { EntryService } from './services/entry.js';
-import { ListService } from './services/list.js';
-import { RingService } from './services/ring.js';
-import { SectionService } from './services/section.js';
+import {
+  EntryService,
+  ListService,
+  RingService,
+  SectionService,
+} from './services/drawing/index.js';
 import type { PlacementStrategy } from './strategies/index.js';
 import { RandomStrategy } from './strategies/random.js';
 
@@ -18,7 +20,8 @@ type RadarServiceOptions = {
 
 export class RadarService {
   #radar: Radar;
-  #config: RadarConfig = defaultConfig;
+  protected radarConfig: RadarConfig = defaultConfig;
+  #source: SVGElement | null = null;
   #container: Container = { width: 500, height: 500 };
   #target: Target | null = null;
   #listContainer: Target | null = null;
@@ -42,6 +45,7 @@ export class RadarService {
   }
 
   draw(svg: SVGElement) {
+    this.#source = svg;
     const element = d3.select(svg);
 
     element.selectAll('*').remove();
@@ -60,7 +64,7 @@ export class RadarService {
       .attr('transform', `translate(${center.x} ${center.y})`)
       .style(
         'background-color',
-        this.#config.theme.colors.background ?? '#ffffff'
+        this.config.theme.colors.background ?? '#ffffff'
       );
 
     this.#sectionService.draw(this.#target);
@@ -117,7 +121,7 @@ export class RadarService {
     if (options?.strategy) this.#strategy = options.strategy;
     if (options?.container) this.#container = options.container;
     if (options?.config) {
-      this.#config = this.#deepMergeConfig(this.#config, options.config);
+      this.radarConfig = this.#deepMergeConfig(this.config, options.config);
     }
   }
 
@@ -182,12 +186,12 @@ export class RadarService {
     return this.#radar.title;
   }
 
-  get config() {
-    return this.#config;
-  }
-
   get strategy() {
     return this.#strategy;
+  }
+
+  get config() {
+    return this.radarConfig;
   }
 
   get geometry() {
@@ -195,5 +199,13 @@ export class RadarService {
   }
   get size() {
     return this.#container;
+  }
+
+  changePosition(position: RadarConfig['entryPlacement']) {
+    if (!this.#source) {
+      throw new Error('Cannot change position before drawing the radar');
+    }
+    this.radarConfig.entryPlacement = position;
+    this.draw(this.#source);
   }
 }

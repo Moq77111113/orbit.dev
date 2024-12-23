@@ -8,7 +8,7 @@
       { id: 'rng-2', name: 'Trial', color: '#76a5af' },
       { id: 'rng-3', name: 'Assess', color: '#f6d86b' },
       { id: 'rng-4', name: 'Hold', color: '#e06666' },
-      { id: 'rng-5', name: 'Avoid', color: '#000000' },
+      { id: 'rng-5', name: 'Avoid', color: '#f4f' },
     ],
     sections: [
       { id: 'sec-1', name: 'Languages & Frameworks' },
@@ -25,7 +25,7 @@
         isNew: false,
         description: 'A popular typed superset of JavaScript.',
         link: 'https://www.typescriptlang.org/',
-        tags: ['javascript', 'typed'],
+
         moved: 1,
       },
       {

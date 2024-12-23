@@ -30,5 +30,4 @@ export const defaultConfig = {
   entryPlacement: 'spiral',
   showLabels: true,
   interactive: true,
-  animationDuration: 500,
 } satisfies RadarConfig;

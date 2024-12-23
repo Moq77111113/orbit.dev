@@ -208,4 +208,17 @@ export class RadarService {
     this.radarConfig.entryPlacement = position;
     this.draw(this.#source);
   }
+
+  changeTheme(theme: Partial<RadarConfig['theme']>) {
+    if (!this.#source) {
+      throw new Error('Cannot change theme before drawing the radar');
+    }
+    this.radarConfig = this.#deepMergeConfig(this.radarConfig, {
+      theme: {
+        ...this.radarConfig.theme,
+        ...theme,
+      },
+    });
+    this.draw(this.#source);
+  }
 }

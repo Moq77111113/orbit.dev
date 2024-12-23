@@ -3,7 +3,7 @@ import type { RadarConfig, RadarTheme } from '~/types/theme.js';
 export const defaultTheme = {
   colors: {
     ring: '#1e90ff',
-    grid: '#f1f1f2',
+    grid: '#dedede',
     text: '#333333',
     background: '#ffffff',
   },

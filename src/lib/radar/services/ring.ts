@@ -1,4 +1,5 @@
-import type { Ring, Target } from '~/types/radar.js';
+import type { Target } from '~/types/radar-options.js';
+import type { Ring } from '~/types/radar.js';
 import { DrawService } from './base.js';
 
 type RingOptions = {
@@ -8,7 +9,8 @@ type RingOptions = {
 
 export class RingService extends DrawService {
   addRing(target: Target, options: RingOptions) {
-    const { ring, ringIdx = this.radar.rings.length - 1 } = options;
+    const { ring, ringIdx = this.radar.rings.length } = options;
+
     const { radius } = this.radar.geometry;
     const config = this.radar.config;
     const ringWidth = radius / this.radar.rings.length;
@@ -20,9 +22,10 @@ export class RingService extends DrawService {
     target
       .append('circle')
       .attr('r', outerRadius)
-      .attr('fill', 'none')
+      .attr('fill', 'transparent')
       .attr('stroke', ring.color ?? config.theme.colors.ring)
-      .attr('stroke-width', config.theme.sizes.strokeWidth);
+      .attr('stroke-width', config.theme.sizes.strokeWidth)
+      .attr('opacity', config.theme.opacity.rings);
 
     const pathId = `ring-label-path-${ring.id}`;
     target
@@ -46,6 +49,7 @@ export class RingService extends DrawService {
         .attr('href', `#${pathId}`)
         .attr('startOffset', '50%')
         .attr('text-anchor', 'middle')
+
         .text(ring.name);
     }
   }

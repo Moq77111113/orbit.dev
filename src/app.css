@@ -1,3 +1,15 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
-@import 'tailwindcss/utilities'
+@import 'tailwindcss/utilities';
+
+div.tooltip {
+  @apply absolute p-2 text-black border max-w-52 rounded-lg pointer-events-none text-sm z-50 flex flex-col text-left space-y-4;
+}
+
+div.tooltip h3 {
+  @apply font-bold;
+}
+
+div.tooltip p {
+  @apply text-xs text-gray-700;
+}

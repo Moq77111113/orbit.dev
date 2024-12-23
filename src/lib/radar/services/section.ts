@@ -1,6 +1,6 @@
-import type { Section, Target } from '~/types/radar.js';
+import type { Target } from '~/types/radar-options.js';
+import type { Section } from '~/types/radar.js';
 import { DrawService } from './base.js';
-
 type SectionOptions = {
   section: Section;
   sectionIdx?: number;
@@ -8,12 +8,14 @@ type SectionOptions = {
 
 export class SectionService extends DrawService {
   addSection(target: Target, options: SectionOptions) {
-    const { sectionIdx = this.radar.sections.length - 1 } = options;
+    const { section, sectionIdx = this.radar.sections.length } = options;
 
     const { radius } = this.radar.geometry;
     const config = this.radar.config;
 
+
     const angle = ((2 * Math.PI) / this.radar.sections.length) * sectionIdx;
+
     target
       .append('line')
       .attr('x1', 0)
@@ -30,4 +32,6 @@ export class SectionService extends DrawService {
       this.addSection(target, { section, sectionIdx: i });
     }
   }
+
+
 }

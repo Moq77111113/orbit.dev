@@ -24,7 +24,7 @@
     --destructive-foreground: 0 0% 98%;
     --ring: 0 0% 3.9%;
     --radius: 0.5rem;
-	--sidebar-background: 0 0% 98%;
+    --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
@@ -54,7 +54,7 @@
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --ring: 0 0% 83.1%;
-	--sidebar-background: 240 5.9% 10%;
+    --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
@@ -71,5 +71,33 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer tooltip {
+  div.tooltip {
+    @apply absolute p-4 bg-white text-black border border-gray-300 rounded-lg pointer-events-none text-sm z-50 flex flex-col text-left space-y-3 max-w-xs shadow-xl transition-all duration-200 opacity-0 scale-95 transform hover:opacity-100 hover:scale-100 shadow-lg;
+  }
+  div.tooltip h3 {
+    @apply font-semibold text-lg text-gray-700 tracking-tight;
+  }
+  div.tooltip p {
+    @apply text-xs text-gray-700;
+  }
+
+  div.tooltip .tags {
+    @apply text-xs text-gray-500 italic flex gap-2;
+  }
+  div.tooltip .tags span {
+    @apply p-2 bg-gray-200 rounded-full;
+  }
+  div.tooltip .new {
+    @apply bg-green-500 max-w-fit text-white px-2 py-1 rounded-full text-xs font-medium;
+  }
+  div.tooltip .moved.moved-up {
+    @apply rounded-full max-w-fit text-green-700 font-bold;
+  }
+  div.tooltip .moved.moved-down {
+    @apply rounded-full max-w-fit text-red-700 font-bold;
   }
 }

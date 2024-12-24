@@ -14,6 +14,7 @@ export const data = {
     { id: 'sec-3', name: 'Infrastructure & Operations' },
     { id: 'sec-4', name: 'Security' },
     { id: 'sec-5', name: 'Development Tools' },
+    { id: 'sec-6', name: 'Other' },
   ],
   entries: [
     {

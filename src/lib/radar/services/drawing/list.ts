@@ -7,14 +7,14 @@ type RingToEntries = Map<string, Entry[]>;
 
 export class ListService extends DrawService {
   get padding() {
-    return this.radar.geometry.radius / 4;
+    return this.radar.geometry.radius / 4 + 10;
   }
   get QUADRANTS() {
     const { width, height } = this.radar.size;
     const { radius } = this.radar.geometry;
     return {
       topRight: {
-        x: width - radius + this.padding,
+        x: width - radius,
         y: this.padding,
       },
       topLeft: {
@@ -26,7 +26,7 @@ export class ListService extends DrawService {
         y: (height - radius) / 2 + this.padding,
       },
       bottomRight: {
-        x: width - radius + this.padding,
+        x: width - radius,
         y: (height - radius) / 2 + this.padding,
       },
     };
@@ -43,7 +43,7 @@ export class ListService extends DrawService {
       const useQuadrants = idx < 4;
       const position = useQuadrants
         ? this.getQuadrantPosition(idx)
-        : this.getOverflowPosition(idx, sections.length - 4);
+        : this.getOverflowPosition(idx - 4, sections.length - 4);
 
       this.drawSectionList(target, section, rings, ringToEntries, position);
     }
@@ -81,15 +81,17 @@ export class ListService extends DrawService {
 
   private getOverflowPosition(index: number, total: number) {
     {
+      const { width, height } = this.radar.size;
       const { radius } = this.radar.geometry;
-      const width = radius * 2;
-      const itemWidth = width / Math.ceil(total / 2);
-      const row = Math.floor(index / 2);
-      const col = index % 2;
+      // According to index & total, ltr for x first left, then a bit more right and so on
+      // index = 0 => left, index = 1 => left + 1/4 etc...
+      const quadrantWidth = (width - radius) / 4;
+      const x = this.padding + index * quadrantWidth;
 
+      const y = height - radius - this.padding;
       return {
-        x: -radius + itemWidth * col,
-        y: radius + +row,
+        x,
+        y,
       };
     }
   }
@@ -105,7 +107,7 @@ export class ListService extends DrawService {
       .attr('class', `quadrant-list`)
       .attr('transform', `translate(${position.x}, ${position.y})`);
 
-    quadrant
+    const sectionText = quadrant
       .append('text')
       .attr('class', 'section-header')
       .attr('dy', '1em')
@@ -117,6 +119,8 @@ export class ListService extends DrawService {
       .style('text-overflow', 'ellipsis')
       .style('overflow', 'hidden')
       .text(section.name);
+
+    this.truncateText(sectionText, section.name, this.radar.geometry.radius - 20);
 
     let yOffset = 25;
 
@@ -131,6 +135,7 @@ export class ListService extends DrawService {
         .style('background-color', 'red')
         .style('font-weight', 'bold')
         .style('font-size', '12px')
+        .style('display', 'flex')
         .style('fill', ring.color || this.radar.config.theme.colors.ring)
         .text(ring.name);
 
@@ -151,19 +156,43 @@ export class ListService extends DrawService {
 
         this.drawEntryMarker(entryGroup, entry);
 
-        entryGroup
+        const entryText = entryGroup
           .append('text')
-          .attr('x', 15)
+          .attr('x', 10)
           .attr('dy', '0.32em')
           .style('font-size', '12px')
-          .attr('fill', this.radar.config.theme.colors.text)
-          .text(entry.name);
+          .attr('fill', this.radar.config.theme.colors.text);
+
+        this.truncateText(entryText, entry.name, 100 - 20);
 
         yOffset += 15;
       });
 
       yOffset += 10;
     });
+  }
+
+  private truncateText(
+    textElement: d3.Selection<SVGTextElement, unknown, null, undefined>,
+    fullText: string,
+    maxWidth: number
+  ) {
+    textElement.text(fullText);
+
+    const getTextWidth = () => {
+      const node = textElement.node();
+      return node ? node.getComputedTextLength() : 0;
+    };
+
+    if (getTextWidth() > maxWidth) {
+      let text = fullText;
+      while (getTextWidth() > maxWidth && text.length > 0) {
+        text = text.slice(0, -1);
+        textElement.text(text + '...');
+      }
+
+      textElement.append('title').text(fullText);
+    }
   }
 
   private drawEntryMarker(group: Target, entry: Entry) {

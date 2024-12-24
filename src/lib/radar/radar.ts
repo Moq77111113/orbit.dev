@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 import type { Container, Geometry, Target } from '~/types/radar-options.js';
 import type { Radar, Ring, Section } from '~/types/radar.js';
-import type { RadarConfig } from '~/types/theme.js';
+import type { RadarConfig, RadarEntryPlacement } from '~/types/theme.js';
 import { defaultConfig } from '../theme.js';
 import {
   EntryService,
@@ -62,10 +62,7 @@ export class RadarService {
     this.#listContainer.attr('transform', `translate(0 0)`);
     this.#target
       .attr('transform', `translate(${center.x} ${center.y})`)
-      .style(
-        'background-color',
-        this.config.theme.colors.background ?? '#ffffff'
-      );
+      .style('background-color', this.config.theme.colors.ring ?? '#ffffff');
 
     this.#sectionService.draw(this.#target);
     this.#ringService.draw(this.#target);
@@ -201,12 +198,13 @@ export class RadarService {
     return this.#container;
   }
 
-  changePosition(position: RadarConfig['entryPlacement']) {
+  changePosition(position: RadarEntryPlacement) {
     if (!this.#source) {
       throw new Error('Cannot change position before drawing the radar');
     }
     this.radarConfig.entryPlacement = position;
     this.draw(this.#source);
+    return this.radarConfig.entryPlacement;
   }
 
   changeTheme(theme: Partial<RadarConfig['theme']>) {

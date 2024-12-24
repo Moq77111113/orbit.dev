@@ -1,8 +1,9 @@
 import { getContext, setContext } from 'svelte';
 import { RadarService } from '~/lib/radar/radar.js';
 import { defaultTheme } from '~/lib/theme.js';
+import type { Container } from '~/types/radar-options.js';
 import type { Radar } from '~/types/radar.js';
-import type { RadarTheme } from '~/types/theme.js';
+import type { RadarEntryPlacement, RadarTheme } from '~/types/theme.js';
 
 type RadarStateProps = {
   radar: Radar;
@@ -28,6 +29,18 @@ class RadarState {
 
   get theme() {
     return this.#service.config.theme;
+  }
+
+  get placement() {
+    return this.#service.config.entryPlacement;
+  }
+
+  resize(c: Container) {
+    this.#service.resize(c);
+  }
+
+  changeLayout(entryPlacement: RadarEntryPlacement) {
+    return this.#service.changePosition(entryPlacement);
   }
 }
 

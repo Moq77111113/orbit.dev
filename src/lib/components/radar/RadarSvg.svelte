@@ -5,11 +5,9 @@
     width?: number;
     height?: number;
   };
-  let { width: baseWidth = 800, height: baseHeight = 800 }: Props = $props();
+  let { width = $bindable(800), height = $bindable(800) }: Props = $props();
 
   const radar = useRadar();
-  let width = $state(baseWidth);
-  let height = $state(baseHeight);
 
   let svg: SVGElement;
 
@@ -17,15 +15,16 @@
     radar.bindTarget(svg);
   });
 
-  // $effect(() => {
-  //   radar.resize({
-  //     width: width,
-  //     height: height,
-  //   });
-  // });
+  $effect(() => {
+    radar.resize({
+      width: width,
+      height: height,
+    });
+  });
 </script>
 
 <svg
+  id="radar-svg"
   class="relative"
   bind:this={svg}
   {width}

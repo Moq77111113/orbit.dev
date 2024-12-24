@@ -41,7 +41,7 @@ export class EntryService extends DrawService {
   > {
     if (!this.tooltip) {
       this.tooltip = d3
-        .select('body')
+        .select('main')
         .append('div')
         .attr('class', 'tooltip')
         .style('opacity', this.config.opacity.hidden);

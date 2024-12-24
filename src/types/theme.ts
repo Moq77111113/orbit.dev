@@ -22,9 +22,14 @@ export type RadarTheme = {
   };
 };
 
+export type RadarEntryPlacement =
+  | 'random'
+  | 'distributed'
+  | 'clustered'
+  | 'spiral';
 export type RadarConfig = {
   theme: RadarTheme;
-  entryPlacement: 'random' | 'distributed' | 'clustered' | 'spiral';
+  entryPlacement: RadarEntryPlacement;
   showLabels: boolean;
   interactive: boolean;
 };

@@ -5,7 +5,6 @@ export const defaultTheme = {
     ring: '#1e90ff',
     grid: '#dedede',
     text: '#333333',
-    background: '#ffffff',
   },
   opacity: {
     rings: 0.7,
@@ -27,7 +26,7 @@ export const defaultTheme = {
 
 export const defaultConfig = {
   theme: defaultTheme,
-  entryPlacement: 'spiral',
+  entryPlacement: 'random',
   showLabels: true,
   interactive: true,
 } satisfies RadarConfig;

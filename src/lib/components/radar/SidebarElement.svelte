@@ -1,18 +1,16 @@
 <script lang="ts">
   import * as Collapsible from '$lib/components/ui/collapsible/index.js';
   import * as Sidebar from '$lib/components/ui/sidebar/index.js';
-  import type { Icon } from 'lucide-svelte/icons/index.js';
+  import type { Icon } from 'lucide-svelte/icons';
   import type { Snippet } from 'svelte';
 
   type Props = {
-    icon: Icon;
+    icon: typeof Icon;
     title: string;
     children: Snippet;
   };
 
   const { icon, title, children }: Props = $props();
-
-  let open = $state(false);
 </script>
 
 <Collapsible.Root>
@@ -21,7 +19,8 @@
       class="flex w-full cursor-pointer items-center justify-between py-2"
     >
       {title}
-      <svelte:component this={icon} class="h-4 w-4" />
+      {@const I = icon}
+      <I class="w-6 h-6" />
     </Sidebar.GroupLabel>
   </Collapsible.Trigger>
 

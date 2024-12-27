@@ -11,8 +11,6 @@ export type Section = {
   id: SectionId;
   name: string;
   color?: string;
-  startAngle?: number;
-  endAngle?: number;
 };
 
 export type Entry = {

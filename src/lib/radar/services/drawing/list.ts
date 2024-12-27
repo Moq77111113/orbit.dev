@@ -43,7 +43,7 @@ export class ListService extends DrawService {
       const useQuadrants = idx < 4;
       const position = useQuadrants
         ? this.getQuadrantPosition(idx)
-        : this.getOverflowPosition(idx - 4, sections.length - 4);
+        : this.getOverflowPosition(idx - 4);
 
       this.drawSectionList(target, section, rings, ringToEntries, position);
     }
@@ -79,12 +79,10 @@ export class ListService extends DrawService {
     return positions[sectionIndex] || positions[0];
   }
 
-  private getOverflowPosition(index: number, total: number) {
+  private getOverflowPosition(index: number) {
     {
       const { width, height } = this.radar.size;
       const { radius } = this.radar.geometry;
-      // According to index & total, ltr for x first left, then a bit more right and so on
-      // index = 0 => left, index = 1 => left + 1/4 etc...
       const quadrantWidth = (width - radius) / 4;
       const x = this.padding + index * quadrantWidth;
 
@@ -118,9 +116,14 @@ export class ListService extends DrawService {
       .style('align-items', 'center')
       .style('text-overflow', 'ellipsis')
       .style('overflow', 'hidden')
+      .style('fill', this.radar.config.theme.colors.text)
       .text(section.name);
 
-    this.truncateText(sectionText, section.name, this.radar.geometry.radius - 20);
+    this.truncateText(
+      sectionText,
+      section.name,
+      this.radar.geometry.radius - 20
+    );
 
     let yOffset = 25;
 

@@ -8,11 +8,10 @@ type SectionOptions = {
 
 export class SectionService extends DrawService {
   addSection(target: Target, options: SectionOptions) {
-    const { section, sectionIdx = this.radar.sections.length } = options;
+    const { sectionIdx = this.radar.sections.length } = options;
 
     const { radius } = this.radar.geometry;
     const config = this.radar.config;
-
 
     const angle = ((2 * Math.PI) / this.radar.sections.length) * sectionIdx;
 
@@ -32,6 +31,4 @@ export class SectionService extends DrawService {
       this.addSection(target, { section, sectionIdx: i });
     }
   }
-
-
 }

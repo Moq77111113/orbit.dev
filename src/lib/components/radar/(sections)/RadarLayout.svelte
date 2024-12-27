@@ -9,16 +9,14 @@
     'clustered',
     'spiral',
   ] as const;
-
-  let placement = $state(radar.placement);
 </script>
 
 <div class="grid grid-cols-2 gap-2">
   {#each allowedLayouts as key}
     <Button
       class="w-full"
-      variant={placement === key ? 'default' : 'ghost'}
-      onclick={() => (placement = radar.changeLayout(key))}>{key}</Button
+      variant={radar.placement === key ? 'default' : 'ghost'}
+      onclick={() => radar.changePlacement(key)}>{key}</Button
     >
   {/each}
 </div>

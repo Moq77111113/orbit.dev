@@ -27,6 +27,7 @@ export type RadarEntryPlacement =
   | 'distributed'
   | 'clustered'
   | 'spiral';
+  
 export type RadarConfig = {
   theme: RadarTheme;
   entryPlacement: RadarEntryPlacement;

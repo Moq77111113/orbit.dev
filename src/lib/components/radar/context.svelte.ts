@@ -1,30 +1,46 @@
 import { getContext, setContext } from 'svelte';
 import { RadarService } from '~/lib/radar/radar.js';
 import { defaultTheme } from '~/lib/theme.js';
-import type { Container } from '~/types/radar-options.js';
-import type { Radar } from '~/types/radar.js';
+import { type Radar, type Ring, type Section } from '~/types/radar.js';
 import type { RadarEntryPlacement, RadarTheme } from '~/types/theme.js';
 
 type RadarStateProps = {
   radar: Radar;
 };
+
 class RadarState {
   readonly props: RadarStateProps;
   #theme = $state<RadarTheme>(defaultTheme);
-
+  #placement = $state<RadarEntryPlacement>('random');
+  #rings = $state<Ring[]>([]);
+  #section = $state<Section[]>([]);
   #service: RadarService;
-  #target: SVGElement;
+  #target: SVGElement | null = null;
+
   constructor(props: RadarStateProps) {
     this.props = props;
     this.#service = new RadarService(props.radar);
+    this.#rings = this.props.radar.rings;
+    this.#section = this.props.radar.sections;
   }
 
   bindTarget(target: SVGElement) {
     this.#target = target;
-    this.#service.draw(target);
+    this.#service.draw(this.#target);
   }
+
   changeTheme(theme: RadarTheme) {
+    this.#theme = theme;
     this.#service.changeTheme(theme);
+  }
+
+  changePlacement(placement: RadarEntryPlacement) {
+    this.#placement = placement;
+    this.#service.changePosition(placement);
+  }
+
+  resize(width: number, height: number) {
+    this.#service.resize({ width, height });
   }
 
   get theme() {
@@ -32,15 +48,15 @@ class RadarState {
   }
 
   get placement() {
-    return this.#service.config.entryPlacement;
+    return this.#placement;
   }
 
-  resize(c: Container) {
-    this.#service.resize(c);
+  get sections() {
+    return this.#section;
   }
 
-  changeLayout(entryPlacement: RadarEntryPlacement) {
-    return this.#service.changePosition(entryPlacement);
+  get rings() {
+    return this.#rings;
   }
 }
 

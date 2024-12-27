@@ -16,16 +16,13 @@
   });
 
   $effect(() => {
-    radar.resize({
-      width: width,
-      height: height,
-    });
+    radar.resize(width, height);
   });
 </script>
 
 <svg
   id="radar-svg"
-  class="relative"
+  class="relative bg-background shadow-xl rounded-lg p-8"
   bind:this={svg}
   {width}
   {height}

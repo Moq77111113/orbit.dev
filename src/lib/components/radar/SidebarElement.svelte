@@ -8,12 +8,13 @@
     icon: typeof Icon;
     title: string;
     children: Snippet;
+    open?: boolean;
   };
 
-  const { icon, title, children }: Props = $props();
+  const { icon, title, children, open = true }: Props = $props();
 </script>
 
-<Collapsible.Root>
+<Collapsible.Root {open}>
   <Collapsible.Trigger class="w-full">
     <Sidebar.GroupLabel
       class="flex w-full cursor-pointer items-center justify-between py-2"

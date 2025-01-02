@@ -17,24 +17,28 @@
 </script>
 
 <div class="flex flex-col py-4">
-  <List.Root items={radar.sections} text={(s) => s.name} class="gap-2 flex">
-    <List.Actions>
-      <List.Action>
-        <div class="flex items-center">
-          <Button variant="ghost"
-            ><Pencil class="mr-2 size-4" /> <span>Edit</span></Button
-          >
-        </div>
-      </List.Action>
-      <List.Action>
-        <div class="flex items-center">
-          <Button variant="ghost"
-            ><Trash class="mr-2 size-4" />
-            <span>Remove</span></Button
-          >
-        </div>
-      </List.Action>
-    </List.Actions>
+  <List.Root class="gap-2 flex">
+    {#each radar.sections as item}
+      <List.Item title={item.name}>
+        <List.Actions>
+          <List.Action>
+            <div class="flex items-center">
+              <Button variant="ghost"
+                ><Pencil class="mr-2 size-4" /> <span>Edit</span></Button
+              >
+            </div>
+          </List.Action>
+          <List.Action>
+            <div class="flex items-center">
+              <Button variant="ghost"
+                ><Trash class="mr-2 size-4" />
+                <span>Remove</span></Button
+              >
+            </div>
+          </List.Action>
+        </List.Actions>
+      </List.Item>
+    {/each}
   </List.Root>
   <Button
     size="icon"

@@ -4,7 +4,7 @@ export const defaultTheme = {
   colors: {
     ring: '#1e90ff',
     grid: '#dedede',
-    text: '#dedede',
+    text: '#0f0f0f',
   },
   opacity: {
     rings: 0.7,
@@ -16,7 +16,7 @@ export const defaultTheme = {
     entries: 12,
   },
   sizes: {
-    entry: 70,
+    entry: 80,
     strokeWidth: 1,
   },
   spacing: {

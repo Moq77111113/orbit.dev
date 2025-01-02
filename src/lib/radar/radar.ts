@@ -93,6 +93,24 @@ export class RadarService {
 		return ring;
 	}
 
+	moveRing(ring: Ring, direction: -1 | 1) {
+		this.#ensureSourceExists("ring");
+
+		const index = this.#state.radar.rings.findIndex((r) => r.id === ring.id);
+		const newIndex = direction + index;
+
+		if (newIndex < 0 || newIndex >= this.#state.radar.rings.length)
+			return this.#state.radar.rings;
+
+		[this.#state.radar.rings[index], this.#state.radar.rings[newIndex]] = [
+			this.#state.radar.rings[newIndex],
+			this.#state.radar.rings[index],
+		];
+
+		this.redraw();
+		return this.#state.radar.rings;
+	}
+
 	addSection(payload: Pick<Section, "name" | "color">) {
 		this.#ensureTargetExists("section");
 

@@ -52,14 +52,19 @@ class RadarState {
 		);
 	}
 
-  addSection(name: string) {
-    const colorGeneratedRandomly = Math.floor(
-      Math.random() * 16777215,
-    ).toString(16);
-    this.#section.push(
-      this.#service.addSection({ name, color: `#${colorGeneratedRandomly}` }),
-    );
-  }
+	addSection(name: string) {
+		const colorGeneratedRandomly = Math.floor(
+			Math.random() * 16777215,
+		).toString(16);
+		this.#section.push(
+			this.#service.addSection({ name, color: `#${colorGeneratedRandomly}` }),
+		);
+	}
+
+	moveRing(ring: Ring, direction: -1 | 1) {
+		this.#rings = this.#service.moveRing(ring, direction);
+	}
+
 	get theme() {
 		return this.#service.config.theme;
 	}

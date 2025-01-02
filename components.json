@@ -8,7 +8,7 @@
 	},
 	"aliases": {
 		"components": "$lib/components",
-		"utils": "$lib/utils/ui.ts",
+		"utils": "$lib/utils/ui",
 		"ui": "$lib/components/ui",
 		"hooks": "$lib/hooks"
 	},

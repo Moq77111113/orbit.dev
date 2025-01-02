@@ -12,11 +12,9 @@
   import SidebarElement from './SidebarElement.svelte';
 </script>
 
-<Sidebar.Root>
+<Sidebar.Root side="right">
   <Sidebar.Header />
   <Sidebar.Content class="px-2">
-    <Sidebar.Group />
-    <Sidebar.Group />
     <SidebarElement title={'Theme'} icon={Colors}>
       <RadarTheme />
     </SidebarElement>

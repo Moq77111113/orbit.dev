@@ -2,17 +2,11 @@
   import Radar from '~/lib/components/radar/RadarSvg.svelte';
 
   import * as Sidebar from '$lib/components/ui/sidebar/index.js';
-  import Configurator from '~/lib/components/radar/RadarConfigurator.svelte';
-  import { data } from '~/lib/utils/radar.conf.js';
 
   import { onMount } from 'svelte';
-  import { createRadarState } from '~/lib/components/radar/context.svelte.js';
-  import { RadarService } from '~/lib/radar/radar.js';
   import '../app.css';
-
-  createRadarState({
-    radar: new RadarService(data),
-  });
+  import RadarConfigurator from '~/lib/components/radar/RadarConfigurator.svelte';
+  import Button from '~/lib/components/ui/button/button.svelte';
 
   let pageWidth = $state(0);
   let pageHeight = $state(0);
@@ -25,9 +19,9 @@
 </script>
 
 <Sidebar.Provider>
-  <Configurator />
-  <main class=" flex flex-col w-full min-h-svh">
-    <Sidebar.Trigger />
+  <Sidebar.Trigger />
+  <RadarConfigurator />
+  <main class="flex flex-col w-full min-h-svh">
     {#if loading}
       <div class="flex justify-center items-center">
         <div
@@ -35,6 +29,12 @@
         ></div>
       </div>
     {:else}
+      <Button
+        href="/entries"
+        data-sveltekit-preload-data
+        class="mb-4"
+        variant="link">Entries</Button
+      >
       <Radar bind:width={pageWidth} bind:height={pageHeight} />
     {/if}
   </main>

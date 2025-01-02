@@ -22,7 +22,7 @@
 
 <svg
   id="radar-svg"
-  class="relative bg-background shadow-xl rounded-lg p-8"
+  class="relative bg-background rounded-lg p-8"
   bind:this={svg}
   {width}
   {height}

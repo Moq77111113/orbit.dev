@@ -1,4 +1,5 @@
-@import '@fontsource-variable/montserrat';
+@import url('https://fonts.googleapis.com/css2?family=Virgil&display=swap');
+@import './fonts.css';
 
 @tailwind base;
 @tailwind components;
@@ -6,63 +7,62 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 263 30% 15%;
-    --muted: 263 18% 97%;
-    --muted-foreground: 263 25% 45%;
-    --popover: 263 18% 97%;
-    --popover-foreground: 263 30% 15%;
-    --card: 263 18% 97%;
-    --card-foreground: 263 30% 15%;
-    --border: 263 20% 85%;
-    --input: 263 20% 85%;
-    --primary: 263 65% 45%;
-    --primary-foreground: 263 85% 98%;
-    --secondary: 263 18% 97%;
-    --secondary-foreground: 263 30% 15%;
-    --accent: 263 55% 85%;
-    --accent-foreground: 263 30% 15%;
-    --destructive: 345 65% 55%;
-    --destructive-foreground: 0 0% 98%;
-    --ring: 263 65% 45%;
+    --foreground: 263 25% 50%;
+    --muted: 263 15% 97%;
+    --muted-foreground: 263 20% 40%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 263 25% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 263 25% 20%;
+    --border: 263 15% 90%;
+    --input: 263 15% 90%;
+    --primary: 263 60% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 263 15% 97%;
+    --secondary-foreground: 263 25% 50%;
+    --accent: 263 50% 90%;
+    --accent-foreground: 263 25% 50%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --ring: 263 60% 50%;
     --radius: 0.5rem;
-    --sidebar-background: 263 18% 98%;
-    --sidebar-foreground: 263 30% 15%;
-    --sidebar-primary: 263 65% 45%;
-    --sidebar-primary-foreground: 263 85% 98%;
-    --sidebar-accent: 263 55% 85%;
-    --sidebar-accent-foreground: 263 30% 15%;
-    --sidebar-border: 263 20% 85%;
-    --sidebar-ring: 263 65% 45%;
+    --sidebar-background: 263 15% 99%;
+    --sidebar-foreground: 263 25% 50%;
+    --sidebar-primary: 263 60% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 263 50% 90%;
+    --sidebar-accent-foreground: 263 25% 50%;
+    --sidebar-border: 263 15% 90%;
+    --sidebar-ring: 263 60% 50%;
   }
-
   .dark {
-    --background: 263 25% 14%;
-    --foreground: 263 85% 95%;
-    --muted: 263 22% 24%;
-    --muted-foreground: 263 35% 75%;
-    --popover: 263 25% 14%;
-    --popover-foreground: 263 85% 95%;
-    --card: 263 25% 14%;
-    --card-foreground: 263 85% 95%;
-    --border: 263 22% 24%;
-    --input: 263 22% 24%;
-    --primary: 263 85% 95%;
-    --primary-foreground: 263 65% 45%;
-    --secondary: 263 22% 24%;
-    --secondary-foreground: 263 85% 95%;
-    --accent: 263 35% 60%;
-    --accent-foreground: 263 85% 95%;
-    --destructive: 345 55% 45%;
-    --destructive-foreground: 263 85% 95%;
-    --ring: 263 65% 45%;
-    --sidebar-background: 263 25% 14%;
-    --sidebar-foreground: 263 65% 80%;
-    --sidebar-primary: 263 65% 45%;
-    --sidebar-primary-foreground: 263 85% 95%;
-    --sidebar-accent: 263 25% 28%;
-    --sidebar-accent-foreground: 263 85% 95%;
-    --sidebar-border: 263 25% 28%;
-    --sidebar-ring: 263 65% 45%;
+    --background: 263 20% 16%;
+    --foreground: 263 15% 94%;
+    --muted: 263 15% 25%;
+    --muted-foreground: 263 10% 85%;
+    --popover: 263 20% 16%;
+    --popover-foreground: 263 15% 98%;
+    --card: 263 20% 16%;
+    --card-foreground: 263 15% 98%;
+    --border: 263 15% 25%;
+    --input: 263 15% 25%;
+    --primary: 263 65% 85%;
+    --primary-foreground: 263 60% 50%;
+    --secondary: 263 15% 25%;
+    --secondary-foreground: 263 15% 98%;
+    --accent: 263 25% 70%;
+    --accent-foreground: 263 15% 98%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 263 15% 98%;
+    --ring: 263 60% 50%;
+    --sidebar-background: 263 20% 18%;
+    --sidebar-foreground: 263 15% 90%;
+    --sidebar-primary: 263 60% 50%;
+    --sidebar-primary-foreground: 263 15% 98%;
+    --sidebar-accent: 263 20% 30%;
+    --sidebar-accent-foreground: 263 15% 98%;
+    --sidebar-border: 263 20% 30%;
+    --sidebar-ring: 263 60% 50%;
   }
 }
 
@@ -71,19 +71,19 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground font-sans tracking-tight antialiased;
   }
 }
 
 @layer tooltip {
   div.tooltip {
-    @apply absolute p-4 bg-white text-black border border-gray-300 rounded-lg pointer-events-none text-sm z-50 flex flex-col text-left space-y-3 max-w-xs shadow-xl transition-all duration-200 opacity-0 scale-95 transform hover:opacity-100 hover:scale-100 shadow-lg;
+    @apply font-hand absolute p-4 bg-white text-black border border-gray-300 rounded-lg pointer-events-none text-sm z-50 flex flex-col text-left space-y-3 max-w-xs  transition-all duration-200 opacity-0 scale-95 transform hover:opacity-100 hover:scale-100 shadow-xl;
   }
   div.tooltip h3 {
-    @apply font-semibold text-lg text-gray-700 tracking-tight;
+    @apply font-semibold text-lg text-gray-700 dark:text-gray-300 tracking-tight;
   }
   div.tooltip p {
-    @apply text-xs text-gray-700;
+    @apply text-xs text-gray-700 dark:text-stone-300 font-medium;
   }
 
   div.tooltip .tags {

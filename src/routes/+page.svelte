@@ -5,6 +5,7 @@
 
   import { onMount } from 'svelte';
   import '../app.css';
+  import Entries from '~/lib/components/radar/(entries)/Entries.svelte';
   import RadarConfigurator from '~/lib/components/radar/RadarConfigurator.svelte';
   import Button from '~/lib/components/ui/button/button.svelte';
 
@@ -31,7 +32,7 @@
     {:else}
       <Button
         href="/entries"
-        data-sveltekit-preload-data
+        data-sveltekit-preload-data="hover"
         class="mb-4"
         variant="link">Entries</Button
       >
@@ -39,3 +40,4 @@
     {/if}
   </main>
 </Sidebar.Provider>
+<section class="container"><Entries /></section>

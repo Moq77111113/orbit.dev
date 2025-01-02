@@ -4,10 +4,12 @@
   import DataTable from './data-table.svelte';
 
   const radar = useRadar();
+
+  const cols = $derived.by(() => columns(radar.sections, radar.rings));
 </script>
 
 <DataTable
-  {columns}
+  columns={cols}
   data={radar.enrichedRadar.map((_) => ({
     entry: _.name,
     ring: _.ring.name,

@@ -17,7 +17,7 @@
 <Collapsible.Root {open}>
   <Collapsible.Trigger class="w-full">
     <Sidebar.GroupLabel
-      class="flex w-full cursor-pointer items-center justify-between py-2"
+      class="flex flex-row-reverse w-full cursor-pointer items-center justify-between py-2"
     >
       {title}
       {@const I = icon}

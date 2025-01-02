@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@fontsource-variable/montserrat':
-        specifier: ^5.1.1
-        version: 5.1.1
       '@tailwindcss/typography':
         specifier: ^0.5.15
         version: 0.5.15(tailwindcss@3.4.17)
@@ -441,9 +438,6 @@ packages:
 
   '@floating-ui/utils@0.2.8':
     resolution: {integrity: sha512-kym7SodPp8/wloecOpcmSnWJsK7M0E5Wg8UcFA+uO4B9s5d0ywXOEro/8HM9x0rW+TljRzul/14UYz3TleT3ig==}
-
-  '@fontsource-variable/montserrat@5.1.1':
-    resolution: {integrity: sha512-eHmSruS3B+4wVaHk6ShNUJj1MbWEohOuriwN/oYR2VY8jRS83a5SKQeG1wu4Eku3v3f5cXTIbfd1tHeQ7GXkiA==}
 
   '@internationalized/date@3.6.0':
     resolution: {integrity: sha512-+z6ti+CcJnRlLHok/emGEsWQhe7kfSmEW+/6qCzvKY67YPh7YOBfvc7+/+NXq+zJlbArg30tYpqLjNgcAYv2YQ==}
@@ -1997,8 +1991,6 @@ snapshots:
       '@floating-ui/utils': 0.2.8
 
   '@floating-ui/utils@0.2.8': {}
-
-  '@fontsource-variable/montserrat@5.1.1': {}
 
   '@internationalized/date@3.6.0':
     dependencies:

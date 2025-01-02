@@ -4,7 +4,7 @@ export const defaultTheme = {
   colors: {
     ring: '#1e90ff',
     grid: '#dedede',
-    text: '#0f0f0f',
+    text: '#78609F',
   },
   opacity: {
     rings: 0.7,

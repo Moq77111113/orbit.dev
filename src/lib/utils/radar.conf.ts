@@ -4,7 +4,7 @@ export const data = {
 	rings: [
 		{ id: "rng-1", name: "Adopt", color: "#93c47d" },
 		{ id: "rng-2", name: "Trial", color: "#76a5af" },
-		{ id: "rng-3", name: "Assess", color: "#f6d86b" },
+		{ id: "rng-3", name: "Assess", color: "#f6a82b" },
 		{ id: "rng-4", name: "Hold", color: "#e06666" },
 		{ id: "rng-5", name: "Avoid", color: "#f4f" },
 	],

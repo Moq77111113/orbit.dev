@@ -67,7 +67,8 @@ const config: Config = {
 				sm: "calc(var(--radius) - 4px)",
 			},
 			fontFamily: {
-				sans: ['"Montserrat Variable"', ...fontFamily.sans],
+				hand: ['"Virgil"', "cursive"],
+				sans: ['"Cascadia Code"', ...fontFamily.sans],
 			},
 			keyframes: {
 				"accordion-down": {

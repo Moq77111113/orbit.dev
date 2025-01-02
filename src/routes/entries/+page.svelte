@@ -13,7 +13,6 @@
     <DataTable
       columns={cols}
       data={radar.enrichedRadar.map((_) => ({
-        id: _.name,
         entry: _.name,
         ring: _.ring.name,
         section: _.section.name,

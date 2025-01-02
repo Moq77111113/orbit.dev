@@ -12,7 +12,7 @@
 </script>
 
 <li class={cn('flex justify-between items-center')}>
-  <span class={cn('ml-2 text-sm font-medium text-gray-900', clazz)}
+  <span class={cn('ml-2 text-sm font-medium ', clazz)}
     >{title}</span
   >
   {@render children?.()}

@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Virgil&display=swap');
 @import './fonts.css';
 
 @tailwind base;
@@ -80,10 +79,10 @@
     @apply font-hand absolute p-4 bg-white text-black border border-gray-300 rounded-lg pointer-events-none text-sm z-50 flex flex-col text-left space-y-3 max-w-xs  transition-all duration-200 opacity-0 scale-95 transform hover:opacity-100 hover:scale-100 shadow-xl;
   }
   div.tooltip h3 {
-    @apply font-semibold text-lg text-gray-700 dark:text-gray-300 tracking-tight;
+    @apply font-semibold text-lg text-gray-700 dark:text-gray-300 tracking-wide;
   }
   div.tooltip p {
-    @apply text-xs text-gray-700 dark:text-stone-300 font-medium;
+    @apply text-xs text-gray-700 dark:text-stone-300;
   }
 
   div.tooltip .tags {

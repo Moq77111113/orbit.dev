@@ -5,10 +5,10 @@
   import Radar from 'lucide-svelte/icons/radar';
   import Shell from 'lucide-svelte/icons/shell';
   import Separator from '../ui/separator/separator.svelte';
-  import RadarLayout from './(sections)/RadarLayout.svelte';
-  import RadarRings from './(sections)/RadarRings.svelte';
-  import RadarSections from './(sections)/RadarSections.svelte';
-  import RadarTheme from './(sections)/RadarTheme.svelte';
+  import RadarLayout from './(conf)/RadarLayout.svelte';
+  import RadarRings from './(conf)/RadarRings.svelte';
+  import RadarSections from './(conf)/RadarSections.svelte';
+  import RadarTheme from './(conf)/RadarTheme.svelte';
   import SidebarElement from './SidebarElement.svelte';
 </script>
 

@@ -1,5 +1,6 @@
 <script lang="ts">
   import Button from '$lib/components/ui/button/button.svelte';
+
   import * as List from '$lib/components/ui/list/index.js';
   import ArrowDown from 'lucide-svelte/icons/arrow-down';
   import ArrowUp from 'lucide-svelte/icons/arrow-up';
@@ -8,12 +9,26 @@
   import Trash from 'lucide-svelte/icons/trash';
   import type { Ring } from '~/types/radar.js';
   import { useRadar } from '../context.svelte.js';
+  import RingEdit from './RingDialog.svelte';
 
   const radar = useRadar();
 
   const actions = [
-    { icon: Pencil, title: 'Edit', handle: (ring: Ring) => {} },
-    { icon: Trash, title: 'Remove', handle: (ring: Ring) => {} },
+    {
+      icon: Pencil,
+      title: 'Edit',
+      handle: (ring: Ring) => {
+        dialogOpen = true;
+        ringEdit = { ...ring };
+      },
+    },
+    {
+      icon: Trash,
+      title: 'Remove',
+      handle: (ring: Ring) => {
+        radar.removeRing(ring);
+      },
+    },
     {
       icon: ArrowUp,
       title: 'Move up',
@@ -32,6 +47,10 @@
       radar.addRing(name);
     }
   };
+
+  let ringEdit: Ring | null = $state(null);
+
+  let dialogOpen = $state(false);
 </script>
 
 {#snippet listAction(ring: Ring, action: (typeof actions)[number])}
@@ -64,3 +83,16 @@
     onclick={addRing}><Plus class="size-4" /></Button
   >
 </div>
+
+{#if ringEdit !== null}
+  <RingEdit
+    ring={ringEdit}
+    bind:open={dialogOpen}
+    onChange={(e) => {
+      dialogOpen = false;
+      if (ringEdit) {
+        radar.updateRing({ ...e, id: ringEdit.id });
+      }
+    }}
+  />
+{/if}

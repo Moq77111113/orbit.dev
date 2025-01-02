@@ -30,14 +30,8 @@
         ></div>
       </div>
     {:else}
-      <Button
-        href="/entries"
-        data-sveltekit-preload-data="hover"
-        class="mb-4"
-        variant="link">Entries</Button
-      >
       <Radar bind:width={pageWidth} bind:height={pageHeight} />
+      <section class="mx-auto"><Entries /></section>
     {/if}
   </main>
 </Sidebar.Provider>
-<section class="container"><Entries /></section>

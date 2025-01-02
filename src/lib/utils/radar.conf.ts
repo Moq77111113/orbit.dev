@@ -23,7 +23,6 @@ export const data = {
 			isNew: false,
 			description: "A popular typed superset of JavaScript.",
 			link: "https://www.typescriptlang.org/",
-
 			moved: 1,
 		},
 		{

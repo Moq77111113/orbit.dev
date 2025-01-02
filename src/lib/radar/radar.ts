@@ -111,6 +111,25 @@ export class RadarService {
 		return this.#state.radar.rings;
 	}
 
+	updateRing(ring: Ring) {
+		const index = this.#state.radar.rings.findIndex((r) => r.id === ring.id);
+		console.log(index, ring);
+		if (index === -1) return this.#state.radar.rings;
+
+		this.#state.radar.rings[index] = ring;
+		this.redraw();
+		return this.#state.radar.rings;
+	}
+
+	removeRing(ring: Ring) {
+		const index = this.#state.radar.rings.findIndex((r) => r.id === ring.id);
+		if (index === -1) return this.#state.radar.rings;
+
+		this.#state.radar.rings.splice(index, 1);
+		this.redraw();
+		return this.#state.radar.rings;
+	}
+
 	addSection(payload: Pick<Section, "name" | "color">) {
 		this.#ensureTargetExists("section");
 

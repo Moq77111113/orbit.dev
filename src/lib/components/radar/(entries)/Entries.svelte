@@ -5,14 +5,23 @@
 
   const radar = useRadar();
 
-  const cols = $derived.by(() => columns(radar.sections, radar.rings));
-</script>
+  let cols = $state(columns(radar.sections, radar.rings));
 
-<DataTable
-  columns={cols}
-  data={radar.enrichedRadar.map((_) => ({
-    entry: _.name,
-    ring: _.ring.name,
-    section: _.section.name,
-  }))}
-/>
+  let data = $state(
+    radar.enrichedRadar.map((_) => ({
+      entry: _,
+      ring: _.ring,
+      section: _.section,
+    }))
+  );
+
+  $effect(() => {
+    cols = columns(radar.sections, radar.rings);
+    data = radar.enrichedRadar.map((_) => ({
+      entry: _,
+      ring: _.ring,
+      section: _.section,
+    }));
+  });
+</script>
+<DataTable columns={cols} {data} />

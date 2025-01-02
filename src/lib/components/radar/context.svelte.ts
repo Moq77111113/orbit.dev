@@ -16,8 +16,7 @@ class RadarState {
 	#section = $state<Section[]>([]);
 	#service: RadarService;
 	#target: SVGElement | null = null;
-	sectionCache = new Map<string, Section>();
-	ringCache = new Map<string, Ring>();
+
 	constructor(props: RadarStateProps) {
 		this.props = props;
 		this.#service = new RadarService(props.radar);
@@ -66,6 +65,14 @@ class RadarState {
 		this.#rings = this.#service.moveRing(ring, direction);
 	}
 
+	updateRing(ring: Ring) {
+		this.#rings = this.#service.updateRing(ring);
+	}
+
+	removeRing(ring: Ring) {
+		this.#rings = this.#service.removeRing(ring);
+	}
+
 	get theme() {
 		return this.#service.config.theme;
 	}
@@ -83,24 +90,27 @@ class RadarState {
 	}
 
 	get enrichedRadar() {
+		const sectionCache = new Map<string, Section>();
+		const ringCache = new Map<string, Ring>();
 		return this.props.radar.entries.reduce<
 			(Entry & { section: Section; ring: Ring })[]
 		>((acc, entry) => {
 			const section =
-				this.sectionCache.get(entry.sectionId) ??
+				sectionCache.get(entry.sectionId) ??
 				this.#section.find((s) => s.id === entry.sectionId);
 
 			const ring =
-				this.ringCache.get(entry.ringId) ??
+				ringCache.get(entry.ringId) ??
 				this.#rings.find((r) => r.id === entry.ringId);
 
 			if (section) {
-				this.sectionCache.set(entry.sectionId, section);
+				sectionCache.set(entry.sectionId, section);
 			}
 
 			if (ring) {
-				this.ringCache.set(entry.ringId, ring);
+				ringCache.set(entry.ringId, ring);
 			}
+
 			if (section && ring) {
 				acc.push({ ...entry, section, ring });
 			}

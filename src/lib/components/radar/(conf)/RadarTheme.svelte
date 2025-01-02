@@ -1,7 +1,7 @@
 <script lang="ts">
   import Input from '$lib/components/ui/input/input.svelte';
   import { Label } from '$lib/components/ui/label/index.js';
-  import { Slider } from '$lib/components/ui/slider/index.js';
+  import * as Slider from '$lib/components/ui/slider/index.js';
   import type { RadarTheme } from '~/types/theme.js';
   import { useRadar } from '../context.svelte.js';
   const radar = useRadar();
@@ -42,9 +42,11 @@
   class="flex w-full max-w-sm gap-4 justify-between items-center px-6 space-x-4"
 >
   <Label class="capitalize">Entry Size</Label>
-  <Slider
-    onValueChange={(v) =>
-      updateTheme('sizes', { ...radar.theme.sizes, entry: v[0] })}
+  <Slider.Root
+    type="single"
+    onValueChange={(v) => {
+      updateTheme('sizes', { ...radar.theme.sizes, entry: v[0] });
+    }}
     class="w-full"
     min={0}
     max={100}

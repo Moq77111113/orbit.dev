@@ -5,7 +5,7 @@
     width?: number;
     height?: number;
   };
-  let { width = $bindable(800), height = $bindable(800) }: Props = $props();
+  const { width = $bindable(800), height = $bindable(800) }: Props = $props();
 
   const radar = useRadar();
 

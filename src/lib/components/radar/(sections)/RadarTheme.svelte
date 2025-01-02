@@ -1,7 +1,7 @@
 <script lang="ts">
+  import Input from '$lib/components/ui/input/input.svelte';
+  import { Label } from '$lib/components/ui/label/index.js';
   import type { RadarTheme } from '~/types/theme.js';
-  import Input from '../../ui/input/input.svelte';
-  import { Label } from '../../ui/label/index.js';
   import { useRadar } from '../context.svelte.js';
   const radar = useRadar();
 
@@ -15,11 +15,11 @@
 </script>
 
 {#snippet color(key: Color)}
-  <div class="flex w-full max-w-sm gap-4 items-center px-6">
+  <div class="flex w-full max-w-sm gap-4 items-center px-6 space-x-4">
     <Label for={key} class="capitalize">{key}</Label>
     <Input
       id={key}
-      class="w-12 h-8"
+      class="h-8"
       type="color"
       value={radar.theme.colors[key]}
       onchange={(e) =>

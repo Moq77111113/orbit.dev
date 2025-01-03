@@ -18,12 +18,14 @@
   ]);
 </script>
 
-{#each sections as { title, icon, component }, i}
-  <SidebarElement {title} {icon}>
-    {@const Section = component}
-    <Section />
-  </SidebarElement>
-  {#if i < sections.length - 1}
-    <Separator />
-  {/if}
-{/each}
+<section class="space-y-2">
+  {#each sections as { title, icon, component }, i}
+    <SidebarElement {title} {icon}>
+      {@const Section = component}
+      <Section />
+    </SidebarElement>
+    {#if i < sections.length - 1}
+      <Separator />
+    {/if}
+  {/each}
+</section>

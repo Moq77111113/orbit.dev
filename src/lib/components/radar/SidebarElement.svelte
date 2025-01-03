@@ -2,6 +2,7 @@
   import * as Collapsible from '$lib/components/ui/collapsible/index.js';
   import * as Sidebar from '$lib/components/ui/sidebar/index.js';
   import type { Icon } from 'lucide-svelte/icons';
+  import ChevronsUpDown from 'lucide-svelte/icons/chevrons-up-down';
   import type { Snippet } from 'svelte';
 
   type Props = {
@@ -11,7 +12,7 @@
     open?: boolean;
   };
 
-  const { icon, title, children, open = true }: Props = $props();
+  const { icon = ChevronsUpDown, title, children, open = true }: Props = $props();
 </script>
 
 <Collapsible.Root {open}>
@@ -20,10 +21,9 @@
       class="flex w-full cursor-pointer items-center justify-between py-2"
     >
       {title}
-      {#if icon}
-        {@const I = icon}
-        <I class="size-6" />
-      {/if}
+
+      {@const I = icon}
+      <I class="size-6" />
     </Sidebar.GroupLabel>
   </Collapsible.Trigger>
 

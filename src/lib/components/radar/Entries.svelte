@@ -32,36 +32,38 @@
   });
 </script>
 
-{#each entries(radar.entriesPerSection) as [section, radarEntries]}
-  <SidebarElement title={section}>
-    <List.Root>
-      {#each radarEntries.sort( (a, b) => sortPerRingIndex(a.ring, b.ring) ) as { entry, ring }}
-        <List.Item>
-          {#snippet title()}
-            <span class="text-xs font-medium flex items-center gap-2"
-              ><div
-                title={ring.name}
-                class="size-2 rounded-full"
-                style="background-color: {ring.color}"
-              ></div>
-              {entry.name}
-            </span>
-          {/snippet}
+<section class="space-y-2">
+  {#each entries(radar.entriesPerSection) as [section, radarEntries]}
+    <SidebarElement title={section}>
+      <List.Root>
+        {#each radarEntries.sort( (a, b) => sortPerRingIndex(a.ring, b.ring) ) as { entry, ring }}
+          <List.Item>
+            {#snippet title()}
+              <span class="text-xs font-medium flex items-center gap-2"
+                ><div
+                  title={ring.name}
+                  class="size-2 rounded-full"
+                  style="background-color: {ring.color}"
+                ></div>
+                {entry.name}
+              </span>
+            {/snippet}
 
-          <List.Actions>
-            <List.Action
-              title={'Edit'}
-              icon={Pencil}
-              onclick={() => toggleEdit(entry)}
-            />
-            <List.Action title={'Delete'} icon={Trash} />
-          </List.Actions>
-        </List.Item>
-      {/each}
-    </List.Root>
-    <Separator />
-  </SidebarElement>
-{/each}
+            <List.Actions>
+              <List.Action
+                title={'Edit'}
+                icon={Pencil}
+                onclick={() => toggleEdit(entry)}
+              />
+              <List.Action title={'Delete'} icon={Trash} />
+            </List.Actions>
+          </List.Item>
+        {/each}
+      </List.Root>
+      <Separator />
+    </SidebarElement>
+  {/each}
+</section>
 
 {#if selectedEntry}
   <EntryDialog
@@ -69,6 +71,6 @@
     sections={radar.sections}
     rings={radar.rings}
     bind:open={edit}
-    onChange={(e) => radar.updateEntry({ ...e, id: selectedEntry!.id })}
+    onSave={(e) => radar.updateEntry({ ...e, id: selectedEntry!.id })}
   />
 {/if}

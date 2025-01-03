@@ -28,6 +28,7 @@
   <DropdownMenu.Item
     onclick={restProps.onclick}
     class={cn(restProps.onclick ? 'cursor-pointer' : '', clazz)}
+    disabled={!restProps.onclick}
   >
     {restProps.title}
     {#if icon}

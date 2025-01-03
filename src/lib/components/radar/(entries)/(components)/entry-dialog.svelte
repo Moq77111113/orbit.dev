@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Button from '$lib/components/ui/button/button.svelte';
   import * as Dialog from '$lib/components/ui/dialog/index.js';
 
   import type { Entry, Ring, Section } from '~/types/radar.js';
@@ -10,11 +9,11 @@
     sections: Section[];
     rings: Ring[];
     open: boolean;
-    onChange: (ring: Omit<Entry, 'id'>) => void;
+    onSave: (ring: Omit<Entry, 'id'>) => void;
   };
 
   const radar = useRadar();
-  let { entry, open = $bindable<boolean>(), onChange }: Props = $props();
+  let { entry, open = $bindable<boolean>(), onSave }: Props = $props();
 
   const listen = (
     e: KeyboardEvent & {
@@ -25,7 +24,7 @@
       open = false;
     }
     if (e.key === 'Enter') {
-      onChange({ ...entry });
+      onSave({ ...entry });
       open = false;
     }
   };
@@ -41,7 +40,7 @@
       sections={radar.sections}
       rings={radar.rings}
       onSave={(e) => {
-        onChange({ ...e });
+        onSave(e);
         open = false;
       }}
     />

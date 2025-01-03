@@ -44,7 +44,7 @@
           id="ring-color"
           type="color"
           bind:value={ring.color}
-          class="col-span-1"
+          class="col-span-1 cursor-pointer"
         />
       </div>
     </div>

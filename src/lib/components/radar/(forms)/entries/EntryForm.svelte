@@ -127,7 +127,7 @@
   </Form.Field>
 
   <div class="grid grid-cols-2 gap-4">
-    <Form.Fieldset {form} name="moved" class="mb-2">
+    <Form.Fieldset {form} name="moved" class="mb-2 flex items-end">
       <Form.Legend>Moved</Form.Legend>
       <RadioGroup.Root
         value={$formData.moved?.toString() ?? '0'}
@@ -151,7 +151,7 @@
       </RadioGroup.Root>
     </Form.Fieldset>
 
-    <Form.Field {form} name="isNew" class="">
+    <Form.Field {form} name="isNew" class="mb-2 flex flex-col items-end">
       <Form.Control>
         {#snippet children({ props })}
           <Form.Label>Is new</Form.Label>

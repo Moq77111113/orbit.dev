@@ -2,7 +2,7 @@
   import Radar from '~/lib/components/radar/RadarSvg.svelte';
 
   import { useSidebar } from '$lib/components/ui/sidebar/index.js';
-  import Open from 'lucide-svelte/icons/menu';
+  import Panel from 'lucide-svelte/icons/panel-right-open';
 
   import { onMount } from 'svelte';
   import Menu from '~/lib/components/radar/Menu.svelte';
@@ -27,7 +27,6 @@
 
 <Menu />
 <main class="flex flex-col items-center justify-center">
-  {sidebar.open}
   {#if loading}
     <div class="flex justify-center items-center">
       <div
@@ -44,7 +43,7 @@
   variant={'outline'}
   size={'icon'}
   onclick={sidebar.toggle}
-  ><Open
+  ><Panel
     class={cn(
       !sidebar.open && 'rotate-180',
       ' transition-transform duration-300 ease-in-out '

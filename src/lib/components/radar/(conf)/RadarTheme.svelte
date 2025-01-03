@@ -14,6 +14,7 @@
   };
 
   type Color = keyof RadarTheme['colors'];
+  type Size = keyof RadarTheme['sizes'];
 </script>
 
 {#snippet color(key: Color)}
@@ -22,7 +23,7 @@
   >
     <Label for={key} class="capitalize">{key}</Label>
     <Input
-      class="h-8 w-12"
+      class="h-8 w-12 cursor-pointer"
       type="color"
       value={radar.theme.colors[key]}
       onchange={(e) =>
@@ -38,19 +39,25 @@
   {@render color(key)}
 {/each}
 
-<div
-  class="flex w-full max-w-sm gap-4 justify-between items-center px-6 space-x-4"
->
-  <Label class="capitalize">Entry Size</Label>
-  <Slider.Root
-    type="single"
-    onValueChange={(v) => {
-      updateTheme('sizes', { ...radar.theme.sizes, entry: v });
-    }}
-    class="w-full"
-    min={0}
-    max={100}
-    step={1}
-    value={radar.theme.sizes.entry}
-  />
-</div>
+{#snippet slide(key: Size, min: number, max: number, label: string, step = 1)}
+  <div
+    class="flex w-full max-w-sm gap-4 justify-between items-center px-6 space-x-4"
+  >
+    <Label class="capitalize text-sm">{label} Size</Label>
+    <Slider.Root
+      type="single"
+      onValueChange={(v) => {
+        updateTheme('sizes', { ...radar.theme.sizes, [key]: v });
+      }}
+      class="w-full"
+      {min}
+      {max}
+      {step}
+      value={radar.theme.sizes[key]}
+    />
+  </div>
+{/snippet}
+
+{#each [{ key: 'entry', min: 1, max: 100, step: 10, label: 'entry' }, { key: 'strokeWidth', label: 'Stroke', min: 1, max: 5, step: 1 }] as const as { key, min, max, label, step }}
+  {@render slide(key, min, max, label, step)}
+{/each}

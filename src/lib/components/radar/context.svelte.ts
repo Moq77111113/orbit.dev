@@ -93,7 +93,7 @@ class RadarState {
 		const sectionCache = new Map<string, Section>();
 		const ringCache = new Map<string, Ring>();
 		return this.props.radar.entries.reduce<
-			(Entry & { section: Section; ring: Ring })[]
+			{ entry: Entry; section: Section; ring: Ring }[]
 		>((acc, entry) => {
 			const section =
 				sectionCache.get(entry.sectionId) ??
@@ -112,7 +112,7 @@ class RadarState {
 			}
 
 			if (section && ring) {
-				acc.push({ ...entry, section, ring });
+				acc.push({ entry, section, ring });
 			}
 
 			return acc;

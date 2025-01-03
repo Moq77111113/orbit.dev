@@ -1,6 +1,6 @@
 <script lang="ts">
   import { columns } from '~/lib/components/radar/(entries)/columns.js';
-  import DataTable from '~/lib/components/radar/(entries)/data-table.svelte';
+  import DataTable from '~/lib/components/radar/(entries)/(components)/data-table.svelte';
   import { useRadar } from '~/lib/components/radar/context.svelte.js';
 
   const radar = useRadar();

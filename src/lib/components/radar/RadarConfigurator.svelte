@@ -12,7 +12,7 @@
   import SidebarElement from './SidebarElement.svelte';
 </script>
 
-<Sidebar.Root side="right">
+<Sidebar.Root variant="floating">
   <Sidebar.Header />
   <Sidebar.Content class="px-2">
     <SidebarElement title={'Theme'} icon={Colors}>

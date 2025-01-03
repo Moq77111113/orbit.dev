@@ -1,11 +1,11 @@
+import { renderComponent } from "$lib/components/ui/data-table/render-helpers.js";
 import type { ColumnDef } from "@tanstack/table-core";
-import { renderComponent } from "../../ui/data-table/render-helpers.js";
 
-import type { Entry, Radar, Ring, Section } from "~/types/radar.js";
-import DeleteEntry from "./dropdown-action.svelte";
-import EditableRow from "./editable-row.svelte";
-import SelectValues from "./select-values.svelte";
-import SortableHeader from "./sortable-header.svelte";
+import type { Entry, Ring, Section } from "~/types/radar.js";
+import EntryActions from "./(components)/entry-action-cell.svelte";
+import EntryCell from "./(components)/entry-cell.svelte";
+import SelectValues from "./(components)/select-cell.svelte";
+import SortableHeader from "./(components)/sortable-header.svelte";
 
 export type RadarColumn = {
 	entry: Entry;
@@ -28,7 +28,7 @@ export const columns = (
 				onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
 			}),
 		cell: ({ row }) =>
-			renderComponent(EditableRow, {
+			renderComponent(EntryCell, {
 				entry: row.original.entry.name,
 				onChange: (value) => {
 					console.log(value);
@@ -79,10 +79,10 @@ export const columns = (
 		accessorKey: "action",
 		header: "",
 		cell: ({ row }) =>
-			renderComponent(DeleteEntry, {
-				onRemove: () => {
-					console.log("remove");
-				},
+			renderComponent(EntryActions, {
+				entry: row.original.entry,
+				sections: [row.original.section],
+				rings: [row.original.ring],
 			}),
 	},
 ];

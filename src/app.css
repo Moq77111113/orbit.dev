@@ -5,7 +5,7 @@
 @tailwind utilities;
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 263 7% 96%;
     --foreground: 263 25% 50%;
     --muted: 263 15% 97%;
     --muted-foreground: 263 20% 40%;
@@ -76,7 +76,7 @@
 
 @layer tooltip {
   div.tooltip {
-    @apply font-hand absolute p-4 bg-white text-black border border-gray-300 rounded-lg pointer-events-none text-sm z-50 flex flex-col text-left space-y-3 max-w-xs  transition-all duration-200 opacity-0 scale-95 transform hover:opacity-100 hover:scale-100 shadow-xl;
+    @apply absolute p-4 bg-white text-black border border-gray-300 rounded-lg pointer-events-none text-sm z-50 flex flex-col text-left space-y-3 max-w-xs  transition-all duration-200 opacity-0 scale-95 transform hover:opacity-100 hover:scale-100 shadow-xl;
   }
   div.tooltip h3 {
     @apply font-semibold text-lg text-gray-700 dark:text-gray-300 tracking-wide;

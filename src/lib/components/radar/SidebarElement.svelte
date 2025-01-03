@@ -17,7 +17,7 @@
 <Collapsible.Root {open}>
   <Collapsible.Trigger class="w-full">
     <Sidebar.GroupLabel
-      class="flex flex-row-reverse w-full cursor-pointer items-center justify-between py-2"
+      class="flex w-full cursor-pointer items-center justify-between py-2"
     >
       {title}
       {@const I = icon}
@@ -29,23 +29,5 @@
     <Sidebar.GroupContent>
       <Sidebar.Menu>{@render children()}</Sidebar.Menu>
     </Sidebar.GroupContent>
-
-    <!-- <SidebarGroupContent>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuSub>
-              <SidebarMenuSubItem>
-                <SidebarMenuSubButton>Radar Size</SidebarMenuSubButton>
-              </SidebarMenuSubItem>
-              <SidebarMenuSubItem>
-                <SidebarMenuSubButton>Color Scheme</SidebarMenuSubButton>
-              </SidebarMenuSubItem>
-              <SidebarMenuSubItem>
-                <SidebarMenuSubButton>Font Settings</SidebarMenuSubButton>
-              </SidebarMenuSubItem>
-            </SidebarMenuSub>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarGroupContent> -->
   </Collapsible.Content>
 </Collapsible.Root>

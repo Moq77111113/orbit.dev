@@ -1,5 +1,5 @@
 <script lang="ts">
-  import  Button from '$lib/components/ui/button/button.svelte';
+  import  { Button } from '$lib/components/ui/button/index.js';
   import ArrowDown from 'lucide-svelte/icons/arrow-down';
   import ArrowUp from 'lucide-svelte/icons/arrow-up';
   import ArrowUpDown from 'lucide-svelte/icons/arrow-up-down';

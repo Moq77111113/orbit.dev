@@ -55,7 +55,7 @@ export class EntryService extends DrawService {
 				element
 					.append("path")
 					.attr("d", d3.symbol().type(d3.symbolTriangle).size(size))
-					.attr("transform", (entry.moved ?? 0 > 0) ? "rotate(180)" : ""),
+					.attr("transform", (entry.moved ?? 0) < 0 ? "rotate(180)" : ""),
 			new: (element: Target) =>
 				element
 					.append("path")
@@ -67,8 +67,8 @@ export class EntryService extends DrawService {
 		};
 
 		return (element: Target) => {
-			if (entry.moved) return shapes.moved(element, entry);
 			if (entry.isNew) return shapes.new(element);
+			if (entry.moved) return shapes.moved(element, entry);
 			return shapes.default(element);
 		};
 	}
@@ -128,7 +128,6 @@ export class EntryService extends DrawService {
 					.style("background-color", backgroundColor)
 					.style("left", `${x}px`)
 					.style("top", `${y}px`);
-				// .style("color", theme.colors.text)
 			})
 			.on("mouseout", () => {
 				this.getTooltip()
@@ -165,7 +164,7 @@ export class EntryService extends DrawService {
 		)(group)
 			.attr("fill", ring.color ?? theme.colors.ring)
 			.attr("stroke", "none")
-			.attr("class", clean(`entry-${entry.name}`))
+			.attr("class", `entry-${entry.id}`)
 			.style("opacity", theme.opacity.entries);
 
 		this.handleTooltipEvents(
@@ -183,10 +182,10 @@ export class EntryService extends DrawService {
 	}
 
 	public static triggerTooltip(entry: Entry): void {
-		d3.select(`.${clean(`entry-${entry.name}`)}`).dispatch("mouseover");
+		d3.select(`.${`entry-${entry.id}`}`).dispatch("mouseover");
 	}
 
 	public static hideTooltip(entry: Entry): void {
-		d3.select(`.${clean(`entry-${entry.name}`)}`).dispatch("mouseout");
+		d3.select(`.${`entry-${entry.id}`}`).dispatch("mouseout");
 	}
 }

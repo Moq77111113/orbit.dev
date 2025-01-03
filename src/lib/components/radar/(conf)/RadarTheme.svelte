@@ -45,12 +45,12 @@
   <Slider.Root
     type="single"
     onValueChange={(v) => {
-      updateTheme('sizes', { ...radar.theme.sizes, entry: v[0] });
+      updateTheme('sizes', { ...radar.theme.sizes, entry: v });
     }}
     class="w-full"
     min={0}
     max={100}
     step={1}
-    value={[radar.theme.sizes.entry]}
+    value={radar.theme.sizes.entry}
   />
 </div>

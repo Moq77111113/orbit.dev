@@ -3,6 +3,7 @@
   import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
   import Ellipsis from 'lucide-svelte/icons/ellipsis';
   import type { Entry, Ring, Section } from '~/types/radar.js';
+  import { useRadar } from '../../context.svelte.js';
   import EntryDialog from './entry-dialog.svelte';
 
   type Props = {
@@ -10,6 +11,8 @@
     sections: Section[];
     rings: Ring[];
   };
+
+  const radar = useRadar();
   let { entry, sections, rings }: Props = $props();
 
   const toggleEdit = () => {
@@ -37,4 +40,10 @@
   </DropdownMenu.Content>
 </DropdownMenu.Root>
 
-<EntryDialog {entry} {sections} {rings} bind:open={edit} onChange={() => {}} />
+<EntryDialog
+  {entry}
+  {sections}
+  {rings}
+  bind:open={edit}
+  onChange={(e) => radar.updateEntry({ ...e, id: entry.id })}
+/>

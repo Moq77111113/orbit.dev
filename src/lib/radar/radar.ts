@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 import type { Container, Geometry, Target } from "~/types/radar-options.js";
-import type { Radar, Ring, Section } from "~/types/radar.js";
+import type { Entry, Radar, Ring, Section } from "~/types/radar.js";
 import type { RadarConfig, RadarEntryPlacement } from "~/types/theme.js";
 
 import { defaultConfig } from "../theme.js";
@@ -143,6 +143,14 @@ export class RadarService {
 		return section;
 	}
 
+	updateEntry(entry: Entry) {
+		const index = this.#state.radar.entries.findIndex((e) => e.id === entry.id);
+		if (index === -1) return this.#state.radar.entries;
+
+		this.#state.radar.entries[index] = entry;
+		this.redraw();
+		return this.#state.radar.entries;
+	}
 	changePosition(position: RadarEntryPlacement): void {
 		this.#ensureSourceExists("position");
 

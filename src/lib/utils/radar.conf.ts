@@ -17,6 +17,7 @@ export const data = {
 	],
 	entries: [
 		{
+			id: "ent-1",
 			name: "TypeScript",
 			sectionId: "sec-1",
 			ringId: "rng-1",
@@ -26,6 +27,7 @@ export const data = {
 			moved: 1,
 		},
 		{
+			id: "ent-2",
 			name: "GraphQL",
 			sectionId: "sec-2",
 			ringId: "rng-2",
@@ -37,6 +39,7 @@ export const data = {
 			moved: 0,
 		},
 		{
+			id: "ent-3",
 			name: "Docker",
 			sectionId: "sec-3",
 			ringId: "rng-1",
@@ -56,6 +59,7 @@ export const data = {
 			link: "https://www.zaproxy.org/",
 			tags: ["security", "web"],
 			moved: -1,
+			id: "ent-4",
 		},
 		{
 			name: "VS Code",
@@ -66,6 +70,7 @@ export const data = {
 			link: "https://code.visualstudio.com/",
 			tags: ["IDE", "tools"],
 			moved: 0,
+			id: "ent-5",
 		},
 		{
 			name: "Python",
@@ -76,6 +81,7 @@ export const data = {
 			link: "https://www.python.org/",
 			tags: ["language", "popular"],
 			moved: 0,
+			id: "ent-6",
 		},
 		{
 			name: "PostgreSQL",
@@ -86,6 +92,7 @@ export const data = {
 			link: "https://www.postgresql.org/",
 			tags: ["database", "SQL"],
 			moved: 0,
+			id: "ent-7",
 		},
 		{
 			name: "Kubernetes",
@@ -97,6 +104,7 @@ export const data = {
 			link: "https://kubernetes.io/",
 			tags: ["orchestration", "cloud"],
 			moved: 1,
+			id: "ent-8",
 		},
 		{
 			name: "Snyk",
@@ -108,6 +116,7 @@ export const data = {
 			link: "https://snyk.io/",
 			tags: ["security", "dependencies"],
 			moved: 1,
+			id: "ent-9",
 		},
 		{
 			name: "GitHub Copilot",
@@ -118,6 +127,7 @@ export const data = {
 			link: "https://copilot.github.com/",
 			tags: ["AI", "tools"],
 			moved: 0,
+			id: "ent-10",
 		},
 		{
 			name: "Rust",
@@ -129,6 +139,7 @@ export const data = {
 			link: "https://www.rust-lang.org/",
 			tags: ["language", "safe"],
 			moved: 1,
+			id: "ent-11",
 		},
 		{
 			name: "MongoDB",
@@ -139,6 +150,7 @@ export const data = {
 			link: "https://www.mongodb.com/",
 			tags: ["NoSQL", "database"],
 			moved: -1,
+			id: "ent-12",
 		},
 		{
 			name: "Terraform",
@@ -150,6 +162,7 @@ export const data = {
 			link: "https://www.terraform.io/",
 			tags: ["IaC", "cloud"],
 			moved: 0,
+			id: "ent-13",
 		},
 		{
 			name: "Burp Suite",
@@ -160,6 +173,7 @@ export const data = {
 			link: "https://portswigger.net/burp",
 			tags: ["security", "testing"],
 			moved: 1,
+			id: "ent-14",
 		},
 		{
 			name: "JetBrains IntelliJ IDEA",
@@ -170,8 +184,9 @@ export const data = {
 			link: "https://www.jetbrains.com/idea/",
 			tags: ["IDE", "tools"],
 			moved: -1,
+			id: "ent-15",
 		},
-		// Add items in ring 4 & 5 pls
+
 		{
 			name: "AngularJS",
 			sectionId: "sec-1",
@@ -181,6 +196,7 @@ export const data = {
 			link: "https://angularjs.org/",
 			tags: ["framework", "javascript"],
 			moved: -1,
+			id: "ent-16",
 		},
 		{
 			name: "MySQL",
@@ -191,6 +207,7 @@ export const data = {
 			link: "https://www.mysql.com/",
 			tags: ["database", "SQL"],
 			moved: -1,
+			id: "ent-17",
 		},
 		{
 			name: "Chef",
@@ -202,6 +219,7 @@ export const data = {
 			link: "https://www.chef.io/",
 			tags: ["automation", "devops"],
 			moved: -1,
+			id: "ent-18",
 		},
 		{
 			name: "Nessus",
@@ -212,6 +230,7 @@ export const data = {
 			link: "https://www.tenable.com/products/nessus",
 			tags: ["security", "vulnerability"],
 			moved: -1,
+			id: "ent-19",
 		},
 		{
 			name: "Eclipse",
@@ -222,6 +241,7 @@ export const data = {
 			link: "https://www.eclipse.org/",
 			tags: ["IDE", "tools"],
 			moved: -1,
+			id: "ent-20",
 		},
 		{
 			name: "Backbone.js",
@@ -233,6 +253,7 @@ export const data = {
 			link: "https://backbonejs.org/",
 			tags: ["framework", "javascript"],
 			moved: -1,
+			id: "ent-21",
 		},
 		{
 			name: "CouchDB",
@@ -243,6 +264,7 @@ export const data = {
 			link: "https://couchdb.apache.org/",
 			tags: ["NoSQL", "database"],
 			moved: -1,
+			id: "ent-22",
 		},
 		{
 			name: "Puppet",
@@ -253,6 +275,7 @@ export const data = {
 			link: "https://puppet.com/",
 			tags: ["automation", "devops"],
 			moved: -1,
+			id: "ent-23",
 		},
 		{
 			name: "Nikto",
@@ -263,6 +286,7 @@ export const data = {
 			link: "https://cirt.net/Nikto2",
 			tags: ["security", "scanner"],
 			moved: -1,
+			id: "ent-24",
 		},
 		{
 			name: "NetBeans",
@@ -273,6 +297,7 @@ export const data = {
 			link: "https://netbeans.apache.org/",
 			tags: ["IDE", "tools"],
 			moved: -1,
+			id: "ent-25",
 		},
 	],
 } satisfies RadarShape;

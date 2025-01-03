@@ -23,10 +23,10 @@
 </script>
 
 <svelte:window on:resize={setRadarDimensions} />
-
 <Sidebar.Provider>
   <RadarConfigurator />
-  <Sidebar.Inset class="overflow-hidden flex flex-1 flex-col">
+
+  <main class="flex h-full w-full">
     <Sidebar.Trigger />
     <section class="flex flex-col h-full">
       {#if loading}
@@ -40,5 +40,5 @@
         <section class="mx-auto"><Entries /></section>
       {/if}
     </section>
-  </Sidebar.Inset>
+  </main>
 </Sidebar.Provider>

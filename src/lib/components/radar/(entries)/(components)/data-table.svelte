@@ -1,5 +1,4 @@
 <script lang="ts" generics="TData, TValue">
-  import { invalidate } from '$app/navigation';
   import Button from '$lib/components//ui/button/button.svelte';
   import {
     FlexRender,
@@ -30,8 +29,6 @@
       desc: false,
     },
   ]);
-
-  $inspect(data).with(console.trace);
 
   const table = createSvelteTable({
     get data() {
@@ -64,12 +61,6 @@
 
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-  });
-
-  $effect(() => {
-    data.length;
-
-    invalidate('tan:table');
   });
 </script>
 

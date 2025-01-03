@@ -21,7 +21,6 @@
       class="flex w-full cursor-pointer items-center justify-between py-2"
     >
       {title}
-
       {@const I = icon}
       <I class="size-6" />
     </Sidebar.GroupLabel>

@@ -1,8 +1,10 @@
 <script lang="ts">
   import Pencil from 'lucide-svelte/icons/pencil';
+  import Plus from 'lucide-svelte/icons/plus';
   import Trash from 'lucide-svelte/icons/trash';
   import { entries } from '~/lib/utils/object.js';
-  import type { Entry, Ring } from '~/types/radar.js';
+  import type { Entry, Ring, Section } from '~/types/radar.js';
+  import { Button } from '../ui/button/index.js';
   import * as List from '../ui/list/index.js';
   import Separator from '../ui/separator/separator.svelte';
   import EntryDialog from './(entries)/(components)/entry-dialog.svelte';
@@ -22,14 +24,26 @@
 
   const toggleEdit = (entry?: Entry) => {
     selectedEntry = entry || null;
+    if (!selectedEntry) {
+      edit = false;
+      return;
+    }
     edit = !edit;
   };
 
-  $effect(() => {
-    if (edit === false) {
-      selectedEntry = null;
-    }
-  });
+  const defineNewEntry = (
+    section: Section['id'] = radar.sections?.[0]?.id,
+    ring: Ring['id'] = radar.rings?.[0]?.id
+  ) => {
+    selectedEntry = {
+      id: `ent-${Math.random().toString(36).substr(2, 9)}`,
+      name: '',
+      sectionId: section,
+      ringId: ring,
+      isNew: true,
+    };
+    edit = true;
+  };
 </script>
 
 <section class="space-y-2">
@@ -41,9 +55,9 @@
             {#snippet title()}
               <span class="text-xs font-medium flex items-center gap-2"
                 ><div
+                  style="--color: {ring.color}"
                   title={ring.name}
-                  class="size-2 rounded-full"
-                  style="background-color: {ring.color}"
+                  class=" size-1 rounded-full ring-2 ring-[--color]"
                 ></div>
                 {entry.name}
               </span>
@@ -60,6 +74,13 @@
           </List.Item>
         {/each}
       </List.Root>
+      <Button
+        size="icon"
+        variant="ghost"
+        class="hover:bg-inherit hover:scale-110"
+        onclick={() => defineNewEntry(radarEntries[0]?.section.id)}
+        ><Plus class="size-4" /></Button
+      >
       <Separator />
     </SidebarElement>
   {/each}
@@ -71,6 +92,6 @@
     sections={radar.sections}
     rings={radar.rings}
     bind:open={edit}
-    onSave={(e) => radar.updateEntry({ ...e, id: selectedEntry!.id })}
+    onSave={(e) => radar.addOrUpdateEntry({ ...e, id: selectedEntry!.id })}
   />
 {/if}

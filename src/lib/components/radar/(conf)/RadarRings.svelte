@@ -53,24 +53,17 @@
   let dialogOpen = $state(false);
 </script>
 
-{#snippet listAction(ring: Ring, action: (typeof actions)[number])}
-  <List.Action>
-    {@const Icon = action.icon}
-    <div class="flex items-center">
-      <Button variant="ghost" onclick={() => action.handle(ring)}
-        ><Icon class="mr-2 size-4" /><span>{action.title}</span></Button
-      >
-    </div>
-  </List.Action>
-{/snippet}
-
 <div class="flex flex-col py-4">
   <List.Root class="gap-2 flex">
     {#each radar.rings as ring}
       <List.Item title={ring.name}>
         <List.Actions>
           {#each actions as action}
-            {@render listAction(ring, action)}
+            <List.Action
+              icon={action.icon}
+              onclick={() => action.handle(ring)}
+              title={action.title}
+            />
           {/each}
         </List.Actions>
       </List.Item>

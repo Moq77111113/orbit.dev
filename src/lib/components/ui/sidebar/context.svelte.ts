@@ -53,8 +53,10 @@ class SidebarState {
 	};
 
 	toggle = () => {
-		return this.#isMobile.current
-			? (this.openMobile = !this.openMobile)
+		this.#isMobile.current
+			? (() => {
+					this.openMobile = !this.openMobile;
+				})()
 			: this.setOpen(!this.open);
 	};
 }

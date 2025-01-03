@@ -6,7 +6,7 @@
 
 <Tabs.Root value={'config'} class="relative">
   <Tabs.List
-    class="grid w-full space-x-2 grid-cols-2 top-0 left-0 bg-white z-10 mb-2 sticky "
+    class="grid w-full space-x-2 grid-cols-2 top-0 left-0 z-10 mb-2 sticky backdrop-blur bg-background/60"
   >
     <Tabs.Trigger value={'config'}>Customization</Tabs.Trigger>
     <Tabs.Trigger value={'entries'}>Entries</Tabs.Trigger>

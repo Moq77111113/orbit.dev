@@ -21,21 +21,9 @@
     {#each radar.sections as item}
       <List.Item title={item.name}>
         <List.Actions>
-          <List.Action>
-            <div class="flex items-center">
-              <Button variant="ghost"
-                ><Pencil class="mr-2 size-4" /><span>Edit</span></Button
-              >
-            </div>
-          </List.Action>
-          <List.Action>
-            <div class="flex items-center">
-              <Button variant="ghost"
-                ><Trash class="mr-2 size-4" />
-                <span>Remove</span></Button
-              >
-            </div>
-          </List.Action>
+          <List.Action title={'Edit'} icon={Pencil} />
+
+          <List.Action title={'Delete'} icon={Trash} />
         </List.Actions>
       </List.Item>
     {/each}

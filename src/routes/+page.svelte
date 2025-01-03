@@ -1,15 +1,18 @@
 <script lang="ts">
   import Radar from '~/lib/components/radar/RadarSvg.svelte';
 
-  import { onMount } from 'svelte';
-
   import { useSidebar } from '$lib/components/ui/sidebar/index.js';
+  import Open from 'lucide-svelte/icons/menu';
+
+  import { onMount } from 'svelte';
   import Menu from '~/lib/components/radar/Menu.svelte';
   import Button from '~/lib/components/ui/button/button.svelte';
+  import { cn } from '~/lib/utils/ui.js';
+
   let pageWidth = $state(0);
   let pageHeight = $state(0);
   let loading = $state(true);
-  const { toggle } = useSidebar();
+  const sidebar = useSidebar();
   const setRadarDimensions = () => {
     pageWidth = window.innerWidth - 16 * 16;
     pageHeight = window.innerHeight - 56 * 2;
@@ -24,7 +27,7 @@
 
 <Menu />
 <main class="flex flex-col items-center justify-center">
-  Test
+  {sidebar.open}
   {#if loading}
     <div class="flex justify-center items-center">
       <div
@@ -37,8 +40,14 @@
 </main>
 
 <Button
-  class="absolute bottom-16 left-4"
+  class="absolute bottom-16 left-2"
   variant={'outline'}
   size={'icon'}
-  onclick={toggle}>0</Button
+  onclick={sidebar.toggle}
+  ><Open
+    class={cn(
+      !sidebar.open && 'rotate-180',
+      ' transition-transform duration-300 ease-in-out '
+    )}
+  /></Button
 >

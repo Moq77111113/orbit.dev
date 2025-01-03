@@ -143,6 +143,17 @@ export class RadarService {
 		return section;
 	}
 
+	addEntry(entry: Entry) {
+		this.#ensureTargetExists("entry");
+
+		this.#state.radar.entries.push(entry);
+		if (this.#state.target) {
+			this.#services.entry.addEntry(this.#state.target, { entry });
+		}
+		this.redraw();
+		return entry;
+	}
+
 	updateEntry(entry: Entry) {
 		const index = this.#state.radar.entries.findIndex((e) => e.id === entry.id);
 		if (index === -1) return this.#state.radar.entries;

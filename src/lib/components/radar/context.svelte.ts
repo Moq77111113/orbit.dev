@@ -75,8 +75,13 @@ class RadarState {
 		this.#rings = this.#service.removeRing(ring);
 	}
 
-	updateEntry(entry: Entry) {
-		this.#entries = this.#service.updateEntry(entry);
+	addOrUpdateEntry(entry: Entry) {
+		if (this.#entries.find((e) => e.id === entry.id)) {
+			this.#entries = this.#service.updateEntry(entry);
+			return;
+		}
+
+		this.#entries.push(this.#service.addEntry(entry));
 	}
 
 	get theme() {

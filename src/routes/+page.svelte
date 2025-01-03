@@ -5,8 +5,7 @@
 
   import { onMount } from 'svelte';
   import '../app.css';
-  import Entries from '~/lib/components/radar/(entries)/Entries.svelte';
-  import RadarConfigurator from '~/lib/components/radar/RadarConfigurator.svelte';
+  import RadarConfigurator from '~/lib/components/radar/Menu.svelte';
 
   let pageWidth = $state(0);
   let pageHeight = $state(0);
@@ -25,20 +24,18 @@
 <svelte:window on:resize={setRadarDimensions} />
 <Sidebar.Provider>
   <RadarConfigurator />
+  <Sidebar.Trigger />
+  <main class="flex flex-col items-center justify-center h-full w-full min-h-svh">
+   
 
-  <main class="flex h-full w-full">
-    <Sidebar.Trigger />
-    <section class="flex flex-col h-full">
-      {#if loading}
-        <div class="flex justify-center items-center h-full">
-          <div
-            class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"
-          ></div>
-        </div>
-      {:else}
-        <Radar bind:width={pageWidth} bind:height={pageHeight} />
-        <section class="mx-auto"><Entries /></section>
-      {/if}
-    </section>
+    {#if loading}
+      <div class="flex justify-center items-center h-full">
+        <div
+          class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"
+        ></div>
+      </div>
+    {:else}
+      <Radar bind:width={pageWidth} bind:height={pageHeight} />
+    {/if}
   </main>
 </Sidebar.Provider>

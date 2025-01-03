@@ -5,7 +5,7 @@
   import type { Snippet } from 'svelte';
 
   type Props = {
-    icon: typeof Icon;
+    icon?: typeof Icon;
     title: string;
     children: Snippet;
     open?: boolean;
@@ -20,8 +20,10 @@
       class="flex w-full cursor-pointer items-center justify-between py-2"
     >
       {title}
-      {@const I = icon}
-      <I class="w-6 h-6" />
+      {#if icon}
+        {@const I = icon}
+        <I class="size-6" />
+      {/if}
     </Sidebar.GroupLabel>
   </Collapsible.Trigger>
 

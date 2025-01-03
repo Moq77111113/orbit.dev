@@ -24,7 +24,7 @@
           <List.Action>
             <div class="flex items-center">
               <Button variant="ghost"
-                ><Pencil class="mr-2 size-4" /> <span>Edit</span></Button
+                ><Pencil class="mr-2 size-4" /><span>Edit</span></Button
               >
             </div>
           </List.Action>

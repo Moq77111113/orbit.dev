@@ -113,7 +113,7 @@ export class RadarService {
 
 	updateRing(ring: Ring) {
 		const index = this.#state.radar.rings.findIndex((r) => r.id === ring.id);
-		console.log(index, ring);
+
 		if (index === -1) return this.#state.radar.rings;
 
 		this.#state.radar.rings[index] = ring;

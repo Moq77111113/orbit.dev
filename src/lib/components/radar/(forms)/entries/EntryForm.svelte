@@ -30,7 +30,6 @@
     validators: zod(entrySchema),
     resetForm: false,
     onUpdate: ({ form }) => {
-      console.log(form.data);
       if (form.valid) {
         onSave(form.data);
       }

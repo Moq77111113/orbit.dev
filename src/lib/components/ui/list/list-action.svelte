@@ -1,10 +1,40 @@
 <script lang="ts">
   import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+  import type { Icon } from 'lucide-svelte';
   import type { Snippet } from 'svelte';
-  type Props = {
+  import { cn } from '~/lib/utils/ui.js';
+
+  type WithSnippet = {
     children: Snippet;
   };
-  const { children }: Props = $props();
+
+  type Basic = {
+    title: string;
+    onclick?: () => void;
+  };
+
+  type Props = {
+    icon?: typeof Icon;
+    class?: string;
+  } & (Basic | WithSnippet);
+  const { icon, class: clazz, ...restProps }: Props = $props();
 </script>
 
-<DropdownMenu.Item>{@render children()}</DropdownMenu.Item>
+{#if 'children' in restProps}
+  <DropdownMenu.Item class={clazz}>
+    {@render restProps.children()}
+  </DropdownMenu.Item>
+{:else}
+  <DropdownMenu.Item
+    onclick={restProps.onclick}
+    class={cn(restProps.onclick ? 'cursor-pointer' : '', clazz)}
+  >
+    {restProps.title}
+    {#if icon}
+      <DropdownMenu.Shortcut>
+        {@const I = icon}
+        <I class="size-4" />
+      </DropdownMenu.Shortcut>
+    {/if}
+  </DropdownMenu.Item>
+{/if}

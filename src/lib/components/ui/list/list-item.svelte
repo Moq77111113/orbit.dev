@@ -3,7 +3,7 @@
   import { cn } from '~/lib/utils/ui.js';
 
   type Props = {
-    title: string;
+    title: string | Snippet;
     children?: Snippet;
     class?: string;
   };
@@ -12,8 +12,10 @@
 </script>
 
 <li class={cn('flex justify-between items-center')}>
-  <span class={cn('ml-2 text-sm font-medium ', clazz)}
-    >{title}</span
-  >
+  {#if typeof title === 'string'}
+    <span class={cn('text-sm font-medium', clazz)}>{title}</span>
+  {:else}
+    {@render title()}
+  {/if}
   {@render children?.()}
 </li>

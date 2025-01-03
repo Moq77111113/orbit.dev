@@ -124,6 +124,32 @@ class RadarState {
 			return acc;
 		}, []);
 	}
+
+	get entriesPerSection() {
+		const sectionCache = new Map<string, Section>();
+		const ringCache = new Map<string, Ring>();
+		return this.#entries.reduce<
+			Record<Section["name"], { entry: Entry; section: Section; ring: Ring }[]>
+		>((acc, entry) => {
+			const section =
+				sectionCache.get(entry.sectionId) ??
+				this.#section.find((s) => s.id === entry.sectionId);
+			const ring =
+				ringCache.get(entry.ringId) ??
+				this.#rings.find((r) => r.id === entry.ringId);
+
+			if (!section || !ring) {
+				return acc;
+			}
+			if (!acc[section.name]) {
+				acc[section.name] = [];
+			}
+
+			acc[section.name].push({ entry, section, ring });
+
+			return acc;
+		}, {});
+	}
 }
 
 const SYMBOL_KEY = "orb-radar";

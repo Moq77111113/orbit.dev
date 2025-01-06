@@ -75,31 +75,33 @@ export class EntryService extends DrawService {
 
 	private generateTooltipHTML(entry: Entry): string {
 		const { name, description, tags, moved, isNew } = entry;
-		const moveDirection = moved && moved > 0 ? "↑" : "↓";
+		const parts = [`<h3>${name}</h3>`];
 
-		return `
-      <h3>${name}</h3>
-      ${description ? `<p>${description}</p>` : ""}
-      ${
-				tags?.length
-					? `
-        <div class="tags">
-          ${tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}
-        </div>
-      `
-					: ""
-			}
-      ${isNew ? '<div class="new">New</div>' : ""}
-      ${
-				moved
-					? `
-        <div class="moved ${moved > 0 ? "moved-up" : "moved-down"}">
-          ${moveDirection}
-        </div>
-      `
-					: ""
-			}
-    `;
+		if (description) {
+			parts.push(`<p>${description}</p>`);
+		}
+
+		if (tags?.length) {
+			parts.push(`
+			  <div class="tags">
+				${tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}
+			  </div>
+			`);
+		}
+
+		if (isNew) {
+			parts.push('<div class="new">New</div>');
+		}
+
+		if (moved) {
+			parts.push(`
+			  <div class="moved ${moved > 0 ? "moved-up" : "moved-down"}">
+				${moved > 0 ? "↑" : "↓"}
+			  </div>
+			`);
+		}
+
+		return parts.join("");
 	}
 
 	private handleTooltipEvents(

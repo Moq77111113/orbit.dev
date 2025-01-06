@@ -28,7 +28,7 @@
 <svelte:window on:resize={setRadarDimensions} />
 
 <Menu />
-<main class="flex flex-col items-center justify-center">
+<main class="flex flex-1 flex-col items-center justify-center">
   {#if loading}
     <div class="flex justify-center items-center">
       <div

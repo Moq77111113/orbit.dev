@@ -15,6 +15,20 @@
 
   type Color = keyof RadarTheme['colors'];
   type Size = keyof RadarTheme['sizes'];
+
+  const colors: Color[] = ['grid', 'text'];
+
+  type SliderProps = {
+    key: Size;
+    min: number;
+    max: number;
+    label: string;
+    step?: number;
+  };
+  const sliders: SliderProps[] = [
+    { key: 'entry', min: 0, max: 100, step: 10, label: 'entry' },
+    { key: 'strokeWidth', label: 'Stroke', min: 1, max: 5, step: 1 },
+  ];
 </script>
 
 {#snippet color(key: Color)}
@@ -35,11 +49,11 @@
   </div>
 {/snippet}
 
-{#each ['grid', 'text'] as const as key}
+{#each colors as key}
   {@render color(key)}
 {/each}
 
-{#snippet slide(key: Size, min: number, max: number, label: string, step = 1)}
+{#snippet slide({ key, min, max, label = key, step = 1 }: SliderProps)}
   <div
     class="flex w-full max-w-sm gap-4 justify-between items-center px-6 space-x-4"
   >
@@ -58,6 +72,6 @@
   </div>
 {/snippet}
 
-{#each [{ key: 'entry', min: 1, max: 100, step: 10, label: 'entry' }, { key: 'strokeWidth', label: 'Stroke', min: 1, max: 5, step: 1 }] as const as { key, min, max, label, step }}
-  {@render slide(key, min, max, label, step)}
+{#each sliders as { key, min, max, label, step }}
+  {@render slide({ key, min, max, label, step })}
 {/each}

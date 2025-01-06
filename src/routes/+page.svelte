@@ -7,14 +7,19 @@
   import { onMount } from 'svelte';
   import Menu from '~/lib/components/radar/Menu.svelte';
   import Button from '~/lib/components/ui/button/button.svelte';
+  import {
+    SIDEBAR_WIDTH,
+    SIDEBAR_WIDTH_VALUE,
+  } from '~/lib/components/ui/sidebar/constants.js';
   import { cn } from '~/lib/utils/ui.js';
 
   let pageWidth = $state(0);
   let pageHeight = $state(0);
   let loading = $state(true);
   const sidebar = useSidebar();
+
   const setRadarDimensions = () => {
-    pageWidth = window.innerWidth - 16 * 16;
+    pageWidth = window.innerWidth - SIDEBAR_WIDTH_VALUE * 16;
     pageHeight = window.innerHeight - 56 * 2;
   };
   onMount(() => {

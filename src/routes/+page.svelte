@@ -7,10 +7,7 @@
   import { onMount } from 'svelte';
   import Menu from '~/lib/components/radar/Menu.svelte';
   import Button from '~/lib/components/ui/button/button.svelte';
-  import {
-    SIDEBAR_WIDTH,
-    SIDEBAR_WIDTH_VALUE,
-  } from '~/lib/components/ui/sidebar/constants.js';
+  import { SIDEBAR_WIDTH_VALUE } from '~/lib/components/ui/sidebar/constants.js';
   import { cn } from '~/lib/utils/ui.js';
 
   let pageWidth = $state(0);

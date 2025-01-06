@@ -206,9 +206,6 @@ export class RadarService {
 			);
 
 		this.#state.listContainer.attr("transform", "translate(0 0)");
-		this.#state.target
-			.attr("transform", `translate(${geometry.center.x} ${geometry.center.y})`)
-			.style("background-color", this.#radarConfig.theme.colors.ring);
 	}
 
 	#drawComponents(): void {

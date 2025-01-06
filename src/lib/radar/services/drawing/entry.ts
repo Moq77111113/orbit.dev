@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import { clean } from "~/lib/utils/string.js";
+import { color } from "~/lib/utils/color.js";
 import type { Target } from "~/types/radar-options.js";
 import type { Entry } from "~/types/radar.js";
 import { DrawService } from "./base.js";
@@ -162,7 +162,7 @@ export class EntryService extends DrawService {
 			entry,
 			theme.sizes.entry,
 		)(group)
-			.attr("fill", ring.color ?? theme.colors.ring)
+			.attr("fill", ring.color ?? color(ring.name))
 			.attr("stroke", "none")
 			.attr("class", `entry-${entry.id}`)
 			.style("opacity", theme.opacity.entries);
@@ -170,7 +170,7 @@ export class EntryService extends DrawService {
 		this.handleTooltipEvents(
 			shape,
 			entry,
-			ring.color ?? theme.colors.ring,
+			ring.color ?? color(ring.name),
 			theme,
 		);
 	}

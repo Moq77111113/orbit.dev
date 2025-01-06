@@ -1,3 +1,4 @@
+import { color } from "~/lib/utils/color.js";
 import type { Target } from "~/types/radar-options.js";
 import type { Ring } from "~/types/radar.js";
 import { DrawService } from "./base.js";
@@ -23,7 +24,7 @@ export class RingService extends DrawService {
 			.append("circle")
 			.attr("r", outerRadius)
 			.attr("fill", "transparent")
-			.attr("stroke", ring.color ?? config.theme.colors.ring)
+			.attr("stroke", ring.color ?? color(ring.name))
 			.attr("stroke-width", config.theme.sizes.strokeWidth)
 			.attr("opacity", config.theme.opacity.rings);
 

@@ -1,6 +1,5 @@
 export type RadarTheme = {
 	colors: {
-		ring: string;
 		grid: string;
 		text: string;
 	};

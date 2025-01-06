@@ -1,9 +1,13 @@
 <script lang="ts">
+  import ArrowDown from 'lucide-svelte/icons/arrow-down';
   import Pencil from 'lucide-svelte/icons/pencil';
   import Plus from 'lucide-svelte/icons/plus';
+
   import Trash from 'lucide-svelte/icons/trash';
   import { entries } from '~/lib/utils/object.js';
+  import { cn } from '~/lib/utils/ui.js';
   import type { Entry, Ring, Section } from '~/types/radar.js';
+
   import { Button } from '../ui/button/index.js';
   import * as List from '../ui/list/index.js';
   import Separator from '../ui/separator/separator.svelte';
@@ -53,14 +57,33 @@
         {#each radarEntries.sort( (a, b) => sortPerRingIndex(a.ring, b.ring) ) as { entry, ring }}
           <List.Item>
             {#snippet title()}
-              <span class="text-xs font-medium flex items-center gap-2"
-                ><div
-                  style="--color: {ring.color}"
+              <div
+                class=" text-xs font-medium flex items-center justify-center gap-2 hover:scale-105"
+              >
+                <span
+                  style="--rng-color: {ring.color}"
                   title={ring.name}
-                  class=" size-1 rounded-full ring-2 ring-[--color]"
-                ></div>
+                  class="size-1 rounded-full ring-2 ring-[--rng-color]"
+                >
+                </span>
                 {entry.name}
-              </span>
+                {#if entry.isNew}
+                  <span
+                    class="rounded-md bg-[#afa] p-1 text-xs leading-none text-black no-underline"
+                  >
+                    new
+                  </span>
+                {/if}
+                {#if entry.moved}
+                  <ArrowDown
+                    class={cn(
+                      { 'rotate-180 text-green-600': entry.moved === 1 },
+                      { 'text-red-600': entry.moved === -1 },
+                      'size-3 '
+                    )}
+                  />
+                {/if}
+              </div>
             {/snippet}
 
             <List.Actions>

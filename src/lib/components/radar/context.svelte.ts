@@ -1,8 +1,8 @@
 import { getContext, setContext } from "svelte";
+import { defaultTheme } from "~/lib/radar/config.js";
 import { RadarService } from "~/lib/radar/radar.js";
-import { defaultTheme } from "~/lib/theme.js";
+import type { RadarEntryPlacement, RadarTheme } from "~/types/config.js";
 import type { Entry, Radar, Ring, Section } from "~/types/radar.js";
-import type { RadarEntryPlacement, RadarTheme } from "~/types/theme.js";
 
 type RadarStateProps = {
 	radar: Radar;

@@ -1,9 +1,9 @@
 import * as d3 from "d3";
+import type { RadarConfig, RadarEntryPlacement } from "~/types/config.js";
 import type { Container, Geometry, Target } from "~/types/radar-options.js";
 import type { Entry, Radar, Ring, Section } from "~/types/radar.js";
-import type { RadarConfig, RadarEntryPlacement } from "~/types/theme.js";
 
-import { defaultConfig } from "../theme.js";
+import { defaultConfig } from "./config.js";
 import { EntryService } from "./services/drawing/entry.js";
 import { ListService } from "./services/drawing/list.js";
 import { RingService } from "./services/drawing/ring.js";

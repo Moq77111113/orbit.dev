@@ -1,9 +1,9 @@
 import { color } from "~/lib/utils/color.js";
 import { randomId, randomInteger } from "~/lib/utils/random.js";
-import type { Ring, RingElement } from "../elements/types.js";
-import type { AppState } from "../state/types.js";
-import { register } from "./register.js";
-import type { ActionResult } from "./types/action-function.js";
+import type { Ring, RingElement } from "../../elements/types.js";
+import type { AppState } from "../../state/types.js";
+import { register } from "../register.js";
+import type { ActionResult } from "../types/action-function.js";
 
 type CreateRingData = Pick<Ring, "name" | "color">;
 

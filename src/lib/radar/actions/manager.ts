@@ -4,8 +4,7 @@ import type { ActionResult } from "./types/action-function.js";
 import type { ActionName } from "./types/action-name.js";
 import type { Action } from "./types/action.js";
 export class ActionManager {
-	// Public properties
-	actions = new Map<ActionName, Action>();
+	actions = {} as Record<ActionName, Action>;
 	getState: () => AppState;
 
 	#updater: (actionResult: ActionResult) => void;
@@ -24,7 +23,7 @@ export class ActionManager {
 	}
 
 	registerAction(action: Action) {
-		this.actions.set(action.name, action);
+		this.actions[action.name] = action;
 	}
 
 	registerActions(actions: readonly Action[]) {

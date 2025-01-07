@@ -10,7 +10,7 @@ import { getDefaultState } from "./state.js";
 
 type Props = {
 	app: string;
-	radar: Radar;
+	radar?: Radar;
 	config?: RadarConfig;
 };
 
@@ -54,7 +54,10 @@ export class RadarState {
 	constructor(public readonly props: Props) {
 		this.#state = {
 			...this.#defaultState,
-			radar: this.props.radar,
+			radar: {
+				...this.props.radar,
+				...this.#state.radar,
+			},
 			radarConfig: {
 				...this.#defaultState.radarConfig,
 				...props.config,

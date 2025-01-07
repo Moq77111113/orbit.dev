@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Button from '~/lib/components/ui/button/button.svelte';
+  import { addRing } from '~/lib/radar/actions/addRing.js';
   import { useRadar } from '~/lib/radar/state/radar.svelte.js';
 
   let svg: SVGElement;
@@ -15,3 +17,7 @@
 /> -->
 
 <pre>{JSON.stringify(radar.state, null, 2)}</pre>
+<Button
+  onclick={() => radar.execute(addRing, { name: 'Foo', color: 'red' })}
+  >Clic</Button
+>

@@ -4,6 +4,7 @@ import type { AppState } from "~/lib/radar/state/types.js";
 import { ActionManager } from "../actions/manager.js";
 import { actions } from "../actions/register.js";
 import type { ActionResult } from "../actions/types/action-function.js";
+import type { Action } from "../actions/types/action.js";
 import { initRadar } from "../elements/init.js";
 import type { Radar } from "../elements/types/radar.js";
 import { getDefaultState } from "./state.js";
@@ -29,6 +30,7 @@ export class RadarState {
 	}
 
 	private doUpdate(actionResult: ActionResult) {
+		console.log("doUpdate", actionResult);
 		if (!actionResult) return;
 
 		// TODO: Impl storage
@@ -38,7 +40,7 @@ export class RadarState {
 				actionResult.appState.radar || this.#state.radar || this.props.radar;
 			const radarConfig =
 				actionResult.appState.radarConfig ||
-				this.state.radarConfig ||
+				this.#state.radarConfig ||
 				this.props.config;
 			const errors = actionResult.appState.errors || this.state.errors;
 			this.#state = {
@@ -64,9 +66,16 @@ export class RadarState {
 			},
 		};
 
-		this.#actionManager = new ActionManager(this.doUpdate, () => this.state);
+		this.#actionManager = new ActionManager(
+			this.doUpdate.bind(this),
+			() => this.state,
+		);
 
 		this.#actionManager.registerActions(actions);
+	}
+
+	execute<T extends Action>(action: T, data: Parameters<T["perform"]>[1]) {
+		this.#actionManager.executeAction(action, data);
 	}
 }
 

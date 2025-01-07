@@ -11,21 +11,21 @@ type RadarElementBase = Readonly<{
 	updated: number;
 }>;
 
-type RingElement = Merge<
+export type RingElement = Merge<
 	RadarElementBase,
 	Ring & {
 		type: "ring";
 	}
 >;
 
-type SectionElement = Merge<
+export type SectionElement = Merge<
 	RadarElementBase,
 	Section & {
 		type: "section";
 	}
 >;
 
-type EntryElement = Merge<
+export type EntryElement = Merge<
 	RadarElementBase,
 	Entry & {
 		type: "entry";

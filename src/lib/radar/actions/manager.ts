@@ -1,3 +1,4 @@
+import { csvParse } from "d3";
 import type { AppState } from "~/lib/radar/state/types.js";
 import type { StateObserver } from "../state/observers/state-observer.js";
 import type { ActionResult } from "./types/action-function.js";
@@ -34,7 +35,7 @@ export class ActionManager {
 
 	executeAction<T extends Action>(
 		action: T,
-		data: Parameters<T["perform"]>[2],
+		data: Parameters<T["perform"]>[1],
 	) {
 		const appState = this.getState();
 

@@ -11,3 +11,7 @@ export { moveRing } from "./rings/actionRingMove.js";
 export { addSection } from "./sections/actionSectionAdd.js";
 export { removeSection } from "./sections/actionSectionRemove.js";
 export { renameSection } from "./sections/actionSectionRename.js";
+
+export { addEntry } from "./entries/actionEntryAdd.js";
+export { removeEntry } from "./entries/actionEntryRemove.js";
+export { updateEntry } from "./entries/actionEntryUpdate.js";

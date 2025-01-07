@@ -1,9 +1,6 @@
-import { color } from "~/lib/utils/color.js";
-import { randomId, randomInteger } from "~/lib/utils/random.js";
-import type { Ring, RingElement } from "../../elements/types.js";
-import type { AppState } from "../../state/types.js";
-import { register } from "../register.js";
-import type { ActionResult } from "../types/action-function.js";
+import { register } from "$lib/radar/actions/register.js";
+import type { Ring } from "$lib/radar/elements/types.js";
+import type { AppState } from "$lib/radar/state/types.js";
 
 type MoveRingData = Pick<Ring, "id"> & { direction: "up" | "down" };
 
@@ -19,7 +16,7 @@ export const moveRing = register({
 	name: "ring/move",
 	label: "Move Ring",
 	keywords: ["ring", "update", "move"],
-	perform: (state: AppState, data: MoveRingData): ActionResult => {
+	perform: (state: AppState, data: MoveRingData) => {
 		const { direction, id } = data;
 		const rings = state.radar.rings;
 		const ringIndex = rings.findIndex((ring) => ring.id === id);

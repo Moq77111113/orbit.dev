@@ -1,4 +1,7 @@
-export const updateOne = <ID extends string, T extends { id: ID }>(
+export const updateOne = <
+	ID extends string,
+	T extends { id: ID; updated: number },
+>(
 	items: T[],
 	id: ID,
 	update: Partial<T>,

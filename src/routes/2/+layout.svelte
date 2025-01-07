@@ -7,5 +7,4 @@
   });
 </script>
 
-FOO
 {@render children?.()}

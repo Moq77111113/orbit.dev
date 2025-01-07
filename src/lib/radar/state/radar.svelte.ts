@@ -7,6 +7,7 @@ import type { ActionResult } from "../actions/types/action-function.js";
 import type { Action } from "../actions/types/action.js";
 import { initRadar } from "../elements/init.js";
 import type { Radar } from "../elements/types/radar.js";
+import type { StateObserver } from "./observers/state-observer.js";
 import { getDefaultState } from "./state.js";
 
 type Props = {
@@ -76,6 +77,10 @@ export class RadarState {
 
 	execute<T extends Action>(action: T, data: Parameters<T["perform"]>[1]) {
 		this.#actionManager.executeAction(action, data);
+	}
+
+	addObserver(observer: StateObserver) {
+		this.#actionManager.addObserver(observer);
 	}
 }
 

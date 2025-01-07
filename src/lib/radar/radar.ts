@@ -243,23 +243,13 @@ export class RadarService {
 
 	#calculateGeometry(container: Container, radar: Radar): Geometry {
 		const { width, height } = container;
-		const baseGeometry = {
-			corners: [
-				{ x: 0, y: 0 },
-				{ x: width, y: 0 },
-				{ x: width, y: height },
-				{ x: 0, y: height },
-			],
-		} satisfies Pick<Geometry, "corners">;
 
 		return radar.sections.length > 4
 			? {
-					...baseGeometry,
 					radius: Math.min(width, height) / 4,
 					center: { x: width / 2, y: height / 3 },
 				}
 			: {
-					...baseGeometry,
 					radius: Math.min(width, height) / 3,
 					center: { x: width / 3, y: height / 3 },
 				};

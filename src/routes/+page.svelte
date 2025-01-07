@@ -19,6 +19,7 @@
     pageWidth = window.innerWidth - SIDEBAR_WIDTH_VALUE * 16;
     pageHeight = window.innerHeight - 56 * 2;
   };
+
   onMount(() => {
     setRadarDimensions();
     loading = false;

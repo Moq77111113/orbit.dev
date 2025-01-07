@@ -1,6 +1,6 @@
-import type { RadarConfig, RadarTheme } from "~/types/config.js";
+import type { RadarConfig, RadarTheme } from "./types.js";
 
-export const defaultTheme = {
+const defaultTheme = {
 	colors: {
 		grid: "#dedede",
 		text: "#ff8000",

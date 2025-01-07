@@ -3,9 +3,9 @@
   import Pencil from 'lucide-svelte/icons/pencil';
   import Plus from 'lucide-svelte/icons/plus';
 
+  import { entries } from '$lib/utils/object.js';
+  import { cn } from '$lib/utils/ui.js';
   import Trash from 'lucide-svelte/icons/trash';
-  import { entries } from '~/lib/utils/object.js';
-  import { cn } from '~/lib/utils/ui.js';
   import type { Entry, Ring, Section } from '~/types/radar.js';
 
   import { Button } from '../ui/button/index.js';

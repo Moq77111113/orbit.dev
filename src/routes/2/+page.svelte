@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { useRadar } from '~/lib/radar/radar.svelte.js';
+  import { useRadar } from '~/lib/radar/state/radar.svelte.js';
 
   let svg: SVGElement;
 

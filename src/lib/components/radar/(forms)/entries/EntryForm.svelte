@@ -9,9 +9,9 @@
   import ArrowUp from 'lucide-svelte/icons/arrow-up';
   import Minus from 'lucide-svelte/icons/minus';
 
+  import Button from '$lib/components/ui/button/button.svelte';
   import { superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
-  import Button from '~/lib/components/ui/button/button.svelte';
   import type { Entry, Ring, Section } from '~/types/radar.js';
   import { entrySchema } from './schema.js';
 

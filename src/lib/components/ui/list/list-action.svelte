@@ -1,8 +1,8 @@
 <script lang="ts">
   import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+  import { cn } from '$lib/utils/ui.js';
   import type { Icon } from 'lucide-svelte';
   import type { Snippet } from 'svelte';
-  import { cn } from '~/lib/utils/ui.js';
 
   type WithSnippet = {
     children: Snippet;

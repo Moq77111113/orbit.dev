@@ -1,6 +1,6 @@
 <script lang="ts">
+  import { cn } from '$lib/utils/ui.js';
   import type { Snippet } from 'svelte';
-  import { cn } from '~/lib/utils/ui.js';
 
   type Props = {
     title: string | Snippet;

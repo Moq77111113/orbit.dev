@@ -1,14 +1,14 @@
 <script lang="ts">
-  import Radar from '~/lib/components/radar/RadarSvg.svelte';
+  import Radar from '$lib/components/radar/RadarSvg.svelte';
 
   import { useSidebar } from '$lib/components/ui/sidebar/index.js';
   import Panel from 'lucide-svelte/icons/panel-right-open';
 
+  import Menu from '$lib/components/radar/Menu.svelte';
+  import Button from '$lib/components/ui/button/button.svelte';
+  import { SIDEBAR_WIDTH_VALUE } from '$lib/components/ui/sidebar/constants.js';
+  import { cn } from '$lib/utils/ui.js';
   import { onMount } from 'svelte';
-  import Menu from '~/lib/components/radar/Menu.svelte';
-  import Button from '~/lib/components/ui/button/button.svelte';
-  import { SIDEBAR_WIDTH_VALUE } from '~/lib/components/ui/sidebar/constants.js';
-  import { cn } from '~/lib/utils/ui.js';
 
   let pageWidth = $state(0);
   let pageHeight = $state(0);

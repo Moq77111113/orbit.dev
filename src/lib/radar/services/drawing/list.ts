@@ -1,4 +1,4 @@
-import { color } from "~/lib/utils/color.js";
+import { color } from "$lib/utils/color.js";
 import type { Target } from "~/types/radar-options.js";
 import type { Entry, Ring, Section } from "~/types/radar.js";
 import { DrawService } from "./base.js";

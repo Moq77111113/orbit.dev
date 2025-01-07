@@ -1,7 +1,9 @@
+import type {
+	RadarEntryPlacement,
+	RadarTheme,
+} from "$lib/radar/config/types/config.js";
+import { RadarService } from "$lib/radar/radar.js";
 import { getContext, setContext } from "svelte";
-import { defaultTheme } from "~/lib/radar/config.js";
-import { RadarService } from "~/lib/radar/radar.js";
-import type { RadarEntryPlacement, RadarTheme } from "~/types/config.js";
 import type { Entry, Radar, Ring, Section } from "~/types/radar.js";
 
 type RadarStateProps = {
@@ -10,7 +12,7 @@ type RadarStateProps = {
 
 class RadarState {
 	readonly props: RadarStateProps;
-	#theme = $state<RadarTheme>(defaultTheme);
+
 	#placement = $state<RadarEntryPlacement>("random");
 	#rings = $state<Ring[]>([]);
 	#section = $state<Section[]>([]);
@@ -32,7 +34,6 @@ class RadarState {
 	}
 
 	changeTheme(theme: RadarTheme) {
-		this.#theme = theme;
 		this.#service.changeTheme(theme);
 	}
 

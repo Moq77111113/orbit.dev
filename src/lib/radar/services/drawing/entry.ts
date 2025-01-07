@@ -1,5 +1,5 @@
+import { color } from "$lib/utils/color.js";
 import * as d3 from "d3";
-import { color } from "~/lib/utils/color.js";
 import type { Target } from "~/types/radar-options.js";
 import type { Entry } from "~/types/radar.js";
 import { DrawService } from "./base.js";

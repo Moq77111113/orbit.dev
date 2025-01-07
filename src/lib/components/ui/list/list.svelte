@@ -1,6 +1,6 @@
 <script lang="ts" generics="T">
+  import { cn } from '$lib/utils/ui.js';
   import type { Snippet } from 'svelte';
-  import { cn } from '~/lib/utils/ui.js';
 
   type Props = {
     class?: string;

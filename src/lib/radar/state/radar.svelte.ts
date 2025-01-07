@@ -1,11 +1,11 @@
+import type { RadarConfig } from "$lib/radar/config/types.js";
 import { getContext, setContext } from "svelte";
-import type { AppState } from "~/types/app.js";
-import type { RadarConfig } from "~/types/config.js";
-import type { Radar } from "~/types/radar.js";
-import { data } from "../utils/radar.conf.js";
-import { ActionManager } from "./actions/manager.js";
-import { actions } from "./actions/register.js";
-import type { ActionResult } from "./actions/types/action-function.js";
+import type { AppState } from "~/lib/radar/state/types.js";
+import { ActionManager } from "../actions/manager.js";
+import { actions } from "../actions/register.js";
+import type { ActionResult } from "../actions/types/action-function.js";
+import { initRadar } from "../elements/init.js";
+import type { Radar } from "../elements/types/radar.js";
 import { getDefaultState } from "./state.js";
 
 type Props = {
@@ -19,8 +19,7 @@ export class RadarState {
 
 	#state: AppState = $state<AppState>({
 		...this.#defaultState,
-		radar: data,
-		target: {} as SVGElement,
+		radar: initRadar(),
 	});
 
 	#actionManager: ActionManager;
@@ -60,17 +59,15 @@ export class RadarState {
 				...this.#defaultState.radarConfig,
 				...props.config,
 			},
-			target: null,
 		};
 
 		this.#actionManager = new ActionManager(this.doUpdate, () => this.state);
 
 		this.#actionManager.registerActions(actions);
-		console.log(this.#state);
 	}
 }
 
-const SYMBOL_KEY = "orbit.dev";
+const SYMBOL_KEY = "orb-radar";
 
 export function createRadarState(props: Props) {
 	return setContext(Symbol.for(SYMBOL_KEY), new RadarState(props));

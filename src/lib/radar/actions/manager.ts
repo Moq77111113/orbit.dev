@@ -1,6 +1,6 @@
 import { csvParse } from "d3";
 import type { AppState } from "~/lib/radar/state/types.js";
-import type { StateObserver } from "../state/observers/state-observer.js";
+import type { StateObserver } from "../state/observers/types.js";
 import type { ActionResult } from "./types/action-function.js";
 import type { ActionName } from "./types/action-name.js";
 import type { Action } from "./types/action.js";

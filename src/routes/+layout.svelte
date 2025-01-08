@@ -9,9 +9,9 @@
 
   const { children } = $props();
 
-  createRadarState({
-    radar: new RadarService(data),
-  });
+  // createRadarState({
+  //   radar: new RadarService(data),
+  // });
 </script>
 
 <div class="relative flex min-h-screen flex-col">

@@ -3,7 +3,11 @@ import * as d3 from "d3";
 import type { StateObserver } from "~/lib/radar/state/observers/types.js";
 import type { Container } from "~/types/radar-options.js";
 
+import { string } from "zod";
+import type { Section } from "~/types/radar.js";
+import type { Entry, Radar } from "../../elements/types.js";
 import type { Layer } from "./layers/base.layer.js";
+import { EntryLayer } from "./layers/entry.layer.js";
 import { RingLayer } from "./layers/ring.layer.js";
 import { SectionLayer } from "./layers/section.layer.js";
 
@@ -25,18 +29,23 @@ export class RadarRenderer implements StateObserver {
 		center: { x: this.#container.width / 2, y: this.#container.height / 2 },
 	}));
 
-	#layers: Map<string, Layer<unknown>> = new Map();
+	// biome-ignore lint/suspicious/noExplicitAny: Map acts as a dictionary
+	#layers: Map<string, Layer<any, any>> = new Map();
 
 	constructor(props: Props) {
 		this.#target = d3.select(props.target);
 		this.#container = props.container;
 	}
 
-	#getOrCreateLayer<T>(id: string, create: () => Layer<T>) {
+	#getOrCreateLayer<T, K extends d3.BaseType>(
+		id: string,
+		create: () => Layer<T, K>,
+	) {
 		const layer = this.#layers.has(id);
 
 		if (!layer) {
-			this.#layers.set(id, create());
+			const layer = create() as Layer<T, K>;
+			this.#layers.set(id, layer);
 		}
 
 		return this.#layers.get(id) as Layer<T>;
@@ -48,18 +57,16 @@ export class RadarRenderer implements StateObserver {
 		if (!this.#state) {
 			return;
 		}
+		const context = {
+			dimensions: this.dimensions,
+			config: state.radarConfig,
+			radar: state.radar,
+		};
 		const ringLayer = this.#getOrCreateLayer(
 			"ring",
-			() =>
-				new RingLayer("ring", this.#target, {
-					dimensions: this.dimensions,
-					config: state.radarConfig,
-				}),
+			() => new RingLayer("ring", this.#target, context),
 		);
-		ringLayer.update(
-			{ dimensions: this.dimensions, config: state.radarConfig },
-			state.radar.rings,
-		);
+		ringLayer.update(context, state.radar.rings);
 
 		const sectionLayer = this.#getOrCreateLayer(
 			"section",
@@ -67,65 +74,43 @@ export class RadarRenderer implements StateObserver {
 				new SectionLayer("section", this.#target, {
 					dimensions: this.dimensions,
 					config: state.radarConfig,
+					radar: state.radar,
 				}),
 		);
 
-		sectionLayer.update(
-			{ dimensions: this.dimensions, config: state.radarConfig },
-			state.radar.sections,
+		sectionLayer.update(context, state.radar.sections);
+
+		const entryLayer = this.#getOrCreateLayer(
+			"entry",
+			() =>
+				new EntryLayer("entry", this.#target, {
+					dimensions: this.dimensions,
+					config: state.radarConfig,
+					radar: state.radar,
+				}),
 		);
+		entryLayer.update(context, this.#enrichEntries(state.radar));
+	}
+
+	#enrichEntries(radar: Radar) {
+		const sections = new Map(radar.sections.map((s) => [s.id, s]));
+		const rings = new Map(radar.rings.map((r) => [r.id, r]));
+
+		return radar.entries
+			.map((entry) => {
+				const section = sections.get(entry.sectionId);
+				const ring = rings.get(entry.ringId);
+				if (!section || !ring) return null;
+				return {
+					...entry,
+					section,
+					ring,
+				};
+			})
+			.filter((v) => v !== null);
 	}
 
 	resize(container: Container) {
 		this.#container = container;
-	}
-
-	#getOrCreateSectionsElement() {
-		const sections = this.#target.select(".sections");
-
-		if (sections.empty()) {
-			return this.#target
-				.append("g")
-				.attr(
-					"transform",
-					`translate(${this.dimensions.center.x}, ${this.dimensions.center.y})`,
-				)
-				.attr("class", "sections");
-		}
-
-		return sections;
-	}
-
-	#render(state: AppState) {
-		if (!this.#target) {
-			return;
-		}
-		console.log("Rendering sections");
-
-		const sections = this.#getOrCreateSectionsElement();
-		for (const [i, section] of state.radar.sections.entries()) {
-			const angle = ((2 * Math.PI) / state.radar.sections.length) * i;
-			console.log("Rendering section", section.id, this.dimensions.radius);
-			const exist = sections.select(`.${section.id}`);
-
-			if (exist.empty()) {
-				sections
-					.append("line")
-					.attr("x1", 0)
-					.attr("y1", 0)
-					.attr("x2", Math.cos(angle) * this.dimensions.radius)
-					.attr("y2", Math.sin(angle) * this.dimensions.radius)
-					.attr("stroke", state.radarConfig.theme.colors.grid)
-					.attr("stroke-width", state.radarConfig.theme.sizes.strokeWidth)
-					.attr("stroke-dasharray", "4,4")
-					.attr("class", section.id);
-			} else {
-				exist
-					.attr("x2", Math.cos(angle) * this.dimensions.radius)
-					.attr("y2", Math.sin(angle) * this.dimensions.radius)
-					.attr("stroke", state.radarConfig.theme.colors.grid)
-					.attr("stroke-width", state.radarConfig.theme.sizes.strokeWidth);
-			}
-		}
 	}
 }

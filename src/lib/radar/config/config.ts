@@ -2,7 +2,7 @@ import type { RadarConfig, RadarTheme } from "./types.js";
 
 const defaultTheme = {
 	colors: {
-		grid: "#dedede",
+		grid: "#000",
 		text: "#ff8000",
 	},
 	opacity: {

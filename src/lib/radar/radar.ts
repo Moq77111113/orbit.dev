@@ -11,8 +11,9 @@ import { EntryService } from "./services/drawing/entry.js";
 import { ListService } from "./services/drawing/list.js";
 import { RingService } from "./services/drawing/ring.js";
 import { SectionService } from "./services/drawing/section.js";
-import type { PlacementStrategy } from "./strategies/base.js";
-import { RandomStrategy } from "./strategies/random.js";
+import type { PlacementStrategy } from "./state/observers/layers/entry/placement-context.js";
+import { Random } from "./state/observers/layers/entry/random.js";
+
 interface RadarServiceOptions {
 	strategy?: PlacementStrategy;
 	container?: Container;
@@ -50,7 +51,7 @@ export class RadarService {
 			container: { width: 500, height: 500 },
 			listContainer: null,
 			placement: "random",
-			strategy: new RandomStrategy(),
+			strategy: Random(),
 			geometry: this.#calculateGeometry({ width: 500, height: 500 }, radar),
 		};
 

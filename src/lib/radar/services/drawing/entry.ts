@@ -63,6 +63,7 @@ export class EntryService extends DrawService {
 			default: (element: Target) =>
 				element
 					.append("path")
+
 					.attr("d", d3.symbol().type(d3.symbolCircle).size(size)),
 		};
 

@@ -7,7 +7,7 @@ import type { ActionResult } from "../actions/types/action-function.js";
 import type { Action } from "../actions/types/action.js";
 import { initRadar } from "../elements/init.js";
 import type { Radar } from "../elements/types/radar.js";
-import type { StateObserver } from "./observers/state-observer.js";
+import type { StateObserver } from "./observers/types.js";
 import { getDefaultState } from "./state.js";
 
 type Props = {

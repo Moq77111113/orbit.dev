@@ -2,6 +2,7 @@ import type * as d3 from "d3";
 import type { Ring } from "~/lib/radar/elements/types.js";
 import { Layer } from "./base.layer.js";
 
+type d3RingElement = d3.Selection<SVGCircleElement, Ring, null, undefined>;
 export class RingLayer extends Layer<Ring> {
 	render(): void {
 		this.layer.attr(
@@ -73,14 +74,12 @@ export class RingLayer extends Layer<Ring> {
 			.datum(ring);
 	}
 
-	#updateRing(
-		circle: d3.Selection<SVGCircleElement, Ring, null, undefined>,
-		idx: number,
-	) {
+	#updateRing(circle: d3RingElement, idx: number) {
 		const ringWidth = this.dimensions.radius / this.data.length;
 		const outerRadius = (idx + 1) * ringWidth;
 		const innerRadius = idx * ringWidth;
 		const ring = circle.datum();
+
 		circle.transition().duration(500).attr("r", outerRadius);
 
 		this.#styleRing(circle);
@@ -99,7 +98,7 @@ export class RingLayer extends Layer<Ring> {
 		}
 	}
 
-	#styleRing(circle: d3.Selection<SVGCircleElement, Ring, null, undefined>) {
+	#styleRing(circle: d3RingElement) {
 		circle
 			.attr("fill", "transparent")
 			.attr("stroke", (r) => r.color)

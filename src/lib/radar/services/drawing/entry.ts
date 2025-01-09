@@ -126,7 +126,6 @@ export class EntryService extends DrawService {
 				tooltip
 					.html(this.generateTooltipHTML(entry))
 					.attr("fill", theme.colors.text)
-
 					.style("border-color", ringColor)
 					.style("background-color", backgroundColor)
 					.style("left", `${x}px`)

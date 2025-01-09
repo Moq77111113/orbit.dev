@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import Button from '~/lib/components/ui/button/button.svelte';
+  import Button from '$lib/components/ui/button/button.svelte';
   import {
     addEntry,
     addRing,
@@ -9,11 +8,12 @@
     removeEntry,
     removeRing,
     removeSection,
-  } from '~/lib/radar/actions/index.js';
-  import { RadarRenderer } from '~/lib/radar/state/observers/radar-observer.svelte.js';
+  } from '$lib/radar/features/actions/index.js';
+  import { RadarRenderer } from '~/lib/radar/state/observers/state-observer.svelte.js';
+  import { onMount } from 'svelte';
 
-  import { useRadar } from '~/lib/radar/state/radar.svelte.js';
-  import { color } from '~/lib/utils/color.js';
+  import { useRadar } from '~/lib/radar/state/state.svelte.js';
+  import { color } from '$lib/utils/color.js';
 
   let svg: SVGElement;
 

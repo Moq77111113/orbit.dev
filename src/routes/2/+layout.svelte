@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createRadarState } from '~/lib/radar/state/radar.svelte.js';
+  import { createRadarState } from '~/lib/radar/state/state.svelte.js';
   const { children } = $props();
 
   createRadarState({

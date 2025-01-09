@@ -1,18 +1,18 @@
 import type {
 	RadarConfig,
 	RadarEntryPlacement,
-} from "$lib/radar/config/types.js";
+} from "$lib/radar/core/config/types.js";
 import * as d3 from "d3";
 import type { Container, Geometry, Target } from "~/types/radar-options.js";
 import type { Entry, Radar, Ring, Section } from "~/types/radar.js";
 
-import { defaultConfig } from "./config/config.js";
+import { defaultConfig } from "./core/config/config.js";
+import type { PlacementStrategy } from "./features/layers/entry/placement/placement-context.js";
+import { Random } from "./features/layers/entry/placement/strategies/random.js";
 import { EntryService } from "./services/drawing/entry.js";
 import { ListService } from "./services/drawing/list.js";
 import { RingService } from "./services/drawing/ring.js";
 import { SectionService } from "./services/drawing/section.js";
-import type { PlacementStrategy } from "./state/observers/layers/entry/placement-context.js";
-import { Random } from "./state/observers/layers/entry/random.js";
 
 interface RadarServiceOptions {
 	strategy?: PlacementStrategy;

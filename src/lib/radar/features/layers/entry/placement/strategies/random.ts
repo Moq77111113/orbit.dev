@@ -8,7 +8,7 @@ export function Random(
 	_options: RandomPlacementOptions,
 ) {
 	const { minRadius, maxRadius, endAngle, startAngle } = context;
-
+	
 	if (!context.section) return { x: 0, y: 0 };
 
 	const angle = startAngle + Math.random() * (endAngle - startAngle);

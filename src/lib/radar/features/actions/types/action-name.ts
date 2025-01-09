@@ -1,4 +1,4 @@
-import type { Pretty } from "~/types/utils.js";
+import type { Pretty } from "$lib/types/utils.js";
 
 type RingAction =
 	| "ring/add"
@@ -16,4 +16,12 @@ type SectionAction =
 
 type EntryAction = "entry/add" | "entry/remove" | "entry/update";
 
-export type ActionName = Pretty<RingAction | SectionAction | EntryAction>;
+type ThemeAction =
+	| "theme/color-update"
+	| "theme/opacity-update"
+	| "theme/font-update"
+	| "theme/size-update";
+
+export type ActionName = Pretty<
+	RingAction | SectionAction | EntryAction | ThemeAction
+>;

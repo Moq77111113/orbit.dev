@@ -2,16 +2,16 @@
   import Input from '$lib/components/ui/input/input.svelte';
   import { Label } from '$lib/components/ui/label/index.js';
   import * as Slider from '$lib/components/ui/slider/index.js';
-  import type { RadarTheme } from '$lib/radar/config/types/config.js';
-  import { useRadar } from '../context.svelte.js';
+  import type { RadarTheme } from '$lib/radar/core/config/types.js';
+  import {
+    changeThemeColor,
+    changeThemeSize,
+  } from '$lib/radar/features/actions/index.js';
+  import { useRadar } from '$lib/radar/state/state.svelte.js';
+
   const radar = useRadar();
 
-  const updateTheme = <T extends keyof RadarTheme>(
-    key: T,
-    value: RadarTheme[T]
-  ) => {
-    radar.changeTheme({ ...radar.theme, [key]: value });
-  };
+  const theme = $derived(radar.state.radarConfig.theme);
 
   type Color = keyof RadarTheme['colors'];
   type Size = keyof RadarTheme['sizes'];
@@ -39,11 +39,11 @@
     <Input
       class="h-8 w-12 cursor-pointer"
       type="color"
-      value={radar.theme.colors[key]}
+      value={theme.colors[key]}
       onchange={(e) =>
-        updateTheme('colors', {
-          ...radar.theme.colors,
-          [key]: e.currentTarget.value,
+        radar.execute(changeThemeColor, {
+          key,
+          color: e.currentTarget.value,
         })}
     />
   </div>
@@ -61,13 +61,13 @@
     <Slider.Root
       type="single"
       onValueChange={(v) => {
-        updateTheme('sizes', { ...radar.theme.sizes, [key]: v });
+        radar.execute(changeThemeSize, { key, size: v });
       }}
       class="w-full"
       {min}
       {max}
       {step}
-      value={radar.theme.sizes[key]}
+      value={theme.sizes[key]}
     />
   </div>
 {/snippet}

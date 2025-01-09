@@ -15,3 +15,8 @@ export { renameSection } from "./section/actionSectionRename.js";
 export { addEntry } from "./entry/actionEntryAdd.js";
 export { removeEntry } from "./entry/actionEntryRemove.js";
 export { updateEntry } from "./entry/actionEntryUpdate.js";
+
+export { changeThemeSize } from "./config/theme/actionThemeSizesChange.js";
+export { changeThemeColor } from "./config/theme/actionThemeColorChange.js";
+export { changeThemefontSize } from "./config/theme/actionThemeFontSizesChange.js";
+export { changeThemeOpacity } from "./config/theme/actionThemeOpacityChange.js";

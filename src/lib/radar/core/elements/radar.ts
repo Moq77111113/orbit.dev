@@ -1,4 +1,4 @@
-import type { Merge, Pretty } from "~/types/utils.js";
+import type { Merge, Pretty } from "$lib/types/utils.js";
 import type { Entry } from "./entry.js";
 import type { Ring } from "./ring.js";
 import type { Section } from "./section.js";

@@ -6,13 +6,13 @@ export const updateOne = <
 	id: ID,
 	update: Partial<T>,
 ) => {
-	const ringIndex = items.findIndex((item) => item.id === id);
+	const index = items.findIndex((item) => item.id === id);
 
 	const updated = [...items];
 	const timestamp = Date.now();
 
-	updated[ringIndex] = {
-		...items[ringIndex],
+	updated[index] = {
+		...items[index],
 		...update,
 		updated: timestamp,
 	};

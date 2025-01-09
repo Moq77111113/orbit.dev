@@ -3,9 +3,9 @@ import type { Entry, Ring, Section } from "~/lib/radar/elements/types.js";
 
 import { Layer } from "./base.layer.js";
 
-import { color } from "~/lib/utils/color.js";
 import type { Merge } from "~/types/utils.js";
 import { Clustered, Distributed, Random, Spiral } from "./entry/index.js";
+import { Tooltip } from "./entry/tooltip.js";
 import type { EntryPlacementContext, Point } from "./entry/types.js";
 import type { Attrbutes, D3Selection } from "./types.js";
 type EnrichedEntry = Merge<Entry, { section: Section; ring: Ring }>;
@@ -30,18 +30,17 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGPathElement> {
 		if (!exist.empty()) {
 			return exist.datum(entry);
 		}
+		const { x, y } = this.#getPosition(entry);
 		return this.layer
 			.append("path")
 			.datum(entry)
-			.attr("class", this.#class(entry));
+			.attr("class", this.#class(entry))
+			.attr("transform", `translate(${x}, ${y})`);
 	}
 
 	protected applyAttributes(path: Selection) {
 		const entry = path.datum();
 		const attrs: Attrbutes<SVGPathElement, EnrichedEntry>[] = [];
-		const { x, y } = this.#getPosition(entry);
-
-		attrs.push(["transform", `translate(${x}, ${y})`]);
 
 		let shapeType = this.#symbols.default;
 		if (entry.isNew) shapeType = this.#symbols.new;
@@ -58,7 +57,7 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGPathElement> {
 
 		attrs.push(
 			["fill", entry.ring.color],
-			["stroke", this.config.theme.colors.grid],
+			["stroke", "none"],
 			["stroke-width", this.config.theme.sizes.strokeWidth],
 			["stroke-dasharray", "4,4"],
 		);
@@ -66,6 +65,64 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGPathElement> {
 		for (const [key, value] of attrs) {
 			path.attr(key, value);
 		}
+
+		if (this.config.interactive) {
+			this.#addTooltip(path);
+		}
+	}
+
+	#tooltip = Tooltip();
+
+	#addTooltip(path: Selection) {
+		const entry = path.datum();
+		path
+			.on("mouseover", (event) => {
+				const { x, y } = event.target.getBoundingClientRect();
+				const background =
+					d3.color(entry.ring.color)?.copy({ opacity: 0.8 }).toString() ?? "";
+
+				this.#tooltip.show({
+					position: { x, y },
+					background,
+					border: entry.ring.color,
+					textColor: this.config.theme.colors.text,
+					html: this.#html(entry),
+				});
+			})
+			.on("mouseout", () => {
+				this.#tooltip.kill();
+			});
+	}
+
+	#html(entry: EnrichedEntry) {
+		const { name, description, tags, moved, isNew } = entry;
+		const parts = [`<h3>${name}</h3>`];
+
+		if (description) {
+			parts.push(`<p>${description}</p>`);
+		}
+
+		if (tags?.length) {
+			parts.push(`
+			  <div class="tags">
+				${tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}
+			  </div>
+			`);
+		}
+
+		if (isNew) {
+			parts.push('<div class="new">New</div>');
+		}
+
+		if (moved) {
+			parts.push(`
+			  <div class="moved ${moved > 0 ? "moved-up" : "moved-down"}">
+				${moved > 0 ? "↑" : "↓"}
+			  </div>
+			`);
+		}
+
+		return parts.join("");
 	}
 
 	#class(entry: EnrichedEntry) {

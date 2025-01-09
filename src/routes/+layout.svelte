@@ -1,17 +1,16 @@
 <script lang="ts">
-  import { createRadarState } from '$lib/components/radar/context.svelte.js';
   import * as Sidebar from '$lib/components/ui/sidebar/index.js';
   import '../app.css';
   import Footer from '$lib/components/footer.svelte';
   import Header from '$lib/components/header.svelte';
-  import { RadarService } from '$lib/radar/radar.js';
-  import { data } from '$lib/utils/radar.conf.js';
+
+  import { createRadarState } from '~/lib/radar/state/state.svelte.js';
 
   const { children } = $props();
 
-  // createRadarState({
-  //   radar: new RadarService(data),
-  // });
+  createRadarState({
+    app: 'radar',
+  });
 </script>
 
 <div class="relative flex min-h-screen flex-col">

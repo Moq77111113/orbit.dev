@@ -47,10 +47,12 @@ export abstract class Layer<Data, SVGType extends d3.BaseType = d3.BaseType> {
 	}
 
 	protected render() {
-		this.layer.attr(
-			"transform",
-			`translate(${this.dimensions.width / 2}, ${this.dimensions.height / 2})`,
-		);
+		const { x, y } = {
+			x: this.dimensions.width / 2,
+			y: this.dimensions.height / 2,
+		};
+
+		this.layer.attr("transform", `translate(${x}, ${y})`);
 
 		for (const [idx, data] of this.data.entries()) {
 			const element = this.getOrCreate(data);

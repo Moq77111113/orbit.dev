@@ -112,5 +112,8 @@ export class RadarRenderer implements StateObserver {
 
 	resize(container: Container) {
 		this.#container = container;
+		if (this.#state) {
+			this.update(this.#state);
+		}
 	}
 }

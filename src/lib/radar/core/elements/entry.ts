@@ -11,6 +11,6 @@ export type Entry = {
 	isNew?: boolean;
 	description?: string;
 	link?: string;
-	tags?: string[];
+	tags?: readonly string[];
 	moved?: 1 | 0 | -1;
 };

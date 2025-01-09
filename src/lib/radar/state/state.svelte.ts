@@ -38,22 +38,20 @@ export class RadarState {
 
 		// TODO: Impl storage
 
-		if (actionResult.appState) {
-			const radar =
-				actionResult.appState.radar || this.#state.radar || this.props.radar;
-			const radarConfig =
-				actionResult.appState.radarConfig ||
-				this.#state.radarConfig ||
-				this.props.config;
-			const errors = actionResult.appState.errors || this.state.errors;
-			this.#state = {
-				...this.#state,
-				...actionResult.appState,
-				radar,
-				radarConfig,
-				errors,
-			};
-		}
+		const radar =
+			actionResult.appState?.radar || this.#state.radar || this.props.radar;
+		const radarConfig =
+			actionResult.appState?.radarConfig ||
+			this.#state.radarConfig ||
+			this.props.config;
+		const errors = actionResult.appState?.errors || this.state.errors;
+		this.#state = {
+			...this.#state,
+			...actionResult.appState,
+			radar,
+			radarConfig,
+			errors,
+		};
 	}
 
 	constructor(public readonly props: Props) {
@@ -83,6 +81,7 @@ export class RadarState {
 
 	addObserver(observer: StateObserver) {
 		this.#actionManager.addObserver(observer);
+		observer.update(this.state);
 	}
 }
 

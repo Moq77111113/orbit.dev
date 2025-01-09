@@ -13,9 +13,9 @@ type EnrichedEntry = Merge<Entry, { section: Section; ring: Ring }>;
 
 type EntrySymbols = "moved" | "new" | "default";
 
-type Selection = D3Selection<SVGPathElement, EnrichedEntry>;
+type Selection = D3Selection<SVGGElement, EnrichedEntry>;
 
-export class EntryLayer extends Layer<EnrichedEntry, SVGPathElement> {
+export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 	#strategies = {
 		clustered: (ctx) => Clustered(ctx, {}),
 		distributed: (ctx) => Distributed(ctx, {}),
@@ -42,29 +42,22 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGPathElement> {
 		const one = this.getOne(entry);
 		if (one) return one;
 
-		const { x, y } = this.#getPosition(entry);
 		return this.layer
-			.append("path")
+			.append("g")
 			.datum(entry)
-			.attr("class", this.#class(entry))
-			.attr("transform", `translate(${x}, ${y})`);
+			.attr("class", this.#class(entry));
 	}
 
-	protected applyAttributes(path: Selection) {
-		const entry = path.datum();
-		const attrs: Attrbutes<SVGPathElement, EnrichedEntry>[] = [];
-
-		let shapeType = this.#symbols.default;
-		if (entry.isNew) shapeType = this.#symbols.new;
-
+	protected applyAttributes(group: Selection) {
+		const entry = group.datum();
+		const { x, y } = this.#getPosition(entry);
+		
+		group.attr("transform", `translate(${x}, ${y})`);
+		let attrs: Attrbutes<SVGPathElement, EnrichedEntry>[] =
+			this.#symbols.default(entry);
+		if (entry.isNew) attrs = this.#symbols.new(entry);
 		if (entry.moved) {
-			shapeType = this.#symbols.moved;
-		}
-
-		attrs.push(["d", shapeType.size(this.config.theme.sizes.entry)]);
-
-		if ((entry.moved ?? 0) < 0) {
-			attrs.push(["transform", () => "rotate(180)"]);
+			attrs = this.#symbols.moved(entry);
 		}
 
 		attrs.push(
@@ -74,12 +67,13 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGPathElement> {
 			["stroke-dasharray", "4,4"],
 		);
 
+		const path = group.append("path");
 		for (const [key, value] of attrs) {
 			path.attr(key, value);
 		}
 
 		if (this.config.interactive) {
-			this.#addTooltip(path);
+			this.#addTooltip(group);
 		}
 	}
 
@@ -142,7 +136,7 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGPathElement> {
 	}
 
 	#select(entry: EnrichedEntry) {
-		return this.layer.select<SVGPathElement>(`.${this.#class(entry)}`);
+		return this.layer.select<SVGGElement>(`.${this.#class(entry)}`);
 	}
 
 	#getPosition(entry: EnrichedEntry) {
@@ -159,6 +153,7 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGPathElement> {
 		const ringWidth = this.dimensions.radius / this.radar.rings.length;
 		const minRadius = ringIdx * ringWidth;
 		const maxRadius = (ringIdx + 1) * ringWidth;
+
 		const context = {
 			entry,
 			section: entry.section,
@@ -173,8 +168,29 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGPathElement> {
 	}
 
 	#symbols = {
-		moved: d3.symbol().type(d3.symbolTriangle),
-		new: d3.symbol().type(d3.symbolStar),
-		default: d3.symbol().type(d3.symbolCircle),
-	} satisfies Record<EntrySymbols, d3.Symbol<unknown, unknown>>;
+		moved: (entry: EnrichedEntry) => [
+			[
+				"d",
+				d3.symbol().type(d3.symbolTriangle).size(this.config.theme.sizes.entry),
+			],
+			["transform", (entry.moved ?? 0) < 0 ? "rotate(180)" : ""],
+		],
+
+		new: (entry: EnrichedEntry) => [
+			[
+				"d",
+				d3.symbol().type(d3.symbolStar).size(this.config.theme.sizes.entry),
+			],
+		],
+
+		default: (entry: EnrichedEntry) => [
+			[
+				"d",
+				d3.symbol().type(d3.symbolCircle).size(this.config.theme.sizes.entry),
+			],
+		],
+	} satisfies Record<
+		EntrySymbols,
+		(args: EnrichedEntry) => Attrbutes<SVGPathElement, EnrichedEntry>[]
+	>;
 }

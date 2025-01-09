@@ -22,7 +22,7 @@ const defaultTheme = {
 
 export const defaultConfig = {
 	theme: defaultTheme,
-	entryPlacement: "spiral",
+	entryPlacement: "random",
 	showLabels: true,
 	interactive: true,
 } satisfies RadarConfig;

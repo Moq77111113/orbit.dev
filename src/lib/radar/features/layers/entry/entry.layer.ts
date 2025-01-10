@@ -1,12 +1,12 @@
 import type { Entry, Ring, Section } from "$lib/radar/core/elements/types.js";
 import * as d3 from "d3";
 
-import type { Merge } from "~/types/utils.js";
 import { Layer } from "../base/base.layer.js";
 import { Tooltip } from "../base/tooltip/tooltip.js";
 
 import type { Attrbutes, D3Selection } from "../base/types.js";
 
+import type { Merge } from "$lib/types/utils.js";
 import { Clustered, Distributed, Random, Spiral } from "./placement/index.js";
 import type { EntryPlacementContext, Point } from "./placement/types.js";
 type EnrichedEntry = Merge<Entry, { section: Section; ring: Ring }>;
@@ -51,7 +51,7 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 	protected applyAttributes(group: Selection) {
 		const entry = group.datum();
 		const { x, y } = this.#getPosition(entry);
-		
+
 		group.attr("transform", `translate(${x}, ${y})`);
 		let attrs: Attrbutes<SVGPathElement, EnrichedEntry>[] =
 			this.#symbols.default(entry);
@@ -73,6 +73,7 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 		}
 
 		if (this.config.interactive) {
+			group.style("cursor", "pointer");
 			this.#addTooltip(group);
 		}
 	}

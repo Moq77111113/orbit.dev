@@ -1,15 +1,24 @@
 import type { StateObserver } from "$lib/radar/state/observers/types.js";
 import type { AppState } from "$lib/radar/state/types.js";
 import * as d3 from "d3";
-import type { Container } from "~/types/radar-options.js";
 
-import type { Radar } from "$lib/radar/core/elements/types.js";
+import type {
+	Entry,
+	Radar,
+	Ring,
+	Section,
+} from "$lib/radar/core/elements/types.js";
+import type {
+	Container,
+	EnrichedSection,
+} from "$lib/radar/features/layers/base/types.js";
 import {
 	EntryLayer,
 	type Layer,
 	RingLayer,
 	SectionLayer,
 } from "$lib/radar/features/layers/index.js";
+import { LabelLayer } from "$lib/radar/features/layers/label/label.layer.js";
 
 type Props = {
 	target: SVGElement;
@@ -19,6 +28,9 @@ type Props = {
 export class RadarRenderer implements StateObserver {
 	#target = $state({} as d3.Selection<SVGElement, unknown, null, undefined>);
 	#container = $state<Container>({ width: 500, height: 500 });
+
+	#sections = new Map<Section["id"], Section>();
+	#rings = new Map<Ring["id"], Ring>();
 
 	#state = $state<AppState | null>(null);
 
@@ -51,12 +63,25 @@ export class RadarRenderer implements StateObserver {
 		return this.#layers.get(id) as Layer<T>;
 	}
 
+	#cache(radar: Radar) {
+		this.#sections.clear();
+		this.#rings.clear();
+
+		for (const section of radar.sections) {
+			this.#sections.set(section.id, section);
+		}
+
+		for (const ring of radar.rings) {
+			this.#rings.set(ring.id, ring);
+		}
+	}
 	update(state: AppState) {
 		this.#state = state;
 
 		if (!this.#state) {
 			return;
 		}
+		this.#cache(state.radar);
 		const context = {
 			dimensions: this.dimensions,
 			config: state.radarConfig,
@@ -82,24 +107,29 @@ export class RadarRenderer implements StateObserver {
 
 		const entryLayer = this.#getOrCreateLayer(
 			"entry",
-			() =>
-				new EntryLayer("entry", this.#target, {
-					dimensions: this.dimensions,
-					config: state.radarConfig,
-					radar: state.radar,
-				}),
+			() => new EntryLayer("entry", this.#target, context),
 		);
 		entryLayer.update(context, this.#enrichEntries(state.radar));
+
+		const labelLayer = this.#getOrCreateLayer(
+			"label",
+			() => new LabelLayer("label", this.#target, context),
+		);
+
+		if (state.radarConfig.showLabels) {
+			const enriched = this.#enrichSections(state.radar);
+
+			labelLayer.update(context, enriched);
+		} else {
+			labelLayer.clear();
+		}
 	}
 
 	#enrichEntries(radar: Radar) {
-		const sections = new Map(radar.sections.map((s) => [s.id, s]));
-		const rings = new Map(radar.rings.map((r) => [r.id, r]));
-
 		return radar.entries
 			.map((entry) => {
-				const section = sections.get(entry.sectionId);
-				const ring = rings.get(entry.ringId);
+				const section = this.#sections.get(entry.sectionId);
+				const ring = this.#rings.get(entry.ringId);
 				if (!section || !ring) return null;
 				return {
 					...entry,
@@ -108,6 +138,44 @@ export class RadarRenderer implements StateObserver {
 				};
 			})
 			.filter((v) => v !== null);
+	}
+
+	#enrichSections(radar: Radar): EnrichedSection[] {
+		const sectionEntries = new Map<Section["id"], Entry[]>();
+		for (const entry of radar.entries) {
+			if (!sectionEntries.has(entry.sectionId)) {
+				sectionEntries.set(entry.sectionId, []);
+			}
+			sectionEntries.get(entry.sectionId)?.push(entry);
+		}
+
+		return radar.sections.map((section) => {
+			const entries = sectionEntries.get(section.id) ?? [];
+
+			const ringEntries = new Map<Ring["id"], Entry[]>();
+			for (const entry of entries) {
+				if (!ringEntries.has(entry.ringId)) {
+					ringEntries.set(entry.ringId, []);
+				}
+				ringEntries.get(entry.ringId)?.push(entry);
+			}
+
+			const rings = Array.from(ringEntries.entries())
+				.map(([ringId, entries]) => {
+					const ring = this.#rings.get(ringId);
+
+					if (!ring) return null;
+					return {
+						...ring,
+						entries,
+					};
+				})
+				.filter((v) => v !== null);
+			return {
+				...section,
+				rings,
+			};
+		});
 	}
 
 	resize(container: Container) {

@@ -1,11 +1,17 @@
 import type { RadarConfig } from "$lib/radar/core/config/types.js";
-import type { Radar } from "$lib/radar/core/elements/types.js";
+import type {
+	Entry,
+	Radar,
+	Ring,
+	Section,
+} from "$lib/radar/core/elements/types.js";
+import type { Merge } from "$lib/types/utils.js";
 
-export type Dimensions = {
+export type Container = {
 	width: number;
 	height: number;
-	radius: number;
 };
+export type Dimensions = Merge<Container, { radius: number }>;
 
 export type Context = {
 	dimensions: Dimensions;
@@ -32,3 +38,7 @@ export type D3Selection<SvgType extends d3.BaseType, T> = d3.Selection<
 	null,
 	undefined
 >;
+
+export type EnrichedRing = Merge<Ring, { entries: Entry[] }>;
+
+export type EnrichedSection = Merge<Section, { rings: EnrichedRing[] }>;

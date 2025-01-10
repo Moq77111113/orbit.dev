@@ -1,6 +1,7 @@
 <script lang="ts">
-  import Button from '../../ui/button/button.svelte';
-  import { useRadar } from '../context.svelte.js';
+  import Button from '$lib/components/ui/button/button.svelte';
+  import { changeLayout } from '$lib/radar/features/actions/index.js';
+  import { useRadar } from '$lib/radar/state/state.svelte.js';
   const radar = useRadar();
 
   const allowedLayouts = [
@@ -12,11 +13,13 @@
 </script>
 
 <div class="grid grid-cols-2 gap-2">
-  {#each allowedLayouts as key}
+  {#each allowedLayouts as layout}
     <Button
       class="w-full"
-      variant={radar.placement === key ? 'default' : 'ghost'}
-      onclick={() => radar.changePlacement(key)}>{key}</Button
+      variant={radar.state.radarConfig.entryPlacement === layout
+        ? 'default'
+        : 'ghost'}
+      onclick={() => radar.execute(changeLayout, { layout })}>{layout}</Button
     >
   {/each}
 </div>

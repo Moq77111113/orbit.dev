@@ -3,7 +3,8 @@
   import * as Dialog from '$lib/components/ui/dialog/index.js';
   import Input from '$lib/components/ui/input/input.svelte';
   import Label from '$lib/components/ui/label/label.svelte';
-  import type { Ring } from '~/types/radar.js';
+  import type { Ring } from '$lib/radar/core/elements/ring.js';
+
   type Props = {
     ring: Ring;
     open: boolean;

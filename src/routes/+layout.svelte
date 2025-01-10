@@ -3,8 +3,7 @@
   import '../app.css';
   import Footer from '$lib/components/footer.svelte';
   import Header from '$lib/components/header.svelte';
-
-  import { createRadarState } from '~/lib/radar/state/state.svelte.js';
+  import { createRadarState } from '$lib/radar/state/state.svelte.js';
 
   const { children } = $props();
 

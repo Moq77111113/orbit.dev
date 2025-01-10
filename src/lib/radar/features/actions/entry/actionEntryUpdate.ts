@@ -2,13 +2,14 @@ import { register } from "$lib/radar/features/actions/register.js";
 
 import type { Entry } from "$lib/radar/core/elements/types.js";
 import type { AppState } from "$lib/radar/state/types.js";
-import type { Merge } from "~/types/utils.js";
+
+import type { Merge } from "$lib/types/utils.js";
 import { updateOne } from "../common.js";
 
 type UpdateEntryData = Merge<Partial<Entry>, Pick<Entry, "id">>;
 
 export const updateEntry = register({
-	name: "entry/add",
+	name: "entry/update",
 	label: "Update Entry",
 	keywords: ["entry", "update"],
 	perform: (state: AppState, data: UpdateEntryData) => {

@@ -1,19 +1,26 @@
 <script lang="ts">
   import * as Dialog from '$lib/components/ui/dialog/index.js';
 
-  import type { Entry, Ring, Section } from '~/types/radar.js';
-  import EntryForm from '../../(forms)/entries/EntryForm.svelte';
-  import { useRadar } from '../../context.svelte.js';
+  import type { Ring, Section } from '$lib/radar/core/elements/types.js';
+
+  import EntryForm from '$lib/components/radar/(forms)/entries/EntryForm.svelte';
+  import type { EntrySchema } from '$lib/components/radar/(forms)/entries/schema.js';
+
   type Props = {
-    entry: Entry;
+    entry: EntrySchema;
     sections: Section[];
     rings: Ring[];
     open: boolean;
-    onSave: (ring: Omit<Entry, 'id'>) => void;
+    onSave: (ring: EntrySchema) => void;
   };
 
-  const radar = useRadar();
-  let { entry, open = $bindable<boolean>(), onSave }: Props = $props();
+  let {
+    entry,
+    open = $bindable<boolean>(),
+    onSave,
+    sections,
+    rings,
+  }: Props = $props();
 
   const listen = (
     e: KeyboardEvent & {
@@ -37,8 +44,8 @@
     <Dialog.Title>Edit {entry.name}</Dialog.Title>
     <EntryForm
       {entry}
-      sections={radar.sections}
-      rings={radar.rings}
+      {sections}
+      {rings}
       onSave={(e) => {
         onSave(e);
         open = false;

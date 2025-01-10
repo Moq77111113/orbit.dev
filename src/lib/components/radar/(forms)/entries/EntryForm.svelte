@@ -10,17 +10,17 @@
   import Minus from 'lucide-svelte/icons/minus';
 
   import Button from '$lib/components/ui/button/button.svelte';
+  import type { Entry, Ring, Section } from '$lib/radar/core/elements/types.js';
+
   import { superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
-  import type { Entry, Ring, Section } from '~/types/radar.js';
-  import { entrySchema } from './schema.js';
+  import { type EntrySchema, entrySchema } from './schema.js';
 
   type Props = {
-    entry: Entry;
+    entry: EntrySchema;
     sections: Section[];
     rings: Ring[];
-
-    onSave: (entry: Entry) => void;
+    onSave: (entry: EntrySchema) => void;
   };
 
   const { entry, sections, rings, onSave }: Props = $props();

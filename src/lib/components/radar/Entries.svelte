@@ -6,24 +6,56 @@
   import { entries } from '$lib/utils/object.js';
   import { cn } from '$lib/utils/ui.js';
   import Trash from 'lucide-svelte/icons/trash';
-  import type { Entry, Ring, Section } from '~/types/radar.js';
+
+  import type { Entry } from '$lib/radar/core/elements/entry.js';
+  import type { Ring } from '$lib/radar/core/elements/ring.js';
+  import type { Section } from '$lib/radar/core/elements/section.js';
+  import { addEntry, updateEntry } from '$lib/radar/features/actions/index.js';
+  import { useRadar } from '$lib/radar/state/state.svelte.js';
 
   import { Button } from '../ui/button/index.js';
   import * as List from '../ui/list/index.js';
   import Separator from '../ui/separator/separator.svelte';
   import EntryDialog from './(entries)/(components)/entry-dialog.svelte';
+  import type { EntrySchema } from './(forms)/entries/schema.js';
   import SidebarElement from './SidebarElement.svelte';
-  import { useRadar } from './context.svelte.js';
 
   const radar = useRadar();
+  type Enriched = { entry: Entry; ring: Ring; section: Section };
+
+  const entriesPerSection = $derived.by(() => {
+    const sectionCache = new Map<string, Section>();
+    const ringCache = new Map<string, Ring>();
+    return radar.state.radar.entries.reduce<
+      Record<Section['name'], Enriched[]>
+    >((acc, entry) => {
+      const section =
+        sectionCache.get(entry.sectionId) ??
+        radar.state.radar.sections.find((s) => s.id === entry.sectionId);
+      const ring =
+        ringCache.get(entry.ringId) ??
+        radar.state.radar.rings.find((r) => r.id === entry.ringId);
+
+      if (!section || !ring) {
+        return acc;
+      }
+      if (!acc[section.name]) {
+        acc[section.name] = [];
+      }
+
+      acc[section.name].push({ entry, section, ring });
+
+      return acc;
+    }, {});
+  });
 
   function sortPerRingIndex(a: Ring, b: Ring) {
-    const aIdx = radar.rings.findIndex((ring) => ring.id === a.id);
-    const bIdx = radar.rings.findIndex((ring) => ring.id === b.id);
+    const aIdx = radar.state.radar.rings.findIndex((ring) => ring.id === a.id);
+    const bIdx = radar.state.radar.rings.findIndex((ring) => ring.id === b.id);
     return aIdx - bIdx;
   }
 
-  let selectedEntry = $state<Entry | null>(null);
+  let selectedEntry = $state<EntrySchema | null>(null);
   let edit = $state(false);
 
   const toggleEdit = (entry?: Entry) => {
@@ -35,12 +67,11 @@
     edit = !edit;
   };
 
-  const defineNewEntry = (
-    section: Section['id'] = radar.sections?.[0]?.id,
-    ring: Ring['id'] = radar.rings?.[0]?.id
+  const editNewEntry = (
+    section: Section['id'] = radar.state.radar.sections?.[0]?.id,
+    ring: Ring['id'] = radar.state.radar.rings?.[0]?.id
   ) => {
     selectedEntry = {
-      id: `ent-${Math.random().toString(36).substr(2, 9)}`,
       name: '',
       sectionId: section,
       ringId: ring,
@@ -48,10 +79,24 @@
     };
     edit = true;
   };
+
+  function isUpdatable(
+    entry: EntrySchema
+  ): entry is EntrySchema & { id: Entry['id'] } {
+    return 'id' in entry;
+  }
+  
+  function addOrUpdate(entry: EntrySchema) {
+    if (isUpdatable(entry)) {
+      radar.execute(updateEntry, entry);
+    } else {
+      radar.execute(addEntry, entry);
+    }
+  }
 </script>
 
 <section class="space-y-2">
-  {#each entries(radar.entriesPerSection) as [section, radarEntries]}
+  {#each entries(entriesPerSection) as [section, radarEntries]}
     <SidebarElement title={section}>
       <List.Root>
         {#each radarEntries.sort( (a, b) => sortPerRingIndex(a.ring, b.ring) ) as { entry, ring }}
@@ -101,7 +146,7 @@
         size="icon"
         variant="ghost"
         class="hover:bg-inherit hover:scale-110"
-        onclick={() => defineNewEntry(radarEntries[0]?.section.id)}
+        onclick={() => editNewEntry(radarEntries[0]?.section.id)}
         ><Plus class="size-4" /></Button
       >
       <Separator />
@@ -112,9 +157,9 @@
 {#if selectedEntry}
   <EntryDialog
     entry={selectedEntry}
-    sections={radar.sections}
-    rings={radar.rings}
+    sections={radar.state.radar.sections}
+    rings={radar.state.radar.rings}
     bind:open={edit}
-    onSave={(e) => radar.addOrUpdateEntry({ ...e, id: selectedEntry!.id })}
+    onSave={(e) => addOrUpdate(e)}
   />
 {/if}

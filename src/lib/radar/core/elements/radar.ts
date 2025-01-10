@@ -3,7 +3,7 @@ import type { Entry } from "./entry.js";
 import type { Ring } from "./ring.js";
 import type { Section } from "./section.js";
 
-type RadarElementBase = Readonly<{
+export type RadarElementBase = Readonly<{
 	id: string;
 	seed: number;
 	version: number;

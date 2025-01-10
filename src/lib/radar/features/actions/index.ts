@@ -20,3 +20,5 @@ export { changeThemeSize } from "./config/theme/actionThemeSizesChange.js";
 export { changeThemeColor } from "./config/theme/actionThemeColorChange.js";
 export { changeThemefontSize } from "./config/theme/actionThemeFontSizesChange.js";
 export { changeThemeOpacity } from "./config/theme/actionThemeOpacityChange.js";
+
+export { changeLayout } from "./config/actionChangeLayout.js";

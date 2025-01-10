@@ -22,6 +22,7 @@ type ThemeAction =
 	| "theme/font-update"
 	| "theme/size-update";
 
+type ConfigAction = "config/layout-update";
 export type ActionName = Pretty<
-	RingAction | SectionAction | EntryAction | ThemeAction
+	RingAction | SectionAction | EntryAction | ThemeAction | ConfigAction
 >;

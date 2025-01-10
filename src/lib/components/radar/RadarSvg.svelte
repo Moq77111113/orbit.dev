@@ -1,9 +1,9 @@
 <script lang="ts">
+  import { IsMobile } from '$lib/hooks/is-mobile.svelte.js';
+  import { RadarRenderer } from '$lib/radar/state/observers/state-observer.svelte.js';
+  import { useRadar } from '$lib/radar/state/state.svelte.js';
   import { onMount } from 'svelte';
-  import { on } from 'svelte/events';
-  import { IsMobile } from '~/lib/hooks/is-mobile.svelte.js';
-  import { RadarRenderer } from '~/lib/radar/state/observers/state-observer.svelte.js';
-  import { useRadar } from '~/lib/radar/state/state.svelte.js';
+
   type Props = {
     maxWidth?: number;
     aspectRatio?: number;

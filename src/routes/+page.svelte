@@ -6,6 +6,7 @@
 
   import Button from '$lib/components/ui/button/button.svelte';
 
+  import Menu from '$lib/components/radar/Menu.svelte';
   import { cn } from '$lib/utils/ui.js';
   import { onMount } from 'svelte';
 
@@ -17,7 +18,7 @@
   });
 </script>
 
-<!-- <Menu /> -->
+<Menu />
 <main class="flex flex-1 flex-col items-center justify-center">
   {#if loading}
     <div class="flex justify-center items-center">

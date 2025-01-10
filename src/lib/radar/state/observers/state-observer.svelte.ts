@@ -2,6 +2,7 @@ import type { StateObserver } from "$lib/radar/state/observers/types.js";
 import type { AppState } from "$lib/radar/state/types.js";
 import * as d3 from "d3";
 
+import { IsMobile } from "$lib/hooks/is-mobile.svelte.js";
 import type {
 	Entry,
 	Radar,
@@ -47,6 +48,7 @@ export class RadarRenderer implements StateObserver {
 	// biome-ignore lint/suspicious/noExplicitAny: Acts as a dictionary
 	#layers = new Map<string, Layer<any, any>>();
 
+	#isMobile = new IsMobile();
 	constructor({ target, container }: RadarRendererProps) {
 		this.#target = d3.select(target);
 		this.#container = container;
@@ -205,7 +207,7 @@ export class RadarRenderer implements StateObserver {
 				}),
 		);
 
-		if (state.radarConfig.showLabels) {
+		if (state.radarConfig.showLabels && !this.#isMobile.current) {
 			const enriched = this.#enrichSections(state.radar);
 
 			labelLayer.update(context, enriched);

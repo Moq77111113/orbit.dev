@@ -60,7 +60,7 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 		const symbol = entrySymbol(this.config, entry);
 		const attrs: Attrbutes<SVGPathElement, EnrichedEntry>[] = [["d", symbol]];
 		if (entry.moved) {
-			attrs.push(["transform", `rotate(${entry.moved > 0 ? 180 : 0})`]);
+			attrs.push(["transform", `rotate(${entry.moved < 0 ? 180 : 0})`]);
 		}
 
 		attrs.push(

@@ -41,18 +41,17 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 	protected getOrCreate(entry: EnrichedEntry) {
 		const one = this.getOne(entry);
 		if (one) return one;
-
+		const { x, y } = this.#getPosition(entry);
 		return this.layer
 			.append("g")
 			.datum(entry)
-			.attr("class", this.#class(entry));
+			.attr("class", this.#class(entry))
+			.attr("transform", `translate(${x}, ${y})`);
 	}
 
 	protected applyAttributes(group: Selection) {
 		const entry = group.datum();
-		const { x, y } = this.#getPosition(entry);
 
-		group.attr("transform", `translate(${x}, ${y})`);
 		let attrs: Attrbutes<SVGPathElement, EnrichedEntry>[] =
 			this.#symbols.default(entry);
 		if (entry.isNew) attrs = this.#symbols.new(entry);
@@ -67,7 +66,10 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 			["stroke-dasharray", "4,4"],
 		);
 
-		const path = group.append("path");
+		let path = group.select<SVGPathElement>("path");
+		if (path.empty()) {
+			path = group.append("path");
+		}
 		for (const [key, value] of attrs) {
 			path.attr(key, value);
 		}
@@ -174,7 +176,7 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 				"d",
 				d3.symbol().type(d3.symbolTriangle).size(this.config.theme.sizes.entry),
 			],
-			["transform", (entry.moved ?? 0) < 0 ? "rotate(180)" : ""],
+			["transform", (entry.moved ?? 0) < 0 ? "rotate(180)" : "none"],
 		],
 
 		new: (entry: EnrichedEntry) => [
@@ -184,12 +186,14 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 			],
 		],
 
-		default: (entry: EnrichedEntry) => [
-			[
-				"d",
-				d3.symbol().type(d3.symbolCircle).size(this.config.theme.sizes.entry),
-			],
-		],
+		default: (entry: EnrichedEntry) => {
+			return [
+				[
+					"d",
+					d3.symbol().type(d3.symbolCircle).size(this.config.theme.sizes.entry),
+				],
+			];
+		},
 	} satisfies Record<
 		EntrySymbols,
 		(args: EnrichedEntry) => Attrbutes<SVGPathElement, EnrichedEntry>[]

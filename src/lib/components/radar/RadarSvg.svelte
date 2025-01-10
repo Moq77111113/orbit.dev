@@ -29,8 +29,7 @@
     }
   });
 
-  function onResize() {
-    console.log('resize');
+  function resize() {
     width = Math.min(maxWidth, window.innerWidth - 32);
     height = width * aspectRatio;
   }
@@ -42,15 +41,15 @@
       });
     }
     radar.addObserver(renderer);
-    onResize();
+    resize();
   });
 </script>
 
-<svelte:window on:resize={onResize} />
+<svelte:window on:resize={resize} />
 
 <div class="relative w-full flex items-center justify-center">
   <svg
-    class=" bg-background rounded-lg p-8"
+    class=" bg-transparent"
     bind:this={svg}
     {width}
     {height}

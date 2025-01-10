@@ -1,5 +1,4 @@
-import type { Entry, Section } from "$lib/radar/core/elements/types.js";
-import type { Ring } from "~/types/radar.js";
+import type { Entry, Ring, Section } from "$lib/radar/core/elements/types.js";
 
 export type DistributedPlacementOptions = {
 	jitter?: number;
@@ -7,12 +6,14 @@ export type DistributedPlacementOptions = {
 
 export type ClusteredPlacementOptions = {
 	clustersCount?: number;
+	spread?: number;
 };
 
 export type RandomPlacementOptions = Record<string, never>;
 
 export type SpiralPlacementOptions = {
 	spiralStep?: number;
+	jitter?: number;
 };
 
 export type PlacementOptions =
@@ -29,6 +30,7 @@ export interface EntryPlacementContext {
 	endAngle: number;
 	minRadius: number;
 	maxRadius: number;
+	rate: number;
 }
 
 export type Point = {

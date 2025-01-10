@@ -39,7 +39,7 @@ export class LabelLayer extends Layer<EnrichedSection, SVGGElement> {
 
 	get corners() {
 		const padding = Math.min(this.dimensions.radius / 4 + 10, 15);
-		console.log(padding);
+
 		const { width, height, radius } = this.dimensions;
 
 		return [

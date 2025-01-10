@@ -63,7 +63,7 @@
       onValueChange={(v) => {
         radar.execute(changeThemeSize, { key, size: v });
       }}
-      class="w-full"
+      class="w-full cursor-pointer"
       {min}
       {max}
       {step}

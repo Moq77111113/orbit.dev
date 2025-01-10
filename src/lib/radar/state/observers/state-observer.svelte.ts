@@ -20,43 +20,66 @@ import {
 } from "$lib/radar/features/layers/index.js";
 import { LabelLayer } from "$lib/radar/features/layers/label/label.layer.js";
 
-type Props = {
+type RadarRendererProps = {
 	target: SVGElement;
 	container: Container;
 };
 
-export class RadarRenderer implements StateObserver {
-	#target = $state({} as d3.Selection<SVGElement, unknown, null, undefined>);
-	#container = $state<Container>({ width: 500, height: 500 });
+interface RadarContext {
+	dimensions: {
+		width: number;
+		height: number;
+		radius: number;
+		center: { x: number; y: number };
+	};
+	config: AppState["radarConfig"];
+	radar: Radar;
+}
 
+export class RadarRenderer implements StateObserver {
+	readonly #target: d3.Selection<SVGElement, unknown, null, undefined>;
+	#container: Container;
 	#sections = new Map<Section["id"], Section>();
 	#rings = new Map<Ring["id"], Ring>();
 
 	#state = $state<AppState | null>(null);
 
-	dimensions = $derived.by(() => ({
-		width: this.#container.width,
-		height: this.#container.height,
-		radius: Math.min(this.#container.width, this.#container.height) / 3,
-		center: { x: this.#container.width / 2, y: this.#container.height / 2 },
-	}));
+	// biome-ignore lint/suspicious/noExplicitAny: Acts as a dictionary
+	#layers = new Map<string, Layer<any, any>>();
 
-	// biome-ignore lint/suspicious/noExplicitAny: Map acts as a dictionary
-	#layers: Map<string, Layer<any, any>> = new Map();
+	constructor({ target, container }: RadarRendererProps) {
+		this.#target = d3.select(target);
+		this.#container = container;
+	}
 
-	constructor(props: Props) {
-		this.#target = d3.select(props.target);
-		this.#container = props.container;
+	private getContext(): RadarContext | null {
+		if (!this.#state) return null;
+
+		return {
+			dimensions: this.dimensions,
+			config: this.#state.radarConfig,
+			radar: this.#state.radar,
+		};
+	}
+
+	get dimensions() {
+		const { width, height } = this.#container;
+		return {
+			width,
+			height,
+			radius: Math.min(width, height) / 3,
+			center: { x: width / 2, y: height / 2 },
+		};
 	}
 
 	#getOrCreateLayer<T, K extends d3.BaseType>(
 		id: string,
-		create: () => Layer<T, K>,
+		factory: () => Layer<T, K>,
 	) {
 		const layer = this.#layers.has(id);
 
 		if (!layer) {
-			const layer = create() as Layer<T, K>;
+			const layer = factory() as Layer<T, K>;
 			this.#layers.set(id, layer);
 		}
 
@@ -73,55 +96,6 @@ export class RadarRenderer implements StateObserver {
 
 		for (const ring of radar.rings) {
 			this.#rings.set(ring.id, ring);
-		}
-	}
-	update(state: AppState) {
-		this.#state = state;
-
-		if (!this.#state) {
-			return;
-		}
-		this.#cache(state.radar);
-		const context = {
-			dimensions: this.dimensions,
-			config: state.radarConfig,
-			radar: state.radar,
-		};
-		const ringLayer = this.#getOrCreateLayer(
-			"ring",
-			() => new RingLayer("ring", this.#target, context),
-		);
-		ringLayer.update(context, state.radar.rings);
-
-		const sectionLayer = this.#getOrCreateLayer(
-			"section",
-			() =>
-				new SectionLayer("section", this.#target, {
-					dimensions: this.dimensions,
-					config: state.radarConfig,
-					radar: state.radar,
-				}),
-		);
-
-		sectionLayer.update(context, state.radar.sections);
-
-		const entryLayer = this.#getOrCreateLayer(
-			"entry",
-			() => new EntryLayer("entry", this.#target, context),
-		);
-		entryLayer.update(context, this.#enrichEntries(state.radar));
-
-		const labelLayer = this.#getOrCreateLayer(
-			"label",
-			() => new LabelLayer("label", this.#target, context),
-		);
-
-		if (state.radarConfig.showLabels) {
-			const enriched = this.#enrichSections(state.radar);
-
-			labelLayer.update(context, enriched);
-		} else {
-			labelLayer.clear();
 		}
 	}
 
@@ -176,6 +150,53 @@ export class RadarRenderer implements StateObserver {
 				rings,
 			};
 		});
+	}
+
+	update(state: AppState) {
+		this.#state = state;
+		const context = this.getContext();
+		if (!context) {
+			return;
+		}
+
+		this.#cache(state.radar);
+
+		const ringLayer = this.#getOrCreateLayer(
+			"ring",
+			() => new RingLayer("ring", this.#target, context),
+		);
+		ringLayer.update(context, state.radar.rings);
+
+		const sectionLayer = this.#getOrCreateLayer(
+			"section",
+			() =>
+				new SectionLayer("section", this.#target, {
+					dimensions: this.dimensions,
+					config: state.radarConfig,
+					radar: state.radar,
+				}),
+		);
+
+		sectionLayer.update(context, state.radar.sections);
+
+		const entryLayer = this.#getOrCreateLayer(
+			"entry",
+			() => new EntryLayer("entry", this.#target, context),
+		);
+		entryLayer.update(context, this.#enrichEntries(state.radar));
+
+		const labelLayer = this.#getOrCreateLayer(
+			"label",
+			() => new LabelLayer("label", this.#target, context),
+		);
+
+		if (state.radarConfig.showLabels) {
+			const enriched = this.#enrichSections(state.radar);
+
+			labelLayer.update(context, enriched);
+		} else {
+			labelLayer.clear();
+		}
 	}
 
 	resize(container: Container) {

@@ -41,12 +41,11 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 	protected getOrCreate(entry: EnrichedEntry) {
 		const one = this.getOne(entry);
 		if (one) return one;
-		const { x, y } = this.#getPosition(entry);
+
 		return this.layer
 			.append("g")
 			.datum(entry)
-			.attr("class", this.#class(entry))
-			.attr("transform", `translate(${x}, ${y})`);
+			.attr("class", this.#class(entry));
 	}
 
 	protected applyAttributes(group: Selection) {
@@ -58,6 +57,8 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 		if (entry.moved) {
 			attrs = this.#symbols.moved(entry);
 		}
+		const { x, y } = this.#getPosition(entry);
+		group.attr("transform", `translate(${x}, ${y})`);
 
 		attrs.push(
 			["fill", entry.ring.color],
@@ -157,6 +158,17 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 		const minRadius = ringIdx * ringWidth;
 		const maxRadius = (ringIdx + 1) * ringWidth;
 
+		const sectionSiblings = this.radar.entries
+			.filter((_) => _.sectionId === entry.sectionId)
+			.sort(
+				(a, b) =>
+					this.radar.rings.findIndex((_) => _.id === a.ringId) -
+					this.radar.rings.findIndex((_) => _.id === b.ringId),
+			);
+
+		const rate =
+			sectionSiblings.findIndex((_) => _.id === entry.id) /
+			sectionSiblings.length;
 		const context = {
 			entry,
 			section: entry.section,
@@ -165,6 +177,7 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 			endAngle,
 			minRadius,
 			maxRadius,
+			rate,
 		} satisfies EntryPlacementContext;
 
 		return this.#strategies[this.config.entryPlacement](context);

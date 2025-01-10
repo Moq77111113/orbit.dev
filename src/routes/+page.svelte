@@ -39,7 +39,7 @@
   ><Panel
     class={cn(
       !sidebar.open && 'rotate-180',
-      ' transition-transform duration-300 ease-in-out '
+      'transition-transform duration-300 ease-in-out '
     )}
   /></Button
 >

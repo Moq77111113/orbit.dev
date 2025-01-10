@@ -80,15 +80,26 @@ export class RingLayer extends Layer<Ring, SVGGElement> {
 			`M -${textRadius} 0 A ${textRadius} ${textRadius} 0 0 1 ${textRadius} 0`,
 		);
 
-		this.getOrCreate(ring)
-			.append("text")
+		const ringElement = this.getOrCreate(ring);
+
+		let text = ringElement.select<SVGTextElement>("text");
+		if (text.empty()) {
+			text = ringElement.append("text");
+		}
+
+		text
 			.datum(ring)
 			.style("fill", (r) => r.color)
 			.style("font-size", `${this.config.theme.fontSizes.rings}px`)
 			.style("opacity", this.config.theme.opacity.text)
 			.style("font-weight", "bold")
-			.style("pointer-events", "none")
-			.append("textPath")
+			.style("pointer-events", "none");
+
+		let textPath = text.select<SVGTextPathElement>("textPath");
+		if (textPath.empty()) {
+			textPath = text.append("textPath");
+		}
+		textPath
 			.transition()
 			.duration(500)
 			.attr("href", (r) => `#${this.#pathSelector(r)}`)

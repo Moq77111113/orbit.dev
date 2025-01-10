@@ -176,7 +176,7 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 				"d",
 				d3.symbol().type(d3.symbolTriangle).size(this.config.theme.sizes.entry),
 			],
-			["transform", (entry.moved ?? 0) < 0 ? "rotate(180)" : "none"],
+			["transform", (entry.moved ?? 0) < 0 ? "rotate(180)" : "rotate(0)"],
 		],
 
 		new: (entry: EnrichedEntry) => [

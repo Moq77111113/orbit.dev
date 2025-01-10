@@ -1,37 +1,40 @@
-import type { Entry, Ring, Section } from "$lib/radar/core/elements/types.js";
 import * as d3 from "d3";
 
 import { Layer } from "../base/base.layer.js";
 import { Tooltip } from "../base/tooltip/tooltip.js";
 
-import type { Attrbutes, D3Selection } from "../base/types.js";
+import type { Attrbutes, D3Selection, EnrichedEntry } from "../base/types.js";
 
-import type { Merge } from "$lib/types/utils.js";
-import { Clustered, Distributed, Random, Spiral } from "./placement/index.js";
-import type { EntryPlacementContext, Point } from "./placement/types.js";
-type EnrichedEntry = Merge<Entry, { section: Section; ring: Ring }>;
-
-type EntrySymbols = "moved" | "new" | "default";
+import { className, html } from "./helpers/dom.js";
+import { entrySymbol } from "./helpers/symbols.js";
+import { placementStrategies } from "./placement/strategy.js";
+import type { EntryPlacementContext } from "./placement/types.js";
 
 type Selection = D3Selection<SVGGElement, EnrichedEntry>;
 
 export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
-	#strategies = {
-		clustered: (ctx) => Clustered(ctx, {}),
-		distributed: (ctx) => Distributed(ctx, {}),
-		random: (ctx) => Random(ctx, {}),
-		spiral: (ctx) => Spiral(ctx, {}),
-	} satisfies Record<
-		typeof this.config.entryPlacement,
-		(ctx: EntryPlacementContext) => Point
-	>;
+	#tooltip = Tooltip();
+
+	constructor(...props: ConstructorParameters<typeof Layer>) {
+		super(...props);
+		this.#registerListeners();
+	}
+
+	#registerListeners() {
+		this.dispatcher.on("entry/highlight", (payload) => {
+			const selected = this.#select(payload.entryId);
+			if (selected.empty()) return;
+
+			selected.dispatch(payload.highlight ? "mouseover" : "mouseout");
+		});
+	}
 
 	protected compare(a: EnrichedEntry, b: EnrichedEntry): boolean {
 		return a.id === b.id;
 	}
 
 	protected getOne(entry: EnrichedEntry) {
-		const selected = this.#select(entry);
+		const selected = this.#select(entry.id);
 		if (selected.empty()) {
 			return null;
 		}
@@ -45,20 +48,20 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 		return this.layer
 			.append("g")
 			.datum(entry)
-			.attr("class", this.#class(entry));
+			.attr("class", className(entry.id));
 	}
 
 	protected applyAttributes(group: Selection) {
 		const entry = group.datum();
 
-		let attrs: Attrbutes<SVGPathElement, EnrichedEntry>[] =
-			this.#symbols.default(entry);
-		if (entry.isNew) attrs = this.#symbols.new(entry);
-		if (entry.moved) {
-			attrs = this.#symbols.moved(entry);
-		}
 		const { x, y } = this.#getPosition(entry);
 		group.attr("transform", `translate(${x}, ${y})`);
+
+		const symbol = entrySymbol(this.config, entry);
+		const attrs: Attrbutes<SVGPathElement, EnrichedEntry>[] = [["d", symbol]];
+		if (entry.moved) {
+			attrs.push(["transform", `rotate(${entry.moved > 0 ? 180 : 0})`]);
+		}
 
 		attrs.push(
 			["fill", entry.ring.color],
@@ -81,8 +84,6 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 		}
 	}
 
-	#tooltip = Tooltip();
-
 	#addTooltip(path: Selection) {
 		const entry = path.datum();
 		path
@@ -96,7 +97,7 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 					background,
 					border: entry.ring.color,
 					textColor: this.config.theme.colors.text,
-					html: this.#html(entry),
+					html: html(entry),
 				});
 			})
 			.on("mouseout", () => {
@@ -104,43 +105,8 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 			});
 	}
 
-	#html(entry: EnrichedEntry) {
-		const { name, description, tags, moved, isNew } = entry;
-		const parts = [`<h3>${name}</h3>`];
-
-		if (description) {
-			parts.push(`<p>${description}</p>`);
-		}
-
-		if (tags?.length) {
-			parts.push(`
-			  <div class="tags">
-				${tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}
-			  </div>
-			`);
-		}
-
-		if (isNew) {
-			parts.push('<div class="new">New</div>');
-		}
-
-		if (moved) {
-			parts.push(`
-			  <div class="moved ${moved > 0 ? "moved-up" : "moved-down"}">
-				${moved > 0 ? "↑" : "↓"}
-			  </div>
-			`);
-		}
-
-		return parts.join("");
-	}
-
-	#class(entry: EnrichedEntry) {
-		return `entry-${entry.id}` as const;
-	}
-
-	#select(entry: EnrichedEntry) {
-		return this.layer.select<SVGGElement>(`.${this.#class(entry)}`);
+	#select(id: EnrichedEntry["id"]) {
+		return this.layer.select<SVGGElement>(className(id, true));
 	}
 
 	#getPosition(entry: EnrichedEntry) {
@@ -180,35 +146,6 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 			rate,
 		} satisfies EntryPlacementContext;
 
-		return this.#strategies[this.config.entryPlacement](context);
+		return placementStrategies[this.config.entryPlacement](context);
 	}
-
-	#symbols = {
-		moved: (entry: EnrichedEntry) => [
-			[
-				"d",
-				d3.symbol().type(d3.symbolTriangle).size(this.config.theme.sizes.entry),
-			],
-			["transform", (entry.moved ?? 0) < 0 ? "rotate(180)" : "rotate(0)"],
-		],
-
-		new: (entry: EnrichedEntry) => [
-			[
-				"d",
-				d3.symbol().type(d3.symbolStar).size(this.config.theme.sizes.entry),
-			],
-		],
-
-		default: (entry: EnrichedEntry) => {
-			return [
-				[
-					"d",
-					d3.symbol().type(d3.symbolCircle).size(this.config.theme.sizes.entry),
-				],
-			];
-		},
-	} satisfies Record<
-		EntrySymbols,
-		(args: EnrichedEntry) => Attrbutes<SVGPathElement, EnrichedEntry>[]
-	>;
 }

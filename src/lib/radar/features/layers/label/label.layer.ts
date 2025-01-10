@@ -142,7 +142,22 @@ export class LabelLayer extends Layer<EnrichedSection, SVGGElement> {
 		const selected = parent.select<SVGGElement>(`.entry-${entry.id}`);
 		if (!selected.empty()) return selected.datum(entry);
 
-		return parent.append("g").attr("class", `entry-${entry.id}`).datum(entry);
+		return parent
+			.append("g")
+			.attr("class", `entry-${entry.id}`)
+			.datum(entry)
+			.on("mouseover", () => {
+				this.dispatcher.dispatch("entry/highlight", {
+					entryId: entry.id,
+					highlight: true,
+				});
+			})
+			.on("mouseout", () => {
+				this.dispatcher.dispatch("entry/highlight", {
+					entryId: entry.id,
+					highlight: false,
+				});
+			});
 	}
 
 	#fillSection(section: Group<EnrichedSection>) {
@@ -201,7 +216,6 @@ export class LabelLayer extends Layer<EnrichedSection, SVGGElement> {
 		text = text
 			.attr("x", 10)
 			.attr("dy", "0.32em")
-
 			.attr("font-size", "12px")
 			.attr("fill", this.config.theme.colors.text)
 			.text((d) => d.name);

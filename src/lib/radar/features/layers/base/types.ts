@@ -42,3 +42,5 @@ export type D3Selection<SvgType extends d3.BaseType, T> = d3.Selection<
 export type EnrichedRing = Merge<Ring, { entries: Entry[] }>;
 
 export type EnrichedSection = Merge<Section, { rings: EnrichedRing[] }>;
+
+export type EnrichedEntry = Merge<Entry, { section: Section; ring: Ring }>;

@@ -163,17 +163,22 @@ export class RadarRenderer implements StateObserver {
 
 		const ringLayer = this.#getOrCreateLayer(
 			"ring",
-			() => new RingLayer("ring", this.#target, context),
+			() =>
+				new RingLayer({
+					id: "ring",
+					parent: this.#target,
+					context,
+				}),
 		);
 		ringLayer.update(context, state.radar.rings);
 
 		const sectionLayer = this.#getOrCreateLayer(
 			"section",
 			() =>
-				new SectionLayer("section", this.#target, {
-					dimensions: this.dimensions,
-					config: state.radarConfig,
-					radar: state.radar,
+				new SectionLayer({
+					id: "section",
+					parent: this.#target,
+					context,
 				}),
 		);
 
@@ -181,13 +186,23 @@ export class RadarRenderer implements StateObserver {
 
 		const entryLayer = this.#getOrCreateLayer(
 			"entry",
-			() => new EntryLayer("entry", this.#target, context),
+			() =>
+				new EntryLayer({
+					id: "entry",
+					parent: this.#target,
+					context,
+				}),
 		);
 		entryLayer.update(context, this.#enrichEntries(state.radar));
 
 		const labelLayer = this.#getOrCreateLayer(
 			"label",
-			() => new LabelLayer("label", this.#target, context),
+			() =>
+				new LabelLayer({
+					id: "label",
+					parent: this.#target,
+					context,
+				}),
 		);
 
 		if (state.radarConfig.showLabels) {

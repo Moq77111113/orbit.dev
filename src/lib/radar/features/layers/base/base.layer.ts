@@ -1,16 +1,28 @@
 import type * as d3 from "d3";
+import { D3Dispatcher } from "../events/dispatcher.js";
 import type { Context, D3Selection, Dimensions } from "./types.js";
 
+type LayerProps = {
+	id: string;
+	parent: D3Selection<SVGElement, unknown>;
+	context: Context;
+};
+
 export abstract class Layer<Data, SVGType extends d3.BaseType = d3.BaseType> {
+	protected readonly parent: D3Selection<SVGElement, unknown>;
+
 	protected data: Data[] = [];
 	protected layer: d3.Selection<SVGGElement, unknown, null, undefined>;
 
-	constructor(
-		public readonly id: string,
-		protected parent: d3.Selection<SVGElement, unknown, null, undefined>,
-		private context: Context,
-	) {
-		this.layer = parent.append("g").attr("class", `lyr-${id}`);
+	private context: Context;
+
+	protected dispatcher = D3Dispatcher.create();
+
+	constructor(props: LayerProps) {
+		this.parent = props.parent;
+		this.context = props.context;
+
+			this.layer = this.parent.append("g").attr("class", `lyr-${props.id}`);
 	}
 
 	protected compare(a: Data, b: Data) {

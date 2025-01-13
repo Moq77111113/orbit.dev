@@ -1,11 +1,12 @@
+import { entryId, ringId, sectionId } from "$lib/forms/unit.js";
 import { z } from "zod";
 
 export const entrySchema = z.object({
-	id: z.custom<`ent-${string}`>((val) => /^ent-.+$/.test(val)).optional(),
+	id: entryId.optional(),
 	name: z.string(),
 	description: z.string().optional(),
-	sectionId: z.custom<`sec-${string}`>((val) => /^sec-.+$/.test(val)),
-	ringId: z.custom<`rng-${string}`>((val) => /^rng-.+$/.test(val)),
+	sectionId: sectionId,
+	ringId: ringId,
 	isNew: z.boolean().optional().default(false).optional(),
 	link: z.string().url().optional(),
 	moved: z.union([z.literal(-1), z.literal(0), z.literal(1)]).optional(),

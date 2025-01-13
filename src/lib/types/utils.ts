@@ -15,3 +15,5 @@ export type Head<
 	T extends unknown[],
 	N extends number = T["length"],
 > = T["length"] extends N ? T : Head<Pop<T>, N>;
+
+export type Creatable<T extends { id: string }> = Omit<T, "id">;

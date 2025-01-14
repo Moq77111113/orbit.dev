@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Ring } from '$lib/radar/core/elements/ring.js';
-  import ResponsiveDialog from '../ResponsiveDialog.svelte';
-  import RingForm from './RingForm.svelte';
+  import ResponsiveDialog from '../responsive-dialog.svelte';
+  import RingForm from './ring-form.svelte';
 
   type Props = {
     ring: Ring;

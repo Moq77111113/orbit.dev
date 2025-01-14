@@ -10,14 +10,18 @@
 >
   import * as Form from '$lib/components/ui/form/index.js';
   import type { FsSuperForm } from 'formsnap';
-  import InputField from './InputField.svelte';
+
+  import type { SelectProps } from './labeled.select.svelte';
+  import LabeledSelect from './labeled.select.svelte';
+
+  type Selection = Pick<SelectProps, 'items' | 'placeholder'>;
   type Props = {
     name: U;
     label: string;
     form: FsSuperForm<F>;
-  } & Record<string, unknown>;
+  } & Selection
 
-  const { name, label, form, ...inputProps }: Props = $props();
+  const { name, label, form, ...selectProps }: Props = $props();
 
   const { form: formData } = form;
 </script>
@@ -25,9 +29,9 @@
 <Form.Field {form} {name}>
   <Form.Control>
     {#snippet children({ props })}
-      <InputField
+      <LabeledSelect
         {...props}
-        {...inputProps}
+        {...selectProps}
         {label}
         bind:value={$formData[name] as string}
       />

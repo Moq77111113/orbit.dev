@@ -13,12 +13,13 @@
   import { addEntry, updateEntry } from '$lib/radar/features/actions/index.js';
   import { useRadar } from '$lib/radar/state/state.svelte.js';
 
+  import EntrySectionTitle from '../molecules/entry-section-title.svelte';
+  import SidebarElement from '../molecules/menu-section.svelte';
   import { Button } from '../ui/button/index.js';
   import * as List from '../ui/list/index.js';
   import Separator from '../ui/separator/separator.svelte';
   import EntryDialog from './(entries)/(components)/entry-dialog.svelte';
   import type { EntrySchema } from './(forms)/entries/schema.js';
-  import SidebarElement from './SidebarElement.svelte';
 
   const radar = useRadar();
   type Enriched = { entry: Entry; ring: Ring; section: Section };
@@ -55,6 +56,16 @@
     return aIdx - bIdx;
   }
 
+  function sortPerSectionName(a: Section['name'], b: Section['name']) {
+    const aIdx = radar.state.radar.sections.findIndex(
+      (section) => section.name === a
+    );
+    const bIdx = radar.state.radar.sections.findIndex(
+      (section) => section.name === b
+    );
+    return aIdx - bIdx;
+  }
+
   let selectedEntry = $state<EntrySchema | null>(null);
   let edit = $state(false);
 
@@ -85,7 +96,7 @@
   ): entry is EntrySchema & { id: Entry['id'] } {
     return 'id' in entry;
   }
-  
+
   function addOrUpdate(entry: EntrySchema) {
     if (isUpdatable(entry)) {
       radar.execute(updateEntry, entry);
@@ -96,39 +107,13 @@
 </script>
 
 <section class="space-y-2">
-  {#each entries(entriesPerSection) as [section, radarEntries]}
+  {#each entries(entriesPerSection).sort( ([a], [b]) => sortPerSectionName(a, b) ) as [section, radarEntries]}
     <SidebarElement title={section}>
       <List.Root>
         {#each radarEntries.sort( (a, b) => sortPerRingIndex(a.ring, b.ring) ) as { entry, ring }}
           <List.Item>
             {#snippet title()}
-              <div
-                class=" text-xs font-medium flex items-center justify-center gap-2 hover:scale-105"
-              >
-                <span
-                  style="--rng-color: {ring.color}"
-                  title={ring.name}
-                  class="size-1 rounded-full ring-2 ring-[--rng-color]"
-                >
-                </span>
-                {entry.name}
-                {#if entry.isNew}
-                  <span
-                    class="rounded-md bg-[#afa] p-1 text-xs leading-none text-black no-underline"
-                  >
-                    new
-                  </span>
-                {/if}
-                {#if entry.moved}
-                  <ArrowDown
-                    class={cn(
-                      { 'rotate-180 text-green-600': entry.moved === 1 },
-                      { 'text-red-600': entry.moved === -1 },
-                      'size-3 '
-                    )}
-                  />
-                {/if}
-              </div>
+              <EntrySectionTitle {ring} {entry} />
             {/snippet}
 
             <List.Actions>

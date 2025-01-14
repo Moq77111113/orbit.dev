@@ -21,25 +21,22 @@ export function Spiral(
 ) {
 	if (!context.section) return { x: 0, y: 0 };
 
-	const { startAngle, endAngle, minRadius, maxRadius, entry, rate } = context;
+	const random = seededRandom(context.entry.id);
+	const { startAngle, endAngle, minRadius, maxRadius, rate } = context;
 	const { spiralStep = 0.1, jitter = 0.05 } = options;
-	const random = seededRandom(entry.id);
 
 	const sectionAngle = endAngle - startAngle;
-	const rotations = (2 * Math.PI * (maxRadius - minRadius)) / spiralStep;
-
+	const sectionCenter = startAngle + sectionAngle / 2;
+	const rotations = 2;
 	const t = rate;
+	const angle = sectionCenter + t * rotations * sectionAngle - sectionAngle / 2;
 
-
-	const theta = startAngle + rotations * t * sectionAngle;
-	const radius = minRadius + (spiralStep * theta) / (2 * Math.PI);
-
-
+	const radius = minRadius + t * (maxRadius - minRadius);
 	const rJitter = (random() - 0.5) * spiralStep * jitter;
-	const aJitter = (random(Math.PI) - 0.5) * 0.1 * jitter;
+	const aJitter = (random(Math.PI) - 0.5) * sectionAngle * jitter;
 
 	return {
-		x: (radius + rJitter) * Math.cos(theta + aJitter),
-		y: (radius + rJitter) * Math.sin(theta + aJitter),
+		x: (radius + rJitter) * Math.cos(angle + aJitter),
+		y: (radius + rJitter) * Math.sin(angle + aJitter),
 	};
 }

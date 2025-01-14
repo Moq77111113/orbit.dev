@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Actions from '$lib/components/molecules/Actions.svelte';
-  import type { ActionHandle } from '$lib/components/molecules/Actions.svelte';
+  import Actions from '$lib/components/molecules/menu-actions.svelte';
+  import type { ActionHandle } from '$lib/components/molecules/menu-actions.svelte';
   import type { Ring } from '$lib/radar/core/elements/ring.js';
   import {
     moveRing,
@@ -14,7 +14,7 @@
   import Pencil from 'lucide-svelte/icons/pencil';
 
   import Trash from 'lucide-svelte/icons/trash';
-  import RingEdit from './RingEdit.svelte';
+  import RingEdit from './ring-edit.svelte';
 
   const radar = useRadar();
   type Props = {

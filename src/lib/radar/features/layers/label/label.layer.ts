@@ -70,7 +70,7 @@ export class LabelLayer extends Layer<EnrichedSection, SVGGElement> {
 		this.#fillSection(group);
 
 		let yOffset = 25;
-		for (const ring of section.rings) {
+		for (const ring of section.rings.sort((a, b) => this.#sortRings(a, b))) {
 			if (!ring.entries.length) continue;
 			const ringGroup = this.#getOrCreateRing(group, ring);
 
@@ -131,6 +131,11 @@ export class LabelLayer extends Layer<EnrichedSection, SVGGElement> {
 		return { x, y };
 	}
 
+	#sortRings(a: Ring, b: Ring) {
+		const aIdx = this.radar.rings.findIndex((r) => r.id === a.id);
+		const bIdx = this.radar.rings.findIndex((r) => r.id === b.id);
+		return aIdx - bIdx
+	}
 	#getOrCreateRing(parent: Group<EnrichedSection>, ring: Ring) {
 		const selected = parent.select<SVGGElement>(`.ring-${ring.id}`);
 		if (!selected.empty()) return selected.datum(ring);

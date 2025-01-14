@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
   import { MediaQuery } from 'svelte/reactivity';
-  import Dialog from './Dialog.svelte';
-  import Drawer from './Drawer.svelte';
+  import Dialog from './dialog.svelte';
+  import Drawer from './drawer.svelte';
   type Props = {
     open: boolean;
     title: Snippet;

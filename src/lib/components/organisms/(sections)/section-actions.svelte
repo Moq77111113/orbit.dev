@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Actions from '$lib/components/molecules/Actions.svelte';
-  import type { ActionHandle } from '$lib/components/molecules/Actions.svelte';
+  import Actions from '$lib/components/molecules/menu-actions.svelte';
+  import type { ActionHandle } from '$lib/components/molecules/menu-actions.svelte';
 
   import type { Section } from '$lib/radar/core/elements/section.js';
   import {
@@ -13,7 +13,7 @@
   import Pencil from 'lucide-svelte/icons/pencil';
 
   import Trash from 'lucide-svelte/icons/trash';
-  import SectionEdit from './SectionEdit.svelte';
+  import SectionEdit from './section-edit.svelte';
 
   const radar = useRadar();
   type Props = {

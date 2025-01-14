@@ -1,7 +1,7 @@
 <script lang="ts">
   import { type RingSchema, ringForm } from '$lib/forms/ring.form.js';
-  import FormField from '../../molecules/FormFieldInput.svelte';
-  import FormWrapper from '../../molecules/FormWrapper.svelte';
+  import FormField from '../../molecules/form-input.svelte';
+  import FormWrapper from '../../molecules/form-wrapper.svelte';
   import Button from '../../ui/button/button.svelte';
 
   type Props = {

@@ -3,7 +3,8 @@
 
   import type { Ring, Section } from '$lib/radar/core/elements/types.js';
 
-  import EntryForm from '$lib/components/radar/(forms)/entries/EntryForm.svelte';
+  import EntryForm from '$lib/components/organisms/(entries)/entry-form.svelte';
+
   import type { EntrySchema } from '$lib/components/radar/(forms)/entries/schema.js';
 
   type Props = {
@@ -47,6 +48,7 @@
       {sections}
       {rings}
       onSave={(e) => {
+        console.log(e)
         onSave(e);
         open = false;
       }}

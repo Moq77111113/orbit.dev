@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 
-  import Tabs from './Tabs.svelte';
+  import Tabs from '../organisms/(menu)/menu-tabs.svelte';
 </script>
 
 <Sidebar.Root variant="floating">

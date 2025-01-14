@@ -12,7 +12,12 @@
     open?: boolean;
   };
 
-  const { icon = ChevronsUpDown, title, children, open = true }: Props = $props();
+  const {
+    icon = ChevronsUpDown,
+    title,
+    children,
+    open = true,
+  }: Props = $props();
 </script>
 
 <Collapsible.Root {open}>

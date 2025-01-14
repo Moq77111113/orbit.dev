@@ -14,6 +14,7 @@ export const updateEntry = register({
 	keywords: ["entry", "update"],
 	perform: (state: AppState, data: UpdateEntryData) => {
 		const entries = updateOne(state.radar.entries, data.id, { ...data });
+		console.log("updateEntry", data, entries);
 		return {
 			appState: {
 				radar: {

@@ -9,11 +9,8 @@ export function color(label?: string): string {
 		hash = cleaned.charCodeAt(i) + ((hash << 5) - hash);
 	}
 
-	let color = "#";
-	for (let i = 0; i < 3; i++) {
-		const value = (hash >> (i * 8)) & 0xff;
-		color += `00${value.toString(16)}`.slice(-2);
-	}
-
-	return color;
+	const hue = Math.abs(hash % 360);
+	const saturation = 90 + (hash % 10);
+	const lightness = 50 + (hash % 10);
+	return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }

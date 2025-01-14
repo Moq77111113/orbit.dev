@@ -22,9 +22,10 @@ export function Random(
 	context: EntryPlacementContext,
 	_options: RandomPlacementOptions,
 ) {
+	if (!context.section) return { x: 0, y: 0 };
+
 	const { minRadius, maxRadius, endAngle, startAngle, entry } = context;
 
-	if (!context.section) return { x: 0, y: 0 };
 	const random = seededRandom(entry.id);
 	const angle = startAngle + random() * (endAngle - startAngle);
 

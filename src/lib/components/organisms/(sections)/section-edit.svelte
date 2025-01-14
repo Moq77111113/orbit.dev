@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Section } from '$lib/radar/core/elements/section.js';
-  import ResponsiveDialog from '../ResponsiveDialog.svelte';
-  import SectionForm from './SectionForm.svelte';
+  import ResponsiveDialog from '../responsive-dialog.svelte';
+  import SectionForm from './section-form.svelte';
 
   type Props = {
     section: Section;

@@ -7,7 +7,7 @@
     children: Snippet;
   };
 
-  const { class: clazz, children }: Props = $props();
+      const { class: clazz, children }: Props = $props();
 </script>
 
 <ul class={cn('flex flex-col gap-2', clazz)}>

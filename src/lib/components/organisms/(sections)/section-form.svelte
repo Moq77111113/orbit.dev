@@ -1,7 +1,7 @@
 <script lang="ts">
   import { type SectionSchema, sectionForm } from '$lib/forms/section.form.js';
-  import FormField from '../../molecules/FormFieldInput.svelte';
-  import FormWrapper from '../../molecules/FormWrapper.svelte';
+  import FormField from '../../molecules/form-input.svelte';
+  import FormWrapper from '../../molecules/form-wrapper.svelte';
   import Button from '../../ui/button/button.svelte';
 
   type Props = {
@@ -15,7 +15,6 @@
 <FormWrapper data={section} {onSave} schema={sectionForm}>
   {#snippet children(form)}
     <FormField {form} name="name" label="Name" />
-
     <Button type="submit">Save</Button>
   {/snippet}
 </FormWrapper>

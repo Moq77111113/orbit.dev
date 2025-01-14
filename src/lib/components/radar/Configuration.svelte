@@ -3,10 +3,10 @@
   import Colors from 'lucide-svelte/icons/palette';
   import Radar from 'lucide-svelte/icons/radar';
   import Shell from 'lucide-svelte/icons/shell';
+  import RadarRings from '../organisms/(rings)/Rings.svelte';
+  import RadarSections from '../organisms/(sections)/Sections.svelte';
   import Separator from '../ui/separator/separator.svelte';
   import RadarLayout from './(conf)/RadarLayout.svelte';
-  import RadarRings from '../organisms/(rings)/Rings.svelte';
-  import RadarSections from './(conf)/RadarSections.svelte';
   import RadarTheme from './(conf)/RadarTheme.svelte';
   import SidebarElement from './SidebarElement.svelte';
 

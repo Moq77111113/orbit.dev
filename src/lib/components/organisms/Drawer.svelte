@@ -5,7 +5,7 @@
     open: boolean;
     title: Snippet;
     content: Snippet;
-    footer: Snippet;
+    footer?: Snippet;
   };
 
   let { open = $bindable<boolean>(), title, content, footer }: Props = $props();
@@ -17,8 +17,10 @@
       <Drawer.Title>{@render title()}</Drawer.Title>
     </Drawer.Header>
     {@render content()}
-    <Drawer.Footer>
-      {@render footer()}
-    </Drawer.Footer>
+    {#if footer}
+      <Drawer.Footer>
+        {@render footer()}
+      </Drawer.Footer>
+    {/if}
   </Drawer.Content>
 </Drawer.Root>

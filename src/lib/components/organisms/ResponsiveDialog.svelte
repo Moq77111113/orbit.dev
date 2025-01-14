@@ -7,7 +7,7 @@
     open: boolean;
     title: Snippet;
     content: Snippet;
-    footer: Snippet;
+    footer?: Snippet;
   };
 
   const isDesktop = new MediaQuery('(min-width: 768px)');

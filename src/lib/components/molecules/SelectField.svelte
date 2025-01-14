@@ -1,16 +1,26 @@
-<script lang="ts" generics="T extends {id: string, name: string}">
-  import * as Form from '$lib/components/ui/form/index.js';
-  import * as Select from '$lib/components/ui/select/index.js';
-
-  type Props = {
+<script lang="ts" module>
+  type T = { id: string; name: string };
+  export type SelectProps = {
     name: string;
     label: string;
     value: string;
     placeholder: string;
     items: T[];
   } & Record<string, unknown>;
+</script>
 
-  let { label, value, name, placeholder, items, ...rest }: Props = $props();
+<script lang="ts" generics="T extends {id: string, name: string}">
+  import * as Form from '$lib/components/ui/form/index.js';
+  import * as Select from '$lib/components/ui/select/index.js';
+
+  let {
+    label,
+    value = $bindable(),
+    name,
+    placeholder,
+    items,
+    ...rest
+  }: SelectProps = $props();
 </script>
 
 <Form.Label>{label}</Form.Label>

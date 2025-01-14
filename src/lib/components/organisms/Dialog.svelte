@@ -6,7 +6,7 @@
     open: boolean;
     title: Snippet;
     content: Snippet;
-    footer: Snippet;
+    footer?: Snippet;
   };
 
   let { open = $bindable<boolean>(), title, content, footer }: Props = $props();
@@ -17,8 +17,10 @@
     <Dialog.Title>{@render title()}</Dialog.Title>
     {@render content()}
 
-    <Dialog.Footer>
-      {@render footer()}
-    </Dialog.Footer>
+    {#if footer}
+      <Dialog.Footer>
+        {@render footer()}
+      </Dialog.Footer>
+    {/if}
   </Dialog.Content>
 </Dialog.Root>

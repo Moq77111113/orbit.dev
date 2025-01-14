@@ -1,12 +1,11 @@
 <script lang="ts" generics="T extends Record<string, unknown>">
+  import type { FsSuperForm } from 'formsnap';
   import type { Snippet } from 'svelte';
   import { superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
   import type { z } from 'zod';
 
-  type ChildrenProp = {
-    values: T;
-  };
+  type ChildrenProp = FsSuperForm<T>;
 
   type Props = {
     data: T;
@@ -28,9 +27,9 @@
     },
   });
 
-  const { form: formData, enhance } = form;
+  const { enhance } = form;
 </script>
 
 <form method="POST" use:enhance class="grid gap-4">
-  {@render children({ values: $formData })}
+  {@render children(form)}
 </form>

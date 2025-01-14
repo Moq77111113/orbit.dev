@@ -5,7 +5,7 @@
   import Shell from 'lucide-svelte/icons/shell';
   import Separator from '../ui/separator/separator.svelte';
   import RadarLayout from './(conf)/RadarLayout.svelte';
-  import RadarRings from './(conf)/RadarRings.svelte';
+  import RadarRings from '../organisms/(rings)/Rings.svelte';
   import RadarSections from './(conf)/RadarSections.svelte';
   import RadarTheme from './(conf)/RadarTheme.svelte';
   import SidebarElement from './SidebarElement.svelte';

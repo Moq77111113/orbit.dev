@@ -1,6 +1,6 @@
-import Logo from "./logo.svelte";
 import GitHub from "./github.svelte";
+import Logo from "./logo.svelte";
 export const Icons = {
 	logo: Logo,
-    gitHub: GitHub
+	github: GitHub,
 };

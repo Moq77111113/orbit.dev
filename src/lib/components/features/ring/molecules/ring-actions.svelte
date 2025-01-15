@@ -10,8 +10,6 @@
   import Pencil from 'lucide-svelte/icons/pencil';
   import Trash from 'lucide-svelte/icons/trash';
 
-  // import RingEdit from './ring-edit.svelte';
-
   type Actions = {
     onEdit(ring: Ring): void;
     onRemove(ring: Ring): void;
@@ -50,11 +48,3 @@
 </script>
 
 <MenuActions {actions} item={ring} />
-<!-- 
-{#if edit}
-  <RingEdit
-    open={!!edit}
-    ring={edit}
-    onChange={(r) => updateOne({ ...r, id: ring.id })}
-  />
-{/if} -->

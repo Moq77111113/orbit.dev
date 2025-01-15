@@ -3,4 +3,4 @@
   import Icon from './icon.svelte';
 </script>
 
-<Icon i={IconList.logo} class="size-8 rotate-45" />
+<Icon i={IconList.logo} class="size-6" />

@@ -11,7 +11,7 @@
 
 <script lang="ts" generics="T extends {id: string, name: string}">
   import * as Select from '$lib/components/ui/select/index.js';
-  import Labeled from '../atoms/labeled-field.svelte';
+  import Labeled from '../atoms/labeled.svelte';
 
   let {
     label,

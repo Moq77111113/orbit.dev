@@ -2,7 +2,7 @@
   import type { HTMLInputAttributes } from 'svelte/elements';
 
   import { Input } from '$lib/components/ui/input/index.js';
-  import Labeled from '../atoms/labeled-field.svelte';
+  import Labeled from '../atoms/labeled.svelte';
 
   export type InputFieldProps = {
     label: string;

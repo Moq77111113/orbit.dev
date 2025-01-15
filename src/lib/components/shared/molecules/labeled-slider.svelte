@@ -12,7 +12,7 @@
 
 <script lang="ts">
   import { cn } from '$lib/utils/ui.js';
-  import Labeled from '../atoms/labeled-field.svelte';
+  import Labeled from '../atoms/labeled.svelte';
   import * as Slider from '$lib/components/ui/slider/index.js';
 
   let {

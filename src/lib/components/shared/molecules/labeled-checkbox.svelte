@@ -1,7 +1,7 @@
 <script lang="ts">
   import Checkbox from '$lib/components/ui/checkbox/checkbox.svelte';
 
-  import Labeled from '../atoms/labeled-field.svelte';
+  import Labeled from '../atoms/labeled.svelte';
 
   export type CheckboxFieldProps = {
     label: string;

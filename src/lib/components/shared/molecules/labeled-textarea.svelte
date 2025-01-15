@@ -2,7 +2,7 @@
   import type { HTMLTextareaAttributes } from 'svelte/elements';
 
   import Textarea from '$lib/components/ui/textarea/textarea.svelte';
-  import Labeled from '../atoms/labeled-field.svelte';
+  import Labeled from '../atoms/labeled.svelte';
 
   export type TextAreaFieldProps = {
     label: string;

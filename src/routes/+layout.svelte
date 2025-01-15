@@ -1,8 +1,8 @@
 <script lang="ts">
   import * as Sidebar from '$lib/components/ui/sidebar/index.js';
   import '../app.css';
-  import Footer from '$lib/components/organisms/footer.svelte';
-  import Header from '$lib/components/organisms/header.svelte';
+  import Footer from '$lib/components/shared/organisms/footer.svelte';
+  import Header from '$lib/components/shared/organisms/header.svelte';
   import { createRadarState } from '$lib/radar/state/state.svelte.js';
 
   const { children } = $props();

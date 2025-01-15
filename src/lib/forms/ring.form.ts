@@ -1,4 +1,4 @@
-import type { Ring } from "$lib/radar/core/elements/ring.js";
+import type { Ring } from "$lib/radar/core/elements/types.js"
 import type { Creatable } from "$lib/types/utils.js";
 
 import { z } from "zod";

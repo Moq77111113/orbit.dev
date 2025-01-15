@@ -1,4 +1,4 @@
-import type { Entry } from "$lib/radar/core/elements/entry.js";
+import type { Entry } from "$lib/radar/core/elements/types.js";
 
 export const layerEvents = ["entry/highlight"] as const;
 

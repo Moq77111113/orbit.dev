@@ -1,4 +1,4 @@
-import type { RadarElementBase } from "$lib/radar/core/elements/radar.js";
+import type { RadarElementBase } from "$lib/radar/core/elements/types.js"
 
 export const updateOne = <T extends RadarElementBase>(
 	items: T[],

@@ -9,7 +9,7 @@ import type { AppState } from "$lib/radar/state/types.js";
 import { getContext, setContext } from "svelte";
 
 import { initRadar } from "$lib/radar/core/elements/init.js";
-import type { Radar } from "$lib/radar/core/elements/radar.js";
+import type { Radar } from '$lib/radar/core/elements/types.js';
 import type { StateObserver } from "$lib/radar/state/observers/types.js";
 import { getDefaultState } from "./default.js";
 

@@ -1,4 +1,4 @@
-import type { Section } from "$lib/radar/core/elements/section.js";
+import type { Section } from "$lib/radar/core/elements/types.js"
 import type { Creatable } from "$lib/types/utils.js";
 
 import { z } from "zod";

@@ -1,12 +1,12 @@
 <script lang="ts">
-  import Radar from '$lib/components/radar/RadarSvg.svelte';
+  import Radar from '$lib/components/radar/organisms/radar.svelte';
 
   import { useSidebar } from '$lib/components/ui/sidebar/index.js';
   import Panel from 'lucide-svelte/icons/panel-right-open';
 
   import Button from '$lib/components/ui/button/button.svelte';
 
-  import Menu from '$lib/components/radar/Menu.svelte';
+  import Menu from '$lib/components/menu/organisms/menu.svelte';
   import { cn } from '$lib/utils/ui.js';
   import { onMount } from 'svelte';
   import { MediaQuery } from 'svelte/reactivity';

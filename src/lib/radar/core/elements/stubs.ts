@@ -1,9 +1,8 @@
 import { randomInteger } from "$lib/utils/random.js";
-import type { Entry } from "./entry.js";
-import type { Radar } from "./radar.js";
-import type { Ring } from "./ring.js";
-import type { Section } from "./section.js";
-
+import type { Entry } from "./types/entry.js";
+import type { Radar } from "./types/radar.js";
+import type { Ring } from "./types/ring.js";
+import type { Section } from "./types/section.js";
 
 export const sections = [
 	{

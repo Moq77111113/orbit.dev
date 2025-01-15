@@ -1,5 +1,5 @@
 import { entryId, ringId, sectionId } from "$lib/forms/unit.js";
-import type { Entry } from "$lib/radar/core/elements/entry.js";
+import type { Entry } from "$lib/radar/core/elements/types.js"
 import type { Creatable } from "$lib/types/utils.js";
 import { z } from "zod";
 

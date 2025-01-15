@@ -1,5 +1,5 @@
 import type { RadarConfig } from "$lib/radar/core/config/types.js";
-import type { Radar } from "$lib/radar/core/elements/radar.js";
+import type { Radar } from "$lib/radar/core/elements/types.js";
 
 export type AppState = {
 	showWelcome: boolean;

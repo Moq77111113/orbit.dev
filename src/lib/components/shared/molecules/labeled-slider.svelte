@@ -28,7 +28,7 @@
   <Slider.Root
     type="single"
     onValueChange={onChange}
-    class={cn('w-full cursor-pointer', clazz)}
+    class={cn('w-full cursor-pointer py-4', clazz)}
     {...rest}
     bind:value
   />

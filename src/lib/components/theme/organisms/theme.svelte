@@ -15,9 +15,9 @@
 
   const sizes = $derived({
     entry: {
-      min: 0,
+      min: 10,
       max: 100,
-      step: 10,
+      step: 5,
       label: 'entry',
       value: theme.sizes.entry,
     },

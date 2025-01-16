@@ -23,6 +23,16 @@ type ThemeAction =
 	| "theme/size-update";
 
 type ConfigAction = "config/layout-update";
+
+type ExportAction = "export/svg" | "export/png" | "export/json";
+type ClipActions = "clip/svg" | "clip/png" | "clip/json";
+
 export type ActionName = Pretty<
-	RingAction | SectionAction | EntryAction | ThemeAction | ConfigAction
+	| RingAction
+	| SectionAction
+	| EntryAction
+	| ThemeAction
+	| ConfigAction
+	| ExportAction
+	| ClipActions
 >;

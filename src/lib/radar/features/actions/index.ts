@@ -22,3 +22,6 @@ export { changeThemefontSize } from "./config/theme/actionThemeFontSizesChange.j
 export { changeThemeOpacity } from "./config/theme/actionThemeOpacityChange.js";
 
 export { changeLayout } from "./config/actionChangeLayout.js";
+
+export { exportSvg } from "./export/actionExportSvg.js";
+export { exportPng } from "./export/actionExportPng.js";

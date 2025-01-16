@@ -14,8 +14,8 @@
 
 <div class="relative flex min-h-screen flex-col">
   <Header />
-  <Sidebar.Provider class="flex flex-1">
+
     {@render children?.()}
-  </Sidebar.Provider>
+
   <Footer />
 </div>

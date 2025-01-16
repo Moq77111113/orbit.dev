@@ -63,7 +63,7 @@
 </script>
 
 <section class="space-y-2">
-  {#each sections as section (section.id)}
+  {#each sections as section, i (section.id)}
     <MenuSection title={section.name}>
       <div class="flex flex-col py-4">
         <EntryList entries={flatten(section)}>
@@ -80,7 +80,9 @@
         <EntryCreate oncreate={() => add(section.id)} />
       </div>
     </MenuSection>
-    <Separator />
+    {#if i < sections.length - 1}
+      <Separator />
+    {/if}
   {/each}
 </section>
 

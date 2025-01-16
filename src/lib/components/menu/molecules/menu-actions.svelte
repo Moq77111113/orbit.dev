@@ -3,6 +3,7 @@
     icon: typeof Icon;
     title: string;
     handle(item: T): void;
+    class?: string;
   };
 </script>
 
@@ -24,6 +25,7 @@
       icon={action.icon}
       onclick={() => action.handle(item)}
       title={action.title}
+      class={action.class}
     />
   {/each}
 </List.Actions>

@@ -2,20 +2,18 @@
   import MenuSection from '$lib/components/menu/molecules/menu-section.svelte';
   import Rings from '$lib/components/radar/ring/organisms/rings.svelte';
   import Sections from '$lib/components/radar/section/organisms/sections.svelte';
+
   import Placement from '$lib/components/theme/organisms/placement.svelte';
   import Theme from '$lib/components/theme/organisms/theme.svelte';
   import Separator from '$lib/components/ui/separator/separator.svelte';
-  import LayoutGrid from 'lucide-svelte/icons/layout-grid';
-  import Colors from 'lucide-svelte/icons/palette';
-  import Radar from 'lucide-svelte/icons/radar';
-  import Shell from 'lucide-svelte/icons/shell';
+  import { Icons } from '$lib/icons/index.js';
 
-  const sections = $state([
-    { title: 'Theme', icon: Colors, component: Theme },
-    { title: 'Layout', icon: LayoutGrid, component: Placement },
-    { title: 'Sections', icon: Radar, component: Sections },
-    { title: 'Rings', icon: Shell, component: Rings },
-  ]);
+  const sections = [
+    { title: 'Theme', icon: Icons.theme, component: Theme },
+    { title: 'Layout', icon: Icons.layout, component: Placement },
+    { title: 'Sections', icon: Icons.section, component: Sections },
+    { title: 'Rings', icon: Icons.ring, component: Rings },
+  ];
 </script>
 
 <section class="space-y-2">

@@ -1,14 +1,15 @@
 <script lang="ts">
-  import * as Sidebar from '$lib/components/ui/sidebar/index.js';
+  import DesktopMenuContainer from './desktop-menu-container.svelte';
+  import DesktopMenu from './desktop-menu.svelte';
 
-  import Tabs from './menu-tabs.svelte';
+  import MobileMenuContainer from './mobile-menu-container.svelte';
+  import MobileMenu from './mobile-menu.svelte';
 </script>
 
-<Sidebar.Root variant="floating">
-  <Sidebar.Header />
-  <Sidebar.Content class="px-2">
-    <Tabs />
-  </Sidebar.Content>
-  <Sidebar.Footer />
-</Sidebar.Root>
+<MobileMenuContainer class="md:hidden">
+  <MobileMenu />
+</MobileMenuContainer>
 
+<DesktopMenuContainer class="hidden md:flex">
+  <DesktopMenu />
+</DesktopMenuContainer>

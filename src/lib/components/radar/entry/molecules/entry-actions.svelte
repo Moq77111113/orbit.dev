@@ -18,7 +18,7 @@
   };
 
   const { entry, actions: handlers }: Props = $props();
-  // let edit = $state<Entry | null>();
+
   const actions = [
     {
       icon: Pencil,
@@ -34,11 +34,3 @@
 </script>
 
 <MenuActions {actions} item={entry} />
-<!-- 
-{#if edit}
-  <EntryEdit
-    open={!!edit}
-    entry={edit}
-    onChange={(r) => updateOne({ ...r, id: entry.id })}
-  />
-{/if} -->

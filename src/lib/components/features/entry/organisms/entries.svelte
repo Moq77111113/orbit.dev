@@ -38,7 +38,6 @@
   const add = (section?: Section['id'], ring?: Ring['id']) => {
     section = section ?? radar.state.radar.sections[0].id;
     ring = ring ?? radar.state.radar.rings[0].id;
-
     selected = {
       name: '',
       sectionId: section,
@@ -61,7 +60,6 @@
     selected = null;
     open = false;
   };
-
 </script>
 
 <section class="space-y-2">
@@ -79,7 +77,7 @@
             />
           {/snippet}
         </EntryList>
-        <EntryCreate oncreate={add} />
+        <EntryCreate oncreate={() => add(section.id)} />
       </div>
     </MenuSection>
     <Separator />

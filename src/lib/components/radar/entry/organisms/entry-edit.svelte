@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { Ring, Section } from '$lib/radar/core/elements/types.js';
 
-  import EntryForm from '$lib/components/features/entry/molecules/entry-form.svelte';
   import type { EntrySchema } from '$lib/components/radar/(forms)/entries/schema.js';
+  import EntryForm from '$lib/components/radar/entry/molecules/entry-form.svelte';
   import ResponsiveDialog from '$lib/components/shared/organisms/responsive-dialog.svelte';
 
   type Props = {

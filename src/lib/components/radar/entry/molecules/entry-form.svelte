@@ -1,8 +1,8 @@
 <script lang="ts">
   import { type EntrySchema, entryForm } from '$lib/forms/entry.form.js';
 
-  import Moved from '$lib/components/features/entry/atoms/moved-icon.svelte';
   import FormCheckbox from '$lib/components/forms/molecules/form-checkbox.svelte';
+  import Moved from '$lib/components/radar/entry/atoms/moved-icon.svelte';
 
   import FormInput from '$lib/components/forms/molecules/form-input.svelte';
   import FormRadio from '$lib/components/forms/molecules/form-radio.svelte';

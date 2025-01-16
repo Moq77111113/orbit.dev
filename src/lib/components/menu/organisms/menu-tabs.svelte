@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Entries from '$lib/components/features/entry/organisms/entries.svelte';
+  import Entries from '$lib/components/radar/entry/organisms/entries.svelte';
   import * as Tabs from '$lib/components/ui/tabs/index.js';
 
   import Configuration from './configuration.svelte';

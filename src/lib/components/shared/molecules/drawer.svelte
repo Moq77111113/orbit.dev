@@ -12,7 +12,7 @@
 </script>
 
 <Drawer.Root bind:open>
-  <Drawer.Content class="px-2">
+  <Drawer.Content class="p-4">
     <Drawer.Header>
       <Drawer.Title>{@render title()}</Drawer.Title>
     </Drawer.Header>

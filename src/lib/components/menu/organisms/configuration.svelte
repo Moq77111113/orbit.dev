@@ -1,7 +1,7 @@
 <script lang="ts">
-  import Rings from '$lib/components/features/ring/organisms/rings.svelte';
-  import Sections from '$lib/components/features/section/organisms/sections.svelte';
   import MenuSection from '$lib/components/menu/molecules/menu-section.svelte';
+  import Rings from '$lib/components/radar/ring/organisms/rings.svelte';
+  import Sections from '$lib/components/radar/section/organisms/sections.svelte';
   import Placement from '$lib/components/theme/organisms/placement.svelte';
   import Theme from '$lib/components/theme/organisms/theme.svelte';
   import Separator from '$lib/components/ui/separator/separator.svelte';

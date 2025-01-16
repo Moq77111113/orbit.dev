@@ -1,5 +1,5 @@
 <script lang="ts">
-  import RingList from '$lib/components/features/ring/molecules/ring-list.svelte';
+  import RingList from '$lib/components/radar/ring/molecules/ring-list.svelte';
   import type { Ring } from '$lib/radar/core/elements/types.js';
   import {
     addRing,

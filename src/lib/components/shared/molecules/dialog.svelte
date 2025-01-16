@@ -13,7 +13,7 @@
 </script>
 
 <Dialog.Root bind:open>
-  <Dialog.Content class="px-2">
+  <Dialog.Content class="p-4">
     <Dialog.Title>{@render title()}</Dialog.Title>
     {@render content()}
 

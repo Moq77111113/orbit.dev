@@ -1,5 +1,5 @@
 <script lang="ts">
-  import SectionCreate from '$lib/components/features/section/molecules/section-create.svelte';
+  import SectionCreate from '$lib/components/radar/section/molecules/section-create.svelte';
   import type { Section } from '$lib/radar/core/elements/types.js';
 
   import {

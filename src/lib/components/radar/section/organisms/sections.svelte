@@ -8,17 +8,17 @@
     renameSection,
   } from '$lib/radar/features/actions/index.js';
 
-  import { useRadar } from '$lib/radar/state/state.svelte.js';
+  import { useOrbit } from '$lib/radar/state/state.svelte.js';
   import SectionActions from '../molecules/section-actions.svelte';
   import SectionList from '../molecules/section-list.svelte';
   import SectionEdit from './section-edit.svelte';
 
-  const radar = useRadar();
+  const orbit = useOrbit();
 
   let selected = $state<Section | null>(null);
   let open = $state(false);
   const add = (name: string) => {
-    radar.execute(addSection, { name });
+    orbit.execute(addSection, { name });
   };
 
   const edit = (section: Section) => {
@@ -27,20 +27,20 @@
   };
 
   const remove = (section: Section) => {
-    radar.execute(removeSection, section.id);
+    orbit.execute(removeSection, section.id);
   };
 
   const update = (
     section: Partial<Omit<Section, 'id'>> & Pick<Section, 'id'>
   ) => {
     section.name &&
-      radar.execute(renameSection, { id: section.id, name: section.name });
+    orbit.execute(renameSection, { id: section.id, name: section.name });
     selected = null;
   };
 </script>
 
 <div class="flex flex-col py-4">
-  <SectionList sections={radar.state.radar.sections}>
+  <SectionList sections={orbit.state.radar.sections}>
     {#snippet actions(section)}
       <SectionActions
         {section}

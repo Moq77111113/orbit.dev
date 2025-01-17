@@ -4,14 +4,14 @@
   import { exportJson } from '$lib/radar/features/actions/export/actionExportJson.js';
   import { exportPng } from '$lib/radar/features/actions/export/actionExportPng.js';
   import { exportSvg } from '$lib/radar/features/actions/index.js';
-  import { useRadar } from '$lib/radar/state/state.svelte.js';
+  import { useOrbit } from '$lib/radar/state/state.svelte.js';
   import { cn } from '$lib/utils/ui.js';
 
   type Props = {
     class?: string;
   };
   const { class: clazz }: Props = $props();
-  const radar = useRadar();
+  const orbit = useOrbit();
 
   function getRadarSvg() {
     const svg = document.querySelector<SVGElement>('#radar');
@@ -23,17 +23,17 @@
   const actions = [
     {
       title: 'Download SVG',
-      onclick: () => radar.execute(exportSvg, getRadarSvg()),
+      onclick: () => orbit.execute(exportSvg, getRadarSvg()),
       class: 'bg-primary',
     },
     {
       title: 'Download PNG',
-      onclick: () => radar.execute(exportPng, getRadarSvg()),
+      onclick: () => orbit.execute(exportPng, getRadarSvg()),
       class: 'bg-secondary',
     },
     {
       title: 'Download JSON',
-      onclick: () => radar.execute(clipJson, undefined),
+      onclick: () => orbit.execute(clipJson, undefined),
       class: 'bg-muted text-muted-foreground',
     },
   ];

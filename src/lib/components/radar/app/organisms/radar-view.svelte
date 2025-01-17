@@ -1,10 +1,10 @@
 <script lang="ts">
   import { IsMobile } from '$lib/hooks/is-mobile.svelte.js';
   import { RadarRenderer } from '$lib/radar/state/observers/state-observer.svelte.js';
-  import { useRadar } from '$lib/radar/state/state.svelte.js';
+  import { useOrbit } from '$lib/radar/state/state.svelte.js';
   import { onMount } from 'svelte';
 
-  const radar = useRadar();
+  const orbit = useOrbit();
 
   type Props = { svg: SVGElement };
 
@@ -41,7 +41,7 @@
         container: { width: 500, height: 500 },
       });
     }
-    radar.addObserver(renderer);
+    orbit.addObserver(renderer);
     resize();
   });
 </script>

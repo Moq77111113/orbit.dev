@@ -9,7 +9,7 @@ import type { AppState } from "$lib/radar/state/types.js";
 import { getContext, setContext } from "svelte";
 
 import { initRadar } from "$lib/radar/core/elements/init.js";
-import type { Radar } from '$lib/radar/core/elements/types.js';
+import type { Radar } from "$lib/radar/core/elements/types.js";
 import type { StateObserver } from "$lib/radar/state/observers/types.js";
 import { getDefaultState } from "./default.js";
 
@@ -19,7 +19,7 @@ type Props = {
 	config?: RadarConfig;
 };
 
-export class RadarState {
+export class Orbit {
 	#defaultState = getDefaultState();
 
 	#state: AppState = $state<AppState>({
@@ -85,12 +85,12 @@ export class RadarState {
 	}
 }
 
-const SYMBOL_KEY = "orb-radar";
+const SYMBOL_KEY = "orbit";
 
-export function createRadarState(props: Props) {
-	return setContext(Symbol.for(SYMBOL_KEY), new RadarState(props));
+export function createOrbitState(props: Props) {
+	return setContext(Symbol.for(SYMBOL_KEY), new Orbit(props));
 }
 
-export function useRadar() {
-	return getContext<RadarState>(Symbol.for(SYMBOL_KEY));
+export function useOrbit() {
+	return getContext<Orbit>(Symbol.for(SYMBOL_KEY));
 }

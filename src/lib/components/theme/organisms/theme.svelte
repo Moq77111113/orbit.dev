@@ -5,13 +5,13 @@
     changeThemeColor,
     changeThemeSize,
   } from '$lib/radar/features/actions/index.js';
-  import { useRadar } from '$lib/radar/state/state.svelte.js';
+  import { useOrbit } from '$lib/radar/state/state.svelte.js';
 
   import Colors from '../molecules/colors.svelte';
   import Sizes from '../molecules/sizes.svelte';
 
-  const radar = useRadar();
-  const theme = $derived(radar.state.radarConfig.theme);
+  const orbit = useOrbit();
+  const theme = $derived(orbit.state.radarConfig.theme);
 
   const sizes = $derived({
     entry: {
@@ -34,13 +34,13 @@
 <Colors
   colors={theme.colors}
   onChange={(key, color) => {
-    radar.execute(changeThemeColor, { key, color });
+    orbit.execute(changeThemeColor, { key, color });
   }}
 />
 
 <Sizes
   {sizes}
   onChange={(key, size) => {
-    radar.execute(changeThemeSize, { key, size });
+    orbit.execute(changeThemeSize, { key, size });
   }}
 />

@@ -16,7 +16,7 @@
     removeEntry,
     updateEntry,
   } from '$lib/radar/features/actions/index.js';
-  import { useRadar } from '$lib/radar/state/state.svelte.js';
+  import { useOrbit } from '$lib/radar/state/state.svelte.js';
   import EntryActions from '../molecules/entry-actions.svelte';
   import EntryList from '../molecules/entry-list.svelte';
 
@@ -25,8 +25,8 @@
 
   import EntryCreate from '../molecules/entry-create.svelte';
 
-  const radar = useRadar();
-  const sections = $derived(asTree(radar.state.radar));
+  const orbit = useOrbit();
+  const sections = $derived(asTree(orbit.state.radar));
   let open = $state(false);
   let selected = $state<MaybeEntry | null>(null);
 
@@ -36,8 +36,8 @@
   };
 
   const add = (section?: Section['id'], ring?: Ring['id']) => {
-    section = section ?? radar.state.radar.sections[0].id;
-    ring = ring ?? radar.state.radar.rings[0].id;
+    section = section ?? orbit.state.radar.sections[0].id;
+    ring = ring ?? orbit.state.radar.rings[0].id;
     selected = {
       name: '',
       sectionId: section,
@@ -48,14 +48,14 @@
   };
 
   const remove = (entry: Entry) => {
-    radar.execute(removeEntry, entry.id);
+    orbit.execute(removeEntry, entry.id);
   };
 
   const addOrUpdate = (entry: MaybeEntry) => {
     if (isUpdatable(entry)) {
-      radar.execute(updateEntry, entry);
+      orbit.execute(updateEntry, entry);
     } else {
-      radar.execute(addEntry, entry);
+      orbit.execute(addEntry, entry);
     }
     selected = null;
     open = false;
@@ -90,8 +90,8 @@
   <EntryEdit
     bind:open
     entry={selected}
-    sections={radar.state.radar.sections}
-    rings={radar.state.radar.rings}
+    sections={orbit.state.radar.sections}
+    rings={orbit.state.radar.rings}
     onSave={addOrUpdate}
   />
 {/if}

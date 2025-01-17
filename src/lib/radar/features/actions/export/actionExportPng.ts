@@ -2,15 +2,31 @@ import { register } from "$lib/radar/features/actions/register.js";
 
 import type { AppState } from "$lib/radar/state/types.js";
 
-type ExportPngData = SVGElement;
+type ExportPngData = {
+	svg: SVGElement;
+	width?: number;
+	height?: number;
+	background?: string;
+};
 
 export const exportPng = register({
 	name: "export/png",
 	label: "Export Radar as PNG",
 	keywords: ["radar", "export", "png", "download"],
-	perform: (_state: AppState, svg: ExportPngData) => {
-		console.log(svg.outerHTML);
-		const svgData = new XMLSerializer().serializeToString(svg);
+	perform: (_state: AppState, data: ExportPngData) => {
+		const {
+			svg,
+			width = 1000,
+			height = 800,
+			background = "transparent",
+		} = data;
+
+		const clone = svg.cloneNode(true) as SVGElement;
+		clone.setAttribute("width", width.toString());
+		clone.setAttribute("height", height.toString());
+		clone.style.backgroundColor = background;
+
+		const svgData = new XMLSerializer().serializeToString(clone);
 		const canvas = document.createElement("canvas");
 		const ctx = canvas.getContext("2d");
 		if (!ctx) throw new Error("Failed to get canvas 2d context");

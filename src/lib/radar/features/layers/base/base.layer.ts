@@ -22,7 +22,7 @@ export abstract class Layer<Data, SVGType extends d3.BaseType = d3.BaseType> {
 		this.parent = props.parent;
 		this.context = props.context;
 
-			this.layer = this.parent.append("g").attr("class", `lyr-${props.id}`);
+		this.layer = this.parent.append("g").attr("class", `lyr-${props.id}`);
 	}
 
 	protected compare(a: Data, b: Data) {

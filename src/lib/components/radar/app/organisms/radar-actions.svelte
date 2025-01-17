@@ -1,7 +1,7 @@
 <script lang="ts">
   import ButtonDownload from '$lib/components/radar/app/atoms/button-download.svelte';
   import { clipJson } from '$lib/radar/features/actions/clip/actionClipJson.js';
-  import { exportJson } from '$lib/radar/features/actions/export/actionExportJson.js';
+
   import { exportPng } from '$lib/radar/features/actions/export/actionExportPng.js';
   import { exportSvg } from '$lib/radar/features/actions/index.js';
   import { useOrbit } from '$lib/radar/state/state.svelte.js';
@@ -28,7 +28,7 @@
     },
     {
       title: 'Download PNG',
-      onclick: () => orbit.execute(exportPng, getRadarSvg()),
+      onclick: () => orbit.execute(exportPng, { svg: getRadarSvg(), background: 'white' }),
       class: 'bg-secondary',
     },
     {

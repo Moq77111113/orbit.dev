@@ -67,11 +67,24 @@ export function Tooltip() {
 		tooltip = null;
 	};
 
+	const getTextColor = (background: string, baseColor?: string) => {
+		if (baseColor) return baseColor;
+		const color = d3.color(background);
+		if (!color) {
+			return "#2F2E2D";
+		}
+		const luminance = d3.lab(color).l / 100;
+		return luminance > 0.5 ? "#2F2E2D" : "#ffffff";
+	};
+
 	const customize = (customization: Customization) => {
-		const { position, background, border, textColor, html } = customization;
+		const { position, background, border, html } = customization;
+		let textColor = getTextColor(background, customization.textColor);
+
 		tooltip
 			?.html(html)
-			.attr("fill", textColor ?? "black")
+			.attr("fill", textColor)
+			.style("color", textColor)
 			.style("background", background)
 			.style("border", border ?? "none")
 			.style("left", `${position.x}px`)
@@ -80,7 +93,6 @@ export function Tooltip() {
 
 	return {
 		show,
-
 		kill,
 		customize,
 	};

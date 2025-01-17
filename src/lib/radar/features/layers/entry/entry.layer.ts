@@ -96,7 +96,6 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 					position: { x, y },
 					background,
 					border: entry.ring.color,
-					textColor: this.config.theme.colors.text,
 					html: html(entry),
 				});
 			})

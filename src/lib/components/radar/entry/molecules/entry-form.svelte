@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { type EntrySchema, entryForm } from '$lib/forms/entry.form.js';
+  import { type EntryForm, entryForm } from '$lib/validators/entry.validator.js';
 
   import FormCheckbox from '$lib/components/forms/molecules/form-checkbox.svelte';
   import Moved from '$lib/components/radar/entry/atoms/moved-icon.svelte';
@@ -15,8 +15,8 @@
   import type { Section } from '$lib/radar/core/elements/types.js';
 
   type Props = {
-    entry: EntrySchema;
-    onSave: (entry: EntrySchema) => void;
+    entry: EntryForm;
+    onSave: (entry: EntryForm) => void;
     rings: Ring[];
     sections: Section[];
   };

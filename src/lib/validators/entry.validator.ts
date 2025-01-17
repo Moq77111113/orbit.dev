@@ -1,10 +1,10 @@
-import { entryId, ringId, sectionId } from "$lib/forms/unit.js";
-import type { Entry } from "$lib/radar/core/elements/types.js"
+import type { Entry } from "$lib/radar/core/elements/types.js";
 import type { Creatable } from "$lib/types/utils.js";
 import { z } from "zod";
+import { entryId, ringId, sectionId } from "./unit.js";
 
-export const entryForm = z.object({
-	id: entryId.optional(),
+export const entrySchema = z.object({
+	id: entryId,
 	name: z.string(),
 	description: z.string().optional(),
 	sectionId: sectionId,
@@ -15,6 +15,9 @@ export const entryForm = z.object({
 	tags: z.array(z.string()).readonly().optional(),
 });
 
+export const entryForm = entrySchema.extend({
+	id: entryId.optional(),
+});
 entryForm._output satisfies Creatable<Entry>;
 
-export type EntrySchema = z.infer<typeof entryForm>;
+export type EntryForm = z.infer<typeof entryForm>;

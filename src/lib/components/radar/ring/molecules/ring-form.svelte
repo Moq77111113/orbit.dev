@@ -2,11 +2,11 @@
   import FormInput from '$lib/components/forms/molecules/form-input.svelte';
   import FormWrapper from '$lib/components/forms/molecules/form-wrapper.svelte';
   import Button from '$lib/components/ui/button/button.svelte';
-  import { type RingSchema, ringForm } from '$lib/forms/ring.form.js';
+  import { type RingForm, ringForm } from '$lib/validators/ring.validator.js';
 
   type Props = {
-    ring: RingSchema;
-    onSave: (ring: RingSchema) => void;
+    ring: RingForm;
+    onSave: (ring: RingForm) => void;
   };
 
   const { ring, onSave }: Props = $props();

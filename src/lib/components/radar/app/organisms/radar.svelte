@@ -9,9 +9,8 @@
   };
 
   const { readonly = false }: Props = $props();
-  createOrbitState({
-    app: 'radar',
-  });
+
+  createOrbitState({});
 
   let svg: SVGElement;
 </script>

@@ -1,16 +1,16 @@
 <script lang="ts">
   import type { Ring, Section } from '$lib/radar/core/elements/types.js';
 
-  import type { EntrySchema } from '$lib/components/radar/(forms)/entries/schema.js';
   import EntryForm from '$lib/components/radar/entry/molecules/entry-form.svelte';
   import ResponsiveDialog from '$lib/components/shared/organisms/responsive-dialog.svelte';
+  import type { EntryForm as EntryFormSchema } from '$lib/validators/entry.validator.js';
 
   type Props = {
-    entry: EntrySchema;
+    entry: EntryFormSchema;
     sections: Section[];
     rings: Ring[];
     open: boolean;
-    onSave: (ring: EntrySchema) => void;
+    onSave: (ring: EntryFormSchema) => void;
   };
 
   let {

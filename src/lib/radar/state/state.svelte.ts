@@ -8,13 +8,13 @@ import type {
 import type { AppState } from "$lib/radar/state/types.js";
 import { getContext, setContext } from "svelte";
 
-import { initRadar } from "$lib/radar/core/elements/init.js";
+import { emptyRadar, initRadar } from "$lib/radar/core/elements/init.js";
 import type { Radar } from "$lib/radar/core/elements/types.js";
 import type { StateObserver } from "$lib/radar/state/observers/types.js";
 import { getDefaultState } from "./default.js";
+import { StorageObserver } from "./observers/storage.js";
 
 type Props = {
-	app: string;
 	radar?: Radar;
 	config?: RadarConfig;
 };
@@ -24,7 +24,7 @@ export class Orbit {
 
 	#state: AppState = $state<AppState>({
 		...this.#defaultState,
-		radar: initRadar(),
+		radar: emptyRadar(),
 	});
 
 	#actionManager: ActionManager;
@@ -35,8 +35,6 @@ export class Orbit {
 
 	private doUpdate(actionResult: ActionResult) {
 		if (!actionResult) return;
-
-		// TODO: Impl storage
 
 		const radar =
 			actionResult.appState?.radar || this.#state.radar || this.props.radar;
@@ -55,9 +53,11 @@ export class Orbit {
 	}
 
 	constructor(public readonly props: Props) {
+		const storage = new StorageObserver();
+		const stored = storage.load();
 		this.#state = {
 			...this.#defaultState,
-			radar: {
+			radar: stored ?? {
 				...this.props.radar,
 				...this.#state.radar,
 			},
@@ -66,13 +66,13 @@ export class Orbit {
 				...props.config,
 			},
 		};
-
 		this.#actionManager = new ActionManager(
 			this.doUpdate.bind(this),
 			() => this.state,
 		);
 
 		this.#actionManager.registerActions(actions);
+		this.addObserver(storage);
 	}
 
 	execute<T extends Action>(action: T, data: Parameters<T["perform"]>[1]) {

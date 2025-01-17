@@ -1,6 +1,6 @@
 <script lang="ts">
   import { IsMobile } from '$lib/hooks/is-mobile.svelte.js';
-  import { RadarRenderer } from '$lib/radar/state/observers/state-observer.svelte.js';
+  import { RadarRenderer } from '$lib/radar/state/observers/renderer.svelte.js';
   import { useOrbit } from '$lib/radar/state/state.svelte.js';
   import { onMount } from 'svelte';
 

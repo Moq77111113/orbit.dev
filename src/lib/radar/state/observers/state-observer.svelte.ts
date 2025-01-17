@@ -78,10 +78,8 @@ export class RadarRenderer implements StateObserver {
 		id: string,
 		factory: () => Layer<T, K>,
 	) {
-		const layer = this.#layers.has(id);
-
-		if (!layer) {
-			const layer = factory() as Layer<T, K>;
+		if (!this.#layers.has(id)) {
+			const layer = factory();
 			this.#layers.set(id, layer);
 		}
 
@@ -102,51 +100,54 @@ export class RadarRenderer implements StateObserver {
 	}
 
 	#enrichEntries(radar: Radar) {
-		return radar.entries
-			.map((entry) => {
-				const section = this.#sections.get(entry.sectionId);
-				const ring = this.#rings.get(entry.ringId);
-				if (!section || !ring) return null;
-				return {
+		return radar.entries.flatMap((entry) => {
+			const section = this.#sections.get(entry.sectionId);
+			const ring = this.#rings.get(entry.ringId);
+			if (!section || !ring) return [];
+			return [
+				{
 					...entry,
 					section,
 					ring,
-				};
-			})
-			.filter((v) => v !== null);
+				},
+			];
+		});
 	}
 
 	#enrichSections(radar: Radar): EnrichedSection[] {
-		const sectionEntries = new Map<Section["id"], Entry[]>();
-		for (const entry of radar.entries) {
-			if (!sectionEntries.has(entry.sectionId)) {
-				sectionEntries.set(entry.sectionId, []);
+		const sectionEntries = radar.entries.reduce((map, entry) => {
+			if (!map.has(entry.sectionId)) {
+				map.set(entry.sectionId, []);
 			}
-			sectionEntries.get(entry.sectionId)?.push(entry);
-		}
+			map.get(entry.sectionId)?.push(entry);
+			return map;
+		}, new Map<Section["id"], Entry[]>());
 
 		return radar.sections.map((section) => {
 			const entries = sectionEntries.get(section.id) ?? [];
 
-			const ringEntries = new Map<Ring["id"], Entry[]>();
-			for (const entry of entries) {
-				if (!ringEntries.has(entry.ringId)) {
-					ringEntries.set(entry.ringId, []);
+			const ringEntries = entries.reduce((map, entry) => {
+				if (!map.has(entry.ringId)) {
+					map.set(entry.ringId, []);
 				}
-				ringEntries.get(entry.ringId)?.push(entry);
-			}
+				map.get(entry.ringId)?.push(entry);
+				return map;
+			}, new Map<Ring["id"], Entry[]>());
 
-			const rings = Array.from(ringEntries.entries())
-				.map(([ringId, entries]) => {
+			const rings = Array.from(ringEntries.entries()).flatMap(
+				([ringId, entries]) => {
 					const ring = this.#rings.get(ringId);
 
-					if (!ring) return null;
-					return {
-						...ring,
-						entries,
-					};
-				})
-				.filter((v) => v !== null);
+					if (!ring) return [];
+					return [
+						{
+							...ring,
+							entries,
+						},
+					];
+				},
+			);
+
 			return {
 				...section,
 				rings,

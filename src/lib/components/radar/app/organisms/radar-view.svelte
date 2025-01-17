@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Button from '$lib/components/ui/button/button.svelte';
   import { RadarRenderer } from '$lib/radar/state/observers/renderer.svelte.js';
   import { useOrbit } from '$lib/radar/state/state.svelte.js';
   import MoveHorizontal from 'lucide-svelte/icons/move-horizontal';
@@ -31,7 +32,6 @@
   function handleZoom(delta: number) {
     const newScale = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, scale + delta));
     if (newScale !== scale) {
-      // Adjust offset to keep the center point fixed while zooming
       const centerX = VIEW_WIDTH / 2 + offset.x;
       const centerY = VIEW_HEIGHT / 2 + offset.y;
 
@@ -137,7 +137,7 @@
     role="button"
     tabindex="0"
     onmousedown={handleMouseDown}
-    class="cursor-move"
+    class:cursor-grab={scale > 1}
   >
     <svg
       id="radar"
@@ -153,28 +153,25 @@
     />
   </div>
 
-  <div
-    class="absolute bottom-4 right-4 flex flex-col gap-2 bg-white/80 p-2 rounded-lg shadow-lg"
-  >
-    <button
-      class="p-2 rounded-full hover:bg-gray-200 transition-colors"
+  <div class="absolute bottom-4 right-4 flex flex-col gap-2">
+    <Button
+      size="icon"
+      variant={'outline'}
       onclick={handleZoomIn}
       disabled={scale >= MAX_ZOOM}
     >
       <ZoomIn class="w-6 h-6" />
-    </button>
-    <button
-      class="p-2 rounded-full hover:bg-gray-200 transition-colors"
+    </Button>
+    <Button
+      size="icon"
+      variant={'outline'}
       onclick={handleZoomOut}
       disabled={scale <= MIN_ZOOM}
     >
       <ZoomOut class="w-6 h-6" />
-    </button>
-    <button
-      class="p-2 rounded-full hover:bg-gray-200 transition-colors"
-      onclick={resetView}
-    >
+    </Button>
+    <Button size="icon" variant={'outline'} onclick={resetView}>
       <MoveHorizontal class="w-6 h-6" />
-    </button>
+    </Button>
   </div>
 </div>

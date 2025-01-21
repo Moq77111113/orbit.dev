@@ -2,7 +2,7 @@
   import ToggleGroup from '$lib/components/shared/molecules/toggle-group.svelte';
   import type { RadarEntryPlacement } from '$lib/radar/core/config/types.js';
   import { changeLayout } from '$lib/radar/features/actions/index.js';
-  import { useOrbit } from '$lib/radar/state/state.svelte.js';
+  import { useOrbit } from '$lib/radar/state/app-state.svelte.js';
 
   const orbit = useOrbit();
 

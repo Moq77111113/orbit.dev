@@ -16,7 +16,7 @@
     removeEntry,
     updateEntry,
   } from '$lib/radar/features/actions/index.js';
-  import { useOrbit } from '$lib/radar/state/state.svelte.js';
+  import { useOrbit } from '$lib/radar/state/app-state.svelte.js';
   import EntryActions from '../molecules/entry-actions.svelte';
   import EntryList from '../molecules/entry-list.svelte';
 

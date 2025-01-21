@@ -4,7 +4,7 @@
 
   import { exportPng } from '$lib/radar/features/actions/export/actionExportPng.js';
   import { exportSvg } from '$lib/radar/features/actions/index.js';
-  import { useOrbit } from '$lib/radar/state/state.svelte.js';
+  import { useOrbit } from '$lib/radar/state/app-state.svelte.js';
   import { cn } from '$lib/utils/ui.js';
 
   type Props = {
@@ -28,7 +28,8 @@
     },
     {
       title: 'Download PNG',
-      onclick: () => orbit.execute(exportPng, { svg: getRadarSvg(), background: 'white' }),
+      onclick: () =>
+        orbit.execute(exportPng, { svg: getRadarSvg(), background: 'white' }),
       class: 'bg-secondary',
     },
     {
@@ -39,7 +40,7 @@
   ];
 </script>
 
-<div class={cn('flex justify-end space-x-4', clazz)}>
+<div class={cn('flex justify-end gap-2 flex-col md:flex-row', clazz)}>
   {#each actions as action}
     <ButtonDownload
       title={action.title}

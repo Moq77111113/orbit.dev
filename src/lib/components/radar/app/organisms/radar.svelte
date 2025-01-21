@@ -1,6 +1,6 @@
 <script lang="ts">
   import Menu from '$lib/components/menu/organisms/menu.svelte';
-  import { createOrbitState } from '$lib/radar/state/state.svelte.js';
+  import { createOrbitState } from '$lib/radar/state/app-state.svelte.js';
   import RadarActions from './radar-actions.svelte';
   import RadarView from './radar-view.svelte';
 

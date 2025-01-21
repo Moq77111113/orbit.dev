@@ -12,9 +12,7 @@
 </script>
 
 {#each entries(colors) as [key, value] (key)}
-  <div
-    class="flex w-full max-w-sm gap-4 justify-between items-center px-6 space-x-4"
-  >
+  <div class="flex w-full gap-4 justify-between items-center px-6 space-x-4">
     <LabeledInput
       type="color"
       class="w-14"

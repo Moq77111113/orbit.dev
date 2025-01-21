@@ -14,9 +14,7 @@
 </script>
 
 {#each entries(sizes) as [key, size] (key)}
-  <div
-    class="flex w-full max-w-sm gap-4 justify-between items-center px-6 space-x-4"
-  >
+  <div class="flex w-full gap-4 justify-between items-center px-6 space-x-4">
     <LabeledSlider {...size} onchange={(value) => onChange(key, value)} />
   </div>
 {/each}

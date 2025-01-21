@@ -3,11 +3,12 @@
 </script>
 
 <div
-  class={`fixed  flex flex-col space-y-32 items-center justify-center inset-0 bg-slate-900 transition-opacity duration-300 ${show ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+  class={`fixed flex flex-col space-y-32 items-center justify-center inset-0 bg-slate-900 transition-opacity duration-300 p-12
+  ${show ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
 >
   <div class="relative">
     <div
-      class="w-16 h-16 rounded-full bg-gradient-to-br group from-orange-700 to-orange-500 shadow-lg  shadow-orange-400/50 relative"
+      class="w-16 h-16 rounded-full bg-gradient-to-br group from-orange-700 to-orange-500 shadow-lg shadow-orange-400/50 relative"
     >
       <div
         class="absolute -inset-8 animate-[spin_3s_linear_infinite] group-hover:animate-[spin_1s_linear_infinite]"

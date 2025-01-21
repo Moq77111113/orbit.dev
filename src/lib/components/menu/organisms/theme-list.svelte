@@ -12,7 +12,6 @@
       icon: Icons.layout,
       handle: () =>
         toolbar.push({
-    
           content: Placement,
           props: {},
           title: 'Layout',
@@ -23,7 +22,6 @@
       icon: Icons.theme,
       handle: () => {
         toolbar.push({
-  
           content: Theme,
           props: {},
           title: 'Theme',

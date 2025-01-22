@@ -1,7 +1,10 @@
 <script lang="ts">
-  import ButtonDownload from '$lib/components/radar/app/atoms/button-download.svelte';
+  import IconButton from '$lib/components/shared/atoms/icon-button.svelte';
+  import * as Popover from '$lib/components/ui/popover/index.js';
   import { clipJson } from '$lib/radar/features/actions/clip/actionClipJson.js';
+  import ArrowDown from 'lucide-svelte/icons/arrow-down-to-line';
 
+  import Button from '$lib/components/ui/button/button.svelte';
   import { exportPng } from '$lib/radar/features/actions/export/actionExportPng.js';
   import { exportSvg } from '$lib/radar/features/actions/index.js';
   import { useOrbit } from '$lib/radar/state/app-state.svelte.js';
@@ -9,6 +12,7 @@
 
   type Props = {
     class?: string;
+    svg: SVGElement;
   };
   const { class: clazz }: Props = $props();
   const orbit = useOrbit();
@@ -22,30 +26,43 @@
   }
   const actions = [
     {
-      title: 'Download SVG',
+      title: 'SVG',
       onclick: () => orbit.execute(exportSvg, getRadarSvg()),
-      class: 'bg-primary',
     },
     {
-      title: 'Download PNG',
+      title: 'PNG',
       onclick: () =>
         orbit.execute(exportPng, { svg: getRadarSvg(), background: 'white' }),
-      class: 'bg-secondary',
     },
     {
-      title: 'Download JSON',
+      title: 'JSON',
       onclick: () => orbit.execute(clipJson, undefined),
-      class: 'bg-muted text-muted-foreground',
     },
   ];
 </script>
 
 <div class={cn('flex justify-end gap-2 flex-col md:flex-row', clazz)}>
-  {#each actions as action}
+  <Popover.Root>
+    <Popover.Trigger>
+      <IconButton icon={ArrowDown} />
+    </Popover.Trigger>
+    <Popover.Content class="flex space-x-2 items-center justify-center w-auto">
+      {#each actions as action}
+        <Button
+          variant={'outline'}
+          size={'sm'}
+          class="hover:ring-1 ring-black inset-2"
+          download={() => action.onclick()}>{action.title}</Button
+        >
+      {/each}
+    </Popover.Content>
+  </Popover.Root>
+
+  <!-- {#each actions as action}
     <ButtonDownload
       title={action.title}
       class={action.class}
       download={() => action.onclick()}
     />
-  {/each}
+  {/each} -->
 </div>

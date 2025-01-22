@@ -12,7 +12,7 @@
 
   createOrbitState({});
 
-  let svg: SVGElement;
+  let svg: SVGElement = $state<SVGElement>({} as SVGElement);
 </script>
 
 {#if !readonly}
@@ -21,5 +21,5 @@
 
 <div class="relative w-full flex flex-1 items-center justify-center">
   <RadarView bind:svg />
-  <RadarActions class="absolute top-0 right-0 mt-4 mr-4" />
+  <RadarActions {svg} class="absolute top-0 right-0 mt-4 mr-4" />
 </div>

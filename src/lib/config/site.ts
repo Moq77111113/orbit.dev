@@ -8,7 +8,7 @@ export const site = {
 	links: [
 		{
 			href: "https://github.com/moq77111113/orbit.dev",
-			label: "Github",
+			label: "Star us",
 			icon: Icons.github,
 		},
 	],

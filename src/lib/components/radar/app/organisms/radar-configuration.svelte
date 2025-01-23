@@ -4,7 +4,7 @@
   import Sections from '$lib/components/radar/section/organisms/sections.svelte';
 
   import Placement from '$lib/components/theme/organisms/placement.svelte';
-  import Theme from '$lib/components/theme/organisms/theme.svelte';
+  import Theme from '$lib/components/theme/organisms/radar-theme.svelte';
   import Separator from '$lib/components/ui/separator/separator.svelte';
   import { Icons } from '../../../../icons/index.js';
 

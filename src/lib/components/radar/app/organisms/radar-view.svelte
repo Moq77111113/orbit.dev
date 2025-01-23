@@ -3,6 +3,7 @@
   import { useOrbit } from '$lib/radar/state/app-state.svelte.js';
   import { RadarRenderer } from '$lib/radar/state/observers/renderer.svelte.js';
 
+  import { useSvgBackground } from '$lib/hooks/svg-background.svelte.js';
   import { onMount } from 'svelte';
   import RadarSvg from '../molecules/radar-svg.svelte';
   import ZoomControls from '../molecules/zoom-controls.svelte';
@@ -23,6 +24,7 @@
   });
   let renderer = $state<RadarRenderer>();
 
+  const background = useSvgBackground();
   function handleResize() {
     svgController.resize(
       Math.min(svgController.maxWidth, window.innerWidth - 32)
@@ -65,6 +67,7 @@
     viewBox={svgController.viewBox}
     scale={svgController.scale}
     onMouseDown={(x, y) => svgController.handleMouseDown(x, y)}
+    background={background.value}
     zoom={handleZoom}
   >
     <ZoomControls

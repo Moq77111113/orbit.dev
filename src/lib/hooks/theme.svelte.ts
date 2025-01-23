@@ -23,9 +23,9 @@ class Theme {
 	#storage = isBrowser ? window.localStorage : noopStorage;
 
 	#value = $state<ThemeValue>("system");
-	constructor(key = "theme") {
+	constructor(protected readonly key = "orb.theme") {
 		const storedValue = this.#storage.getItem(key);
-		console.log(storedValue);
+
 		this.change(storedValue || "system");
 	}
 
@@ -42,13 +42,13 @@ class Theme {
 		}
 
 		this.#value = isValueValid.data;
-		this.#storage.setItem("theme", this.#value);
+		this.#storage.setItem(this.key, this.#value);
 		this.#dispatch();
 	}
 
 	#clear() {
 		this.#value = "system";
-		this.#storage.removeItem("theme");
+		this.#storage.removeItem(this.key);
 		this.#dispatch();
 	}
 

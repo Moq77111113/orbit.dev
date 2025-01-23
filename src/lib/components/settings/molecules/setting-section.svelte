@@ -10,7 +10,7 @@
   const { links, class: clazz }: Props = $props();
 </script>
 
-<nav class={cn('grid', clazz)}>
+<nav class={cn('grid gap-1', clazz)}>
   {#each links as link (link.title)}
     <NavItem navElement={link} />
   {/each}

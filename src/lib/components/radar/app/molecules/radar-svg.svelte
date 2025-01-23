@@ -7,8 +7,10 @@
     height: number;
     viewBox: string;
     scale: number;
+    background?: string;
     onMouseDown: (x: number, y: number) => void;
     zoom: (inside: boolean, position: { x: number; y: number }) => void;
+
     children?: Snippet;
   };
 
@@ -18,6 +20,7 @@
     height,
     viewBox,
     scale,
+    background = 'transparent',
     onMouseDown,
     zoom,
     children,
@@ -75,7 +78,9 @@
     onwheel={handleWheel}
     role="img"
     aria-label="Tech radar visualization"
-    class="font-serif"
+    style={`--bg: ${background}`}
+    class="font-serif bg-[--bg]"
+    
   />
   {@render children?.()}
 </div>

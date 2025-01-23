@@ -2,7 +2,8 @@
   import Button from '$lib/components/ui/button/button.svelte';
   import * as List from '$lib/components/ui/list/index.js';
   import { cn } from '$lib/utils/ui.js';
-  import type { MenuActionHandler } from './menu-actions.svelte';
+  import type { MenuActionHandler } from '../../molecules/menu-actions.svelte';
+  
 
   type Props = {
     actions: MenuActionHandler<void>[];

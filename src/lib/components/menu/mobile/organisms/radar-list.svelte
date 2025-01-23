@@ -4,7 +4,7 @@
   import Sections from '$lib/components/radar/section/organisms/sections.svelte';
 
   import { useToolbar } from '$lib/components/ui/toolbar/toolbar.svelte.js';
-  import { Icons } from '$lib/icons/index.js';
+  import { Icons } from '../../../../icons/index.js';
   import MobileList from '../molecules/mobile-list.svelte';
 
   const toolbar = useToolbar();

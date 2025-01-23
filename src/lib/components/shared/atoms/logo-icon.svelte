@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Icons as IconList } from '$lib/icons/index.js';
+  import { Icons as IconList } from '../../../icons/index.js';
   import Icon from './icon.svelte';
 </script>
 

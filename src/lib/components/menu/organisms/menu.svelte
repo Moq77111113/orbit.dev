@@ -1,8 +1,8 @@
 <script lang="ts">
-  import DesktopMenu from './desktop-menu.svelte';
+  import DesktopMenu from '../desktop/organisms/desktop-menu.svelte';
 
-  import MobileMenuContainer from './mobile-menu-container.svelte';
-  import MobileMenu from './mobile-menu.svelte';
+  import MobileMenuContainer from '../mobile/organisms/mobile-menu-container.svelte';
+  import MobileMenu from '../mobile/organisms/mobile-menu.svelte';
 </script>
 
 <MobileMenuContainer class="md:hidden">

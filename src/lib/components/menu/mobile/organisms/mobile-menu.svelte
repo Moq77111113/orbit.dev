@@ -1,12 +1,14 @@
 <script lang="ts">
+  import Settings from '$lib/components/settings/organisms/settings.svelte';
   import * as Toolbar from '$lib/components/ui/toolbar/index.js';
   import {
     type StackItem,
     useToolbar,
   } from '$lib/components/ui/toolbar/toolbar.svelte.js';
-  import { Icons } from '$lib/icons/index.js';
+  import { Icons } from '../../../../icons/index.js';
   import { cn } from '$lib/utils/ui.js';
   import MobileActions from '../molecules/mobile-actions.svelte';
+
   import RadarList from './radar-list.svelte';
 
   import ThemeList from './theme-list.svelte';
@@ -35,7 +37,8 @@
     {
       title: 'Menu',
       icon: Icons.hamburger,
-      handle: () => console.log('Menu'),
+      handle: () =>
+        addOrClose({ content: Settings, props: {}, title: 'Settings' }),
       class:
         'bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground',
     },

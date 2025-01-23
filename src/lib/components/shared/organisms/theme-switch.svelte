@@ -2,7 +2,7 @@
   import Label from '$lib/components/ui/label/label.svelte';
   import * as ToggleGroup from '$lib/components/ui/toggle-group/index.js';
   import { type ThemeValue, useTheme } from '$lib/hooks/theme.svelte.js';
-  import { Icons } from '$lib/icons/index.js';
+  import { Icons } from '../../../icons/index.js';
 
   const theme = useTheme();
 

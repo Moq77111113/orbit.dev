@@ -1,6 +1,6 @@
 <script lang="ts">
+  import type { MenuActionHandler } from '../../molecules/menu-actions.svelte';
   import MobileAction from '../atoms/mobile-action.svelte';
-  import type { MenuActionHandler } from './menu-actions.svelte';
 
   type Props = {
     actions: MenuActionHandler<void>[];

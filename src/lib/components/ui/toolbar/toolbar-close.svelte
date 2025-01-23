@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Icons } from '$lib/icons/index.js';
+  import { Icons } from '../../../icons/index.js';
   import { cn } from '$lib/utils/ui.js';
   import Button from '../button/button.svelte';
   import { useToolbar } from './toolbar.svelte.js';

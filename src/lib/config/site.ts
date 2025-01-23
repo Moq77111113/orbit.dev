@@ -1,4 +1,4 @@
-import { Icons } from "$lib/icons/index.js";
+import { Icons } from "../icons/index.js";
 
 export const site = {
 	name: "Orbit.dev",

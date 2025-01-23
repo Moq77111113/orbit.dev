@@ -28,13 +28,12 @@
   }
 
   function handleTouch(event: TouchEvent) {
-
     const touches = event.touches;
     if (touches.length <= 1) {
       onMouseDown(touches[0].clientX, touches[0].clientY);
       return;
     }
-    console.log('pinch')
+    console.log('pinch');
     handlePinch(event);
   }
 
@@ -63,6 +62,7 @@
   ontouchstart={handleTouch}
   ontouchmove={handlePinch}
   class:cursor-grab={scale > 1}
+  class="cursor-default"
 >
   <svg
     id="radar"
@@ -75,6 +75,7 @@
     onwheel={handleWheel}
     role="img"
     aria-label="Tech radar visualization"
+    class="font-serif"
   />
   {@render children?.()}
 </div>

@@ -49,16 +49,6 @@ const config: Config = {
 					DEFAULT: "hsl(var(--card) / <alpha-value>)",
 					foreground: "hsl(var(--card-foreground) / <alpha-value>)",
 				},
-				sidebar: {
-					DEFAULT: "hsl(var(--sidebar-background))",
-					foreground: "hsl(var(--sidebar-foreground))",
-					primary: "hsl(var(--sidebar-primary))",
-					"primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-					accent: "hsl(var(--sidebar-accent))",
-					"accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-					border: "hsl(var(--sidebar-border))",
-					ring: "hsl(var(--sidebar-ring))",
-				},
 			},
 			borderRadius: {
 				xl: "calc(var(--radius) + 4px)",
@@ -68,7 +58,8 @@ const config: Config = {
 			},
 			fontFamily: {
 				hand: ['"Virgil"', "cursive"],
-				sans: ['"Cascadia Code"', ...fontFamily.sans],
+				serif: ['"Cascadia Code"', ...fontFamily.serif],
+				sans: ["Assistant", ...fontFamily.sans],
 			},
 			keyframes: {
 				"accordion-down": {

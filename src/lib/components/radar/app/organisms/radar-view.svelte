@@ -44,6 +44,7 @@
         container: { width: svgController.width, height: svgController.height },
       });
     }
+    // renderer.update(orbit.)
     orbit.addObserver(renderer);
     orbit.bindVector(svg);
     handleResize();

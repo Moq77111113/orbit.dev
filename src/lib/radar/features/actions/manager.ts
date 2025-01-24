@@ -38,6 +38,13 @@ export class ActionManager {
 	) {
 		const appState = this.getState();
 
+		const shouldPerform = action.predicate?.(appState, data) ?? true;
+
+		if (!shouldPerform) {
+			console.error("Action not allowed", action.name);
+			return 
+		}
+
 		const result = action.perform(appState, data);
 		if (result instanceof Promise) {
 			return result.then((r) => {

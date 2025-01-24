@@ -5,14 +5,17 @@
     type StackItem,
     useToolbar,
   } from '$lib/components/ui/toolbar/toolbar.svelte.js';
-  import { Icons } from '../../../../icons/index.js';
   import { cn } from '$lib/utils/ui.js';
+  import { Icons } from '../../../../icons/index.js';
   import MobileActions from '../molecules/mobile-actions.svelte';
 
   import RadarList from './radar-list.svelte';
 
+  import { Orbit, useOrbit } from '$lib/radar/state/app-state.svelte.js';
+  import type { MenuActionHandler } from '../../molecules/menu-actions.svelte';
   import ThemeList from './theme-list.svelte';
 
+  const orbit = useOrbit();
   const toolbar = useToolbar();
 
   let currentMenu = $state<(typeof actions)[number]['title'] | null>(null);
@@ -33,7 +36,7 @@
     toolbar.setOpen(true);
     currentMenu = item.title?.toString() ?? null;
   };
-  const actions = [
+  const actions = $state<MenuActionHandler<void>[]>([
     {
       title: 'Menu',
       icon: Icons.hamburger,
@@ -42,19 +45,24 @@
       class:
         'bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground',
     },
-    {
-      title: 'Theming',
-      icon: Icons.theme,
-      handle: () =>
-        addOrClose({ content: ThemeList, props: {}, title: 'Theme' }),
-    },
-    {
-      title: 'Radar',
-      icon: Icons.radar,
-      handle: () =>
-        addOrClose({ content: RadarList, props: {}, title: 'Radar' }),
-    },
-  ];
+  ]);
+
+  if (!orbit.readonly) {
+    actions.push(
+      {
+        title: 'Theming',
+        icon: Icons.theme,
+        handle: () =>
+          addOrClose({ content: ThemeList, props: {}, title: 'Theme' }),
+      },
+      {
+        title: 'Radar',
+        icon: Icons.radar,
+        handle: () =>
+          addOrClose({ content: RadarList, props: {}, title: 'Radar' }),
+      }
+    );
+  }
 </script>
 
 <Toolbar.Island />

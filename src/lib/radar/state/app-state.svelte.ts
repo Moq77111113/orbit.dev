@@ -5,7 +5,7 @@ import type {
 	Action,
 	ActionResult,
 } from "$lib/radar/features/actions/types/index.js";
-import type { AppState } from "$lib/radar/state/types.js";
+import type { AppMode, AppState } from "$lib/radar/state/types.js";
 import { getContext, setContext } from "svelte";
 
 import type { Radar } from "$lib/radar/core/elements/types.js";
@@ -18,6 +18,7 @@ import { StorageObserver } from "./observers/storage.js";
 type Props = {
 	radar?: Radar;
 	config?: RadarConfig;
+	mode: AppMode;
 };
 
 export class Orbit {
@@ -34,37 +35,30 @@ export class Orbit {
 		return this.#state;
 	}
 
+	get readonly() {
+		return this.#state.mode === "read";
+	}
+
 	private doUpdate(actionResult: ActionResult) {
 		if (!actionResult || !actionResult.appState) return;
 
-		const { radar, radarConfig, errors, ...rest } = actionResult.appState;
+		const { radar, radarConfig, ...rest } = actionResult.appState;
 
 		this.#state = {
 			...this.#state,
 			...rest,
 			radar: this.#validateRadar(radar),
 			radarConfig: this.#getConfig(radarConfig),
-			errors: errors || this.state.errors,
 		};
 	}
 
 	constructor(public readonly props: Props) {
-		const storage = new StorageObserver();
-		const { radar: storedRadar, config: storedConfig } = storage.load();
-		this.#state = {
-			...this.#defaultState,
-			radar: this.#validateRadar(storedRadar),
-			radarConfig: this.#getConfig(
-				storedConfig ?? this.#defaultState.radarConfig,
-			),
-		};
-		this.#actionManager = new ActionManager(
-			this.doUpdate.bind(this),
-			() => this.state,
-		);
+		this.#state = this.#initState();
+		this.#actionManager = this.#createActionManager();
 
-		this.#actionManager.registerActions(actions);
-		this.addObserver(storage);
+		if (!this.readonly) {
+			this.addObserver(new StorageObserver());
+		}
 	}
 
 	execute<T extends Action>(action: T, data: Parameters<T["perform"]>[1]) {
@@ -78,6 +72,57 @@ export class Orbit {
 
 	bindVector(svg: SVGElement) {
 		this.#state.vector = svg;
+	}
+
+	#createActionManager() {
+		const actionManager = new ActionManager(
+			this.#updateState.bind(this),
+			() => this.state,
+		);
+		actionManager.registerActions(actions);
+		return actionManager;
+	}
+
+	#updateState(actionResult: ActionResult) {
+		if (!actionResult || !actionResult.appState) return;
+
+		const { radar, radarConfig, ...rest } = actionResult.appState;
+		this.#state = {
+			...this.#state,
+			...rest,
+			radar: this.#validateRadar(radar),
+			radarConfig: this.#getConfig(radarConfig),
+		};
+	}
+
+	#initState(): AppState {
+		if (this.readonly) {
+			return this.#createReadonlyState();
+		}
+		return this.#createEditableState();
+	}
+
+	#createReadonlyState(): AppState {
+		return {
+			...this.#defaultState,
+			...this.props,
+			radar: this.#validateRadar(),
+			radarConfig: this.#getConfig(),
+		};
+	}
+
+	#createEditableState(): AppState {
+		const storage = new StorageObserver();
+		const { radar: storedRadar, config: storedConfig } = storage.load();
+
+		return {
+			...this.#defaultState,
+			...this.props,
+			radar: this.#validateRadar(storedRadar),
+			radarConfig: this.#getConfig(
+				storedConfig ?? this.#defaultState.radarConfig,
+			),
+		};
 	}
 
 	#validateRadar(radar?: unknown): Radar {

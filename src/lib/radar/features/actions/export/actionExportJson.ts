@@ -16,4 +16,4 @@ export const exportJson = register({
 
 		return false;
 	},
-});
+}, "read");

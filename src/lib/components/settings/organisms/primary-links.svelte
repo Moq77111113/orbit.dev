@@ -9,6 +9,7 @@
   import { exportPng, exportSvg } from '$lib/radar/features/actions/index.js';
   import { useOrbit } from '$lib/radar/state/app-state.svelte.js';
   import { secureOnly } from '$lib/utils/secure.js';
+  import type { NavElement } from '../atoms/setting-item.svelte';
 
   import NavLinks from '../molecules/nav-links.svelte';
   import type { SaveMenuOption } from '../molecules/save-menu.svelte';
@@ -18,7 +19,7 @@
   const background = useBackgroundStore();
   let exportOpen = $state(false);
 
-  const primary = [
+  const primary = $state<NavElement[]>([
     {
       title: 'Save to...',
       icon: Icons.download,
@@ -29,25 +30,22 @@
       },
       disabled: !orbit.state.vector,
     },
-    {
-      title: 'Clear Radar',
-      icon: Icons.trash,
-      onclick: () => orbit.execute(clearRadar, undefined),
-    },
-    {
-      title: 'Randomize Radar',
-      icon: Icons.shuffle,
-      onclick: () => {
-        orbit.execute(randomizeRadar, undefined);
+  ]);
+
+  if (!orbit.readonly) {
+    primary.push(
+      {
+        title: 'Clear Radar',
+        icon: Icons.trash,
+        onclick: () => orbit.execute(clearRadar, undefined),
       },
-    },
-    {
-      title: 'Share',
-      icon: Icons.share,
-      onclick: () => {},
-      disabled: true,
-    },
-  ];
+      {
+        title: 'Randomize Radar',
+        icon: Icons.shuffle,
+        onclick: () => orbit.execute(randomizeRadar, undefined),
+      }
+    );
+  }
 
   const exports = [
     {

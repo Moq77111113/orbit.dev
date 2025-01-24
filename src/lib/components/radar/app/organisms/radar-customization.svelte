@@ -10,7 +10,7 @@
   ];
 </script>
 
-<Tabs.Root class="relative">
+<Tabs.Root class="relative" value="customization">
   <Tabs.List
     class="grid w-full space-x-2 grid-cols-2 top-0 left-0 z-10 mb-2 sticky backdrop-blur bg-background/60"
   >

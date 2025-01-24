@@ -12,11 +12,17 @@ function* seededRandomGenerator() {
 
 const random = seededRandomGenerator();
 
+const randomPercentage = () =>
+	(random.next().value as number) / Number.MAX_SAFE_INTEGER;
+
+export const pickRandom = <T>(arr: ReadonlyArray<T>) => {
+	return arr[Math.floor(randomPercentage() * arr.length)];
+};
 export const randomInteger = () => random.next().value as number;
 
 export function randomId<T extends string = "">(
 	pre?: T,
 ): T extends "" ? string : `${T}-${string}` {
-	const prefix = pre ? `${pre}-` : "";
+	const prefix = pre ? (`${pre}-` as const) : ("" as const);
 	return `${prefix}${nanoid()}` as T extends "" ? string : `${T}-${string}`;
 }

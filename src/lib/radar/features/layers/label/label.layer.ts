@@ -2,17 +2,14 @@ import type { Entry, Ring, Section } from "$lib/radar/core/elements/types.js";
 
 import { Layer } from "../base/base.layer.js";
 
-import type {
-	D3Selection,
-	EnrichedSection,
-} from "../base/types.js";
+import type { D3Selection, EnrichedSection } from "../base/types.js";
 
 type Group<T> = D3Selection<SVGGElement, T>;
 
 export class LabelLayer extends Layer<EnrichedSection, SVGGElement> {
 	protected compare(): boolean {
-			// Always trigger a redraw
-			return false
+		// Always trigger a redraw
+		return false;
 	}
 
 	protected getOne(section: EnrichedSection) {
@@ -57,11 +54,11 @@ export class LabelLayer extends Layer<EnrichedSection, SVGGElement> {
 			},
 			{
 				x: width - radius,
-				y: (height - radius) / 2 + padding,
+				y: height / 2 + padding,
 			},
 			{
 				x: padding,
-				y: (height - radius) / 2 + padding,
+				y: height / 2 + padding,
 			},
 		];
 	}
@@ -116,8 +113,10 @@ export class LabelLayer extends Layer<EnrichedSection, SVGGElement> {
 		const col = Math.floor(adjustedPosition / itemsPerRow);
 		const row = adjustedPosition % itemsPerRow;
 
-		const availableWidth = this.dimensions.width - this.dimensions.radius;
-		const availableHeight = this.dimensions.height - this.dimensions.radius;
+		const availableWidth =
+			this.dimensions.width - (this.dimensions.height / 2 + padding);
+		const availableHeight =
+			this.dimensions.height - (this.dimensions.height / 2 + padding);
 
 		const remainingSections = this.radar.sections.length - 4;
 		const rowCount = Math.ceil(remainingSections / itemsPerRow);
@@ -126,11 +125,7 @@ export class LabelLayer extends Layer<EnrichedSection, SVGGElement> {
 		const sectionHeight = Math.max(minHeight, availableHeight / rowCount);
 
 		const x = row * sectionWidth + padding;
-		const y =
-			this.dimensions.height -
-			this.dimensions.radius -
-			col * sectionHeight +
-			this.dimensions.radius / 4;
+		const y = this.dimensions.height / 2 + padding * 4 + col * sectionHeight;
 
 		return { x, y };
 	}

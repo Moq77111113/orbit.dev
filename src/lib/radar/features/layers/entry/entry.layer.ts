@@ -30,7 +30,9 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 	}
 
 	protected compare(a: EnrichedEntry, b: EnrichedEntry): boolean {
-		return a.id === b.id;
+		return (
+			a.id === b.id && a.sectionId === b.sectionId && a.ringId === b.ringId
+		);
 	}
 
 	protected getOne(entry: EnrichedEntry) {

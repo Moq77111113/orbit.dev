@@ -2,13 +2,17 @@ import type { Entry, Ring, Section } from "$lib/radar/core/elements/types.js";
 
 import { Layer } from "../base/base.layer.js";
 
-import type { D3Selection, EnrichedSection } from "../base/types.js";
+import type {
+	D3Selection,
+	EnrichedSection,
+} from "../base/types.js";
 
 type Group<T> = D3Selection<SVGGElement, T>;
 
 export class LabelLayer extends Layer<EnrichedSection, SVGGElement> {
-	protected compare(a: EnrichedSection, b: EnrichedSection): boolean {
-		return a.id === b.id;
+	protected compare(): boolean {
+			// Always trigger a redraw
+			return false
 	}
 
 	protected getOne(section: EnrichedSection) {
@@ -134,7 +138,7 @@ export class LabelLayer extends Layer<EnrichedSection, SVGGElement> {
 	#sortRings(a: Ring, b: Ring) {
 		const aIdx = this.radar.rings.findIndex((r) => r.id === a.id);
 		const bIdx = this.radar.rings.findIndex((r) => r.id === b.id);
-		return aIdx - bIdx
+		return aIdx - bIdx;
 	}
 	#getOrCreateRing(parent: Group<EnrichedSection>, ring: Ring) {
 		const selected = parent.select<SVGGElement>(`.ring-${ring.id}`);

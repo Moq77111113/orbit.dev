@@ -14,6 +14,7 @@ import Shell from "lucide-svelte/icons/shell";
 import Sun from "lucide-svelte/icons/sun";
 import Trash from "lucide-svelte/icons/trash-2";
 import X from "lucide-svelte/icons/x";
+import Shuffle from 'lucide-svelte/icons/shuffle';
 import GitHub from "./github.svelte";
 import Logo from "./logo.svelte";
 import Transparent from "./transparent.svelte";
@@ -35,6 +36,7 @@ export const Icons = {
 	download: ArrowDownToLine,
 	trash: Trash,
 	share: Share,
+	shuffle: Shuffle,
 	themelight: Sun,
 	themedark: Moon,
 	themesys: ThemeSystem,

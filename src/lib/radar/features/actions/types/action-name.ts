@@ -27,7 +27,9 @@ type ConfigAction = "config/layout-update";
 type ExportAction = "export/svg" | "export/png" | "export/json";
 type ClipActions = "clip/svg" | "clip/png" | "clip/json";
 
+type RadarAction = 'radar/clear' | 'radar/randomize'
 export type ActionName = Pretty<
+	| RadarAction
 	| RingAction
 	| SectionAction
 	| EntryAction

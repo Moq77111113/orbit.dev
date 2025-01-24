@@ -51,7 +51,7 @@
     class: className,
     variant = 'default',
     size = 'default',
-    ref = $bindable(null),
+    ref = $bindable(),
     href = undefined,
     type = 'button',
     children,

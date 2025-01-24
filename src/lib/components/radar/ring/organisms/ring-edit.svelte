@@ -12,6 +12,8 @@
 
   let { ring, open = $bindable<boolean>(), onChange }: Props = $props();
 
+  let submit = $state<HTMLButtonElement>();
+
   const listen = (
     e: KeyboardEvent & {
       currentTarget: EventTarget & Window;
@@ -20,8 +22,9 @@
     if (e.key === 'Escape') {
       open = false;
     }
+
     if (e.key === 'Enter') {
-      onChange({ ...ring });
+      submit?.click();
     }
   };
 </script>
@@ -33,6 +36,6 @@
     Edit {ring.name}
   {/snippet}
   {#snippet content()}
-    <RingForm {ring} onSave={onChange} />
+    <RingForm {ring} onSave={onChange} bind:submit />
   {/snippet}
 </ResponsiveDialog>

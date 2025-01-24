@@ -22,9 +22,16 @@
     onSave: (entry: EntryForm) => void;
     rings: Ring[];
     sections: Section[];
+    submit?: HTMLButtonElement;
   };
 
-  const { entry, onSave, rings, sections }: Props = $props();
+  let {
+    entry,
+    onSave,
+    rings,
+    sections,
+    submit = $bindable(),
+  }: Props = $props();
 </script>
 
 <FormWrapper data={entry} {onSave} schema={entryForm}>
@@ -60,15 +67,9 @@
         {/snippet}
       </FormRadio>
 
-      <FormCheckbox
-        {form}
-        name="isNew"
-        label="New"
-        type="checkbox"
-        
-      />
+      <FormCheckbox {form} name="isNew" label="New" type="checkbox" />
     </div>
 
-    <Button type="submit" class="mt-4">Save</Button>
+    <Button type="submit" class="mt-4" bind:ref={submit}>Save</Button>
   {/snippet}
 </FormWrapper>

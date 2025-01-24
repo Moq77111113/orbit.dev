@@ -7,9 +7,10 @@
   type Props = {
     ring: RingForm;
     onSave: (ring: RingForm) => void;
+    submit?: HTMLButtonElement;
   };
 
-  const { ring, onSave }: Props = $props();
+  let { ring, onSave, submit = $bindable() }: Props = $props();
 </script>
 
 <FormWrapper data={ring} {onSave} schema={ringForm}>
@@ -17,6 +18,6 @@
     <FormInput {form} name="name" label="Name" />
     <FormInput {form} name="color" label="Color" type="color" />
 
-    <Button type="submit">Save</Button>
+    <Button type="submit" bind:ref={submit}>Save</Button>
   {/snippet}
 </FormWrapper>

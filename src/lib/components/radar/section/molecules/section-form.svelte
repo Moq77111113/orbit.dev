@@ -11,14 +11,15 @@
   type Props = {
     section: SectionForm;
     onSave: (section: SectionForm) => void;
+    submit?: HTMLButtonElement;
   };
 
-  const { section, onSave }: Props = $props();
+  let { section, onSave, submit = $bindable() }: Props = $props();
 </script>
 
 <FormWrapper data={section} {onSave} schema={sectionForm}>
   {#snippet children(form)}
     <FormInput {form} name="name" label="Name" />
-    <Button type="submit">Save</Button>
+    <Button type="submit" bind:ref={submit}>Save</Button>
   {/snippet}
 </FormWrapper>

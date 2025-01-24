@@ -12,6 +12,8 @@
 
   let { section, open = $bindable<boolean>(), onChange }: Props = $props();
 
+  let submit = $state<HTMLButtonElement>();
+
   const listen = (
     e: KeyboardEvent & {
       currentTarget: EventTarget & Window;
@@ -21,7 +23,7 @@
       open = false;
     }
     if (e.key === 'Enter') {
-      onChange({ ...section });
+      submit?.click();
     }
   };
 </script>
@@ -33,6 +35,6 @@
     Edit {section.name}
   {/snippet}
   {#snippet content()}
-    <SectionForm {section} onSave={onChange} />
+    <SectionForm {section} onSave={onChange} bind:submit />
   {/snippet}
 </ResponsiveDialog>

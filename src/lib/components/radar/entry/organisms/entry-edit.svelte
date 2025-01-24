@@ -21,6 +21,7 @@
     rings,
   }: Props = $props();
 
+  let submit = $state<HTMLButtonElement>();
   const listen = (
     e: KeyboardEvent & {
       currentTarget: EventTarget & Window;
@@ -30,8 +31,7 @@
       open = false;
     }
     if (e.key === 'Enter') {
-      onSave({ ...entry });
-      open = false;
+      submit?.click();
     }
   };
 </script>
@@ -43,6 +43,6 @@
     Edit {entry.name}
   {/snippet}
   {#snippet content()}
-    <EntryForm {entry} {sections} {rings} {onSave} />
+    <EntryForm {entry} {sections} {rings} {onSave} bind:submit />
   {/snippet}
 </ResponsiveDialog>

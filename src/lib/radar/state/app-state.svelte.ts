@@ -102,7 +102,7 @@ export class Orbit {
 	#createEditableState(): AppState {
 		const storage = new StorageObserver();
 		const { radar: storedRadar, config: storedConfig } = storage.load();
-		console.log(storedRadar);
+
 		return {
 			...this.#defaultState,
 			...this.props,

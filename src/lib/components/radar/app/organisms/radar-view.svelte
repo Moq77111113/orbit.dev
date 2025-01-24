@@ -7,24 +7,16 @@
   import { onMount } from 'svelte';
   import RadarSvg from '../molecules/radar-svg.svelte';
   import ZoomControls from '../molecules/zoom-controls.svelte';
+
   const orbit = useOrbit();
+  const background = useBackgroundStore();
 
   type Props = { svg: SVGElement };
 
   let { svg = $bindable() }: Props = $props();
-  const svgController = new ZoomController({
-    viewHeight: 800,
-    viewWidth: 1000,
-    aspectRatio: 0.8,
-    maxWidth: 1000,
-    maxZoom: 3,
-    minZoom: 1,
-    zoomStep: 0.1,
-    initialWidth: 1000,
-  });
+  const svgController = new ZoomController();
   let renderer = $state<RadarRenderer>();
 
-  const background = useBackgroundStore();
   function handleResize() {
     svgController.resize(
       Math.min(svgController.maxWidth, window.innerWidth - 32)
@@ -37,6 +29,7 @@
       position
     );
   }
+
   onMount(() => {
     if (!renderer) {
       renderer = new RadarRenderer({
@@ -44,8 +37,13 @@
         container: { width: svgController.width, height: svgController.height },
       });
     }
-    // renderer.update(orbit.)
-    orbit.addObserver(renderer);
+
+    if (orbit.readonly) {
+      renderer.update(orbit.state);
+    } else {
+      orbit.addObserver(renderer);
+    }
+
     orbit.bindVector(svg);
     handleResize();
   });

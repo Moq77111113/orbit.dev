@@ -9,6 +9,16 @@ type Props = {
 	initialWidth: number;
 };
 
+const defaultProps = {
+	viewHeight: 800,
+	viewWidth: 1000,
+	aspectRatio: 0.8,
+	maxWidth: 1000,
+	maxZoom: 3,
+	minZoom: 1,
+	zoomStep: 0.1,
+	initialWidth: 1000,
+};
 export class ZoomController {
 	#scale = $state(1);
 	#offset = $state({ x: 0, y: 0 });
@@ -22,7 +32,7 @@ export class ZoomController {
 
 	#viewBox = $state(`0 0 ${this.width} ${this.height}`);
 
-	constructor(protected readonly props: Props) {
+	constructor(protected readonly props: Props = defaultProps) {
 		this.#width = this.props.initialWidth;
 		this.#aspectRatio = this.props.aspectRatio;
 		this.#height = this.#width * this.#aspectRatio;

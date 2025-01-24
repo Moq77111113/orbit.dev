@@ -39,19 +39,6 @@ export class Orbit {
 		return this.#state.mode === "read";
 	}
 
-	private doUpdate(actionResult: ActionResult) {
-		if (!actionResult || !actionResult.appState) return;
-
-		const { radar, radarConfig, ...rest } = actionResult.appState;
-
-		this.#state = {
-			...this.#state,
-			...rest,
-			radar: this.#validateRadar(radar),
-			radarConfig: this.#getConfig(radarConfig),
-		};
-	}
-
 	constructor(public readonly props: Props) {
 		this.#state = this.#initState();
 		this.#actionManager = this.#createActionManager();
@@ -96,9 +83,10 @@ export class Orbit {
 	}
 
 	#initState(): AppState {
-		if (this.readonly) {
+		if (this.props.mode === "read") {
 			return this.#createReadonlyState();
 		}
+
 		return this.#createEditableState();
 	}
 
@@ -114,7 +102,7 @@ export class Orbit {
 	#createEditableState(): AppState {
 		const storage = new StorageObserver();
 		const { radar: storedRadar, config: storedConfig } = storage.load();
-
+		console.log(storedRadar);
 		return {
 			...this.#defaultState,
 			...this.props,

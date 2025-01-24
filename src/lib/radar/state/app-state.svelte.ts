@@ -35,40 +35,28 @@ export class Orbit {
 	}
 
 	private doUpdate(actionResult: ActionResult) {
-		if (!actionResult) return;
+		if (!actionResult || !actionResult.appState) return;
 
-		const radar =
-			radarSchema.parse(actionResult.appState?.radar) ||
-			this.#state.radar ||
-			this.props.radar;
+		const { radar, radarConfig, errors, ...rest } = actionResult.appState;
 
-		const radarConfig =
-			actionResult.appState?.radarConfig ||
-			this.#state.radarConfig ||
-			this.props.config;
-		const errors = actionResult.appState?.errors || this.state.errors;
 		this.#state = {
 			...this.#state,
-			...actionResult.appState,
-			radar,
-			radarConfig,
-			errors,
+			...rest,
+			radar: this.#validateRadar(radar),
+			radarConfig: this.#getConfig(radarConfig),
+			errors: errors || this.state.errors,
 		};
 	}
 
 	constructor(public readonly props: Props) {
 		const storage = new StorageObserver();
-		const stored = storage.load();
+		const { radar: storedRadar, config: storedConfig } = storage.load();
 		this.#state = {
 			...this.#defaultState,
-			radar: stored ?? {
-				...this.props.radar,
-				...this.#state.radar,
-			},
-			radarConfig: {
-				...this.#defaultState.radarConfig,
-				...props.config,
-			},
+			radar: this.#validateRadar(storedRadar),
+			radarConfig: this.#getConfig(
+				storedConfig ?? this.#defaultState.radarConfig,
+			),
 		};
 		this.#actionManager = new ActionManager(
 			this.doUpdate.bind(this),
@@ -90,6 +78,18 @@ export class Orbit {
 
 	bindVector(svg: SVGElement) {
 		this.#state.vector = svg;
+	}
+
+	#validateRadar(radar?: unknown): Radar {
+		try {
+			return radarSchema.parse(radar);
+		} catch {
+			return this.#state.radar || this.props.radar;
+		}
+	}
+
+	#getConfig(newConfig?: RadarConfig): RadarConfig {
+		return newConfig || this.#state.radarConfig || this.props.config;
 	}
 }
 

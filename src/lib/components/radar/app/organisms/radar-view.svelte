@@ -45,6 +45,7 @@
       });
     }
     orbit.addObserver(renderer);
+    orbit.bindVector(svg);
     handleResize();
   });
 </script>

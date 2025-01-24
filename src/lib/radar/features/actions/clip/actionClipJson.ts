@@ -8,7 +8,6 @@ export const clipJson = register({
 	keywords: ["radar", "clip", "json", "download"],
 	perform: (state: AppState) => {
 		const radar = state.radar;
-		// Copy json to clipboard
 		const data = JSON.stringify(radar);
 		navigator.clipboard.writeText(data);
 		return false;

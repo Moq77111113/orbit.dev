@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { SvgController } from '$lib/hooks/svg-controller.svelte.js';
+  import { ZoomController } from '$lib/hooks/svg-zoom.svelte.js';
   import { useOrbit } from '$lib/radar/state/app-state.svelte.js';
   import { RadarRenderer } from '$lib/radar/state/observers/renderer.svelte.js';
 
-  import { useSvgBackground } from '$lib/hooks/svg-background.svelte.js';
+  import { useBackgroundStore } from '$lib/hooks/svg-background.svelte.js';
   import { onMount } from 'svelte';
   import RadarSvg from '../molecules/radar-svg.svelte';
   import ZoomControls from '../molecules/zoom-controls.svelte';
@@ -12,19 +12,19 @@
   type Props = { svg: SVGElement };
 
   let { svg = $bindable() }: Props = $props();
-  const svgController = new SvgController({
+  const svgController = new ZoomController({
     viewHeight: 800,
     viewWidth: 1000,
     aspectRatio: 0.8,
     maxWidth: 1000,
     maxZoom: 3,
-    minZoom: 0.5,
+    minZoom: 1,
     zoomStep: 0.1,
     initialWidth: 1000,
   });
   let renderer = $state<RadarRenderer>();
 
-  const background = useSvgBackground();
+  const background = useBackgroundStore();
   function handleResize() {
     svgController.resize(
       Math.min(svgController.maxWidth, window.innerWidth - 32)

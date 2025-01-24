@@ -7,10 +7,8 @@
   type Props = {
     readonly?: boolean;
   };
-
-  const { readonly = false }: Props = $props();
-
   createOrbitState({});
+  const { readonly = false }: Props = $props();
 
   let svg: SVGElement = $state<SVGElement>({} as SVGElement);
 </script>

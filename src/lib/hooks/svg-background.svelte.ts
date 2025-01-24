@@ -27,13 +27,12 @@ function isColor(color: string) {
 		named.test(color)
 	);
 }
-class SvgBackground {
+class BackgroundController {
 	#storage = isBrowser ? window.localStorage : noopStorage;
 
 	#value = $state<string>("transparent");
 	constructor(protected readonly key = "orb.svg-bg") {
 		const storedValue = this.#storage.getItem(this.key);
-
 
 		this.change(storedValue || "transparent");
 	}
@@ -60,9 +59,9 @@ class SvgBackground {
 const key = "orb-rdr-bg";
 
 export const createBackgroundStore = () => {
-	return setContext(Symbol.for(key), new SvgBackground());
+	return setContext(Symbol.for(key), new BackgroundController());
 };
 
-export const useSvgBackground = () => {
-	return getContext<SvgBackground>(Symbol.for(key));
+export const useBackgroundStore = () => {
+	return getContext<BackgroundController>(Symbol.for(key));
 };

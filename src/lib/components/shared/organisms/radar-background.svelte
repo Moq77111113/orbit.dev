@@ -1,11 +1,11 @@
 <script lang="ts">
   import Label from '$lib/components/ui/label/label.svelte';
   import * as ToggleGroup from '$lib/components/ui/toggle-group/index.js';
-  import { useSvgBackground } from '$lib/hooks/svg-background.svelte.js';
+  import { useBackgroundStore } from '$lib/hooks/svg-background.svelte.js';
   import { Icons } from '$lib/icons/index.js';
   import { cn } from '$lib/utils/ui.js';
 
-  const background = useSvgBackground();
+  const background = useBackgroundStore();
   // 8 colors for a tech radar background (it contains already green, red, orange, and blue) 4 for light, 4 for dark. use pastels colors
   const presets = [
     'transparent',

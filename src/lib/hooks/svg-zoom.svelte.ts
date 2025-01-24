@@ -9,7 +9,7 @@ type Props = {
 	initialWidth: number;
 };
 
-export class SvgController {
+export class ZoomController {
 	#scale = $state(1);
 	#offset = $state({ x: 0, y: 0 });
 

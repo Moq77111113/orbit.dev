@@ -12,7 +12,7 @@ function* seededRandomGenerator() {
 
 const random = seededRandomGenerator();
 
-const randomPercentage = () =>
+export const randomPercentage = () =>
 	(random.next().value as number) / Number.MAX_SAFE_INTEGER;
 
 export const pickRandom = <T>(arr: ReadonlyArray<T>) => {

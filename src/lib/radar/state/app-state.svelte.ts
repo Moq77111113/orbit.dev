@@ -8,10 +8,10 @@ import type {
 import type { AppState } from "$lib/radar/state/types.js";
 import { getContext, setContext } from "svelte";
 
-import { initRadar } from "$lib/radar/core/elements/init.js";
 import type { Radar } from "$lib/radar/core/elements/types.js";
 import type { StateObserver } from "$lib/radar/state/observers/types.js";
 import { radarSchema } from "$lib/validators/radar.validator.js";
+import { createRandomRadar } from "../core/elements/stubs.js";
 import { getDefaultState } from "./default.js";
 import { StorageObserver } from "./observers/storage.js";
 
@@ -25,7 +25,7 @@ export class Orbit {
 
 	#state: AppState = $state<AppState>({
 		...this.#defaultState,
-		radar: initRadar(),
+		radar: createRandomRadar(),
 	});
 
 	#actionManager: ActionManager;
@@ -42,7 +42,6 @@ export class Orbit {
 			this.#state.radar ||
 			this.props.radar;
 
-			console.log(radar);
 		const radarConfig =
 			actionResult.appState?.radarConfig ||
 			this.#state.radarConfig ||

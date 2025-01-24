@@ -1,5 +1,3 @@
-import { createRandomRadar } from "./stubs.js";
-
 import type { Radar } from "./types.js";
 
 export function emptyRadar(): Radar {
@@ -8,7 +6,4 @@ export function emptyRadar(): Radar {
 		rings: [],
 		entries: [],
 	};
-}
-export function initRadar(): Radar {
-	return createRandomRadar();
 }

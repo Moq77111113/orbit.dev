@@ -1,3 +1,4 @@
+import { color } from "$lib/utils/color.js";
 import { randomInteger } from "$lib/utils/random.js";
 import type { Entry } from "./types/entry.js";
 import type { Radar } from "./types/radar.js";
@@ -348,7 +349,11 @@ export function createRandomRadar() {
 			...section,
 			...createBase("section"),
 		})),
-		rings: rings.map((ring) => ({ ...ring, ...createBase("ring") })),
+		rings: rings.map((ring) => ({
+			...ring,
+			color: color(),
+			...createBase("ring"),
+		})),
 		entries: enrichedEntries,
 	} satisfies Radar;
 }

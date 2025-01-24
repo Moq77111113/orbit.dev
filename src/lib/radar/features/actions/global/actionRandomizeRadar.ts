@@ -1,4 +1,4 @@
-import { initRadar } from "$lib/radar/core/elements/init.js";
+import { createRandomRadar } from "$lib/radar/core/elements/stubs.js";
 
 import { register } from "$lib/radar/features/actions/register.js";
 import type { ActionResult } from "$lib/radar/features/actions/types/action-function.js";
@@ -19,7 +19,7 @@ export const randomizeRadar = register({
 
 		return {
 			appState: {
-				radar: initRadar(),
+				radar: createRandomRadar(),
 				radarConfig: {
 					...state.radarConfig,
 					entryPlacement: pickRandom(placements),

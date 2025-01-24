@@ -1,7 +1,7 @@
 import { register } from "$lib/radar/features/actions/register.js";
 
-
 import type { AppState } from "$lib/radar/state/types.js";
+import { download } from "$lib/utils/download.js";
 
 type ExportSvgData = SVGElement;
 
@@ -14,14 +14,7 @@ export const exportSvg = register({
 		const svgBlob = new Blob([svgData], {
 			type: "image/svg+xml;charset=utf-8",
 		});
-		const svgUrl = URL.createObjectURL(svgBlob);
-		const downloadLink = document.createElement("a");
-		downloadLink.href = svgUrl;
-		downloadLink.download = "radar.svg";
-		document.body.appendChild(downloadLink);
-		downloadLink.click();
-		document.body.removeChild(downloadLink);
-
+		download(svgBlob, "radar.svg");
 		return false;
 	},
 });

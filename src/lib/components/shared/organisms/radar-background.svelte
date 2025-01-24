@@ -6,7 +6,7 @@
   import { cn } from '$lib/utils/ui.js';
 
   const background = useBackgroundStore();
-  // 8 colors for a tech radar background (it contains already green, red, orange, and blue) 4 for light, 4 for dark. use pastels colors
+
   const presets = [
     'transparent',
     'white',
@@ -22,7 +22,7 @@
 </script>
 
 <div class="flex flex-col space-y-2">
-  <Label class="whitespace-nowrap">Svg Background</Label>
+  <Label class="whitespace-nowrap">Background</Label>
 
   <ToggleGroup.Root
     type="single"
@@ -38,8 +38,8 @@
         aria-label={value}
         class={cn(
           'h-8 px-0',
-          '[&_svg]:size-6 [&_div]:size-6 [&_div]:border',
-          '[&_div]:border-border [&_svg]:border [&_svg]:border-border',
+          '[&_svg]:size-6 [&_div]:size-6',
+          ' [&_div]:border [&_div]:border-border [&_svg]:border [&_svg]:border-border',
           background.value === value ? 'ring-1' : ''
         )}
       >

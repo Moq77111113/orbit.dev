@@ -3,6 +3,7 @@ import type { Radar } from "$lib/radar/core/elements/types.js";
 
 export type AppState = {
 	showWelcome: boolean;
+	vector: SVGElement | null;
 	loading: boolean;
 	errors: [code: number, context: Record<string, unknown>][];
 	radar: Radar;

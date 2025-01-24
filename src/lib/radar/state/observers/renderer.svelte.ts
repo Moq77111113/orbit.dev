@@ -67,7 +67,7 @@ export class RadarRenderer implements StateObserver {
 		return {
 			width,
 			height,
-			radius: Math.min(width, height) / 3,
+			radius: Math.min(width, height) / 2.5,
 			center: { x: width / 2, y: height / 2 },
 		};
 	}

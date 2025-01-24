@@ -3,7 +3,7 @@
   import type { Snippet } from 'svelte';
 
   type Props = {
-    children: Snippet[];
+    children: Snippet;
     class?: string;
   };
 
@@ -11,7 +11,5 @@
 </script>
 
 <section class={cn('grid gap-1', clazz)}>
-  {#each children as child}
-    {@render child()}
-  {/each}
+  {@render children()}
 </section>

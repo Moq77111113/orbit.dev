@@ -22,7 +22,7 @@
   const { form: formData } = form;
 </script>
 
-<Form.Field {form} {name}>
+<Form.Field {form} {name} class="flex flex-col">
   <Form.Control>
     {#snippet children({ props })}
       <LabeledCheckbox

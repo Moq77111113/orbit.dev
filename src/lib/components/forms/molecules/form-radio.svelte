@@ -24,6 +24,8 @@
     form: FsSuperForm<F>;
     class?: string;
     children?: Snippet<[T]>;
+    parse?: (value: string) => F[U];
+    revParse?: (value: F[U]) => string;
   } & RadioProps;
 
   const {
@@ -33,6 +35,8 @@
     class: clazz,
     items,
     children: childrenProp,
+    parse = (v) => v as unknown as F[U],
+    revParse = (v) => v as unknown as string,
   }: Props = $props();
 
   const { form: formData } = form;
@@ -41,8 +45,8 @@
 <Form.Fieldset {form} {name} class={clazz}>
   <Form.Legend>{label}</Form.Legend>
   <RadioGroup.Root
-    value={$formData[name] as string ?? (items[0] as string)}
-    onValueChange={(v) => ($formData[name] = v as unknown as F[U])}
+    value={revParse($formData[name]) ?? (items[0] as string)}
+    onValueChange={(v) => ($formData[name] = parse(v))}
     class="flex space-x-2"
     {name}
   >

@@ -31,6 +31,6 @@
   const { enhance } = form;
 </script>
 
-<form method="POST" use:enhance class="grid gap-4">
+<form method="POST" use:enhance class="grid gap-4 overflow-auto p-4">
   {@render children(form)}
 </form>

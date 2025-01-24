@@ -63,6 +63,11 @@
 </script>
 
 <section class="space-y-2">
+  {#if !sections.length}
+    <p class="py-6 text-center text-gray-500">
+      Start by adding Sections and Rings !
+    </p>
+  {/if}
   {#each sections as section, i (section.id)}
     <MenuSection title={section.name}>
       <div class="flex flex-col py-4">

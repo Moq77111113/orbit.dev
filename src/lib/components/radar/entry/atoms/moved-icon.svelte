@@ -10,19 +10,16 @@
         '-1': 'text-red-600',
         '0': '',
       },
-      color: {
-        black: 'text-black',
-        default: '',
-      },
+   
     },
     defaultVariants: {
       variant: '0',
-      color: 'default',
+
     },
   });
 
   type Variant = VariantProps<typeof variants>['variant'];
-  type Color = VariantProps<typeof variants>['color'];
+
 </script>
 
 <script lang="ts">
@@ -31,15 +28,15 @@
 
   type Props = {
     variant: Variant;
-    color?: Color;
+
     class?: string;
   };
 
-  const { variant, color, class: clazz }: Props = $props();
+  const { variant, class: clazz }: Props = $props();
 </script>
 
 {#if variant === '0'}
-  <Minus class={cn(variants({ variant, color }), clazz)} />
+  <Minus class={cn(variants({ variant }), clazz)} />
 {:else}
-  <ArrowDown class={cn(variants({ variant, color }), clazz)} />
+  <ArrowDown class={cn(variants({ variant }), clazz)} />
 {/if}

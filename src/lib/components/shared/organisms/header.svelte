@@ -10,7 +10,7 @@
   <div
     class="container flex h-14 max-w-screen-2xl items-center justify-between"
   >
-    <div class="flex mr-4">
+    <div class="flex mr-4 border-r">
       <BrandLink />
     </div>
     <div class="flex flex-1 items-center space-x-2 justify-end">

@@ -24,7 +24,7 @@ export class Orbit {
 
 	#state: AppState = $state<AppState>({
 		...this.#defaultState,
-		radar: emptyRadar(),
+		radar: initRadar(),
 	});
 
 	#actionManager: ActionManager;

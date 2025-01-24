@@ -4,7 +4,7 @@ import { ORBIT_RADAR } from "../data/constants.js";
 import type { AppState } from "../types.js";
 import type { StateObserver } from "./types.js";
 
-type StorageProps = {};
+
 
 class NoopStorage implements Storage {
 	length = 0;

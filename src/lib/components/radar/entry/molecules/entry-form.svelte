@@ -1,5 +1,8 @@
 <script lang="ts">
-  import { type EntryForm, entryForm } from '$lib/validators/entry.validator.js';
+  import {
+    type EntryForm,
+    entryForm,
+  } from '$lib/validators/entry.validator.js';
 
   import FormCheckbox from '$lib/components/forms/molecules/form-checkbox.svelte';
   import Moved from '$lib/components/radar/entry/atoms/moved-icon.svelte';
@@ -43,15 +46,17 @@
       items={rings}
     />
     <FormInput {form} name="link" label="Link" />
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-2 place-items-center gap-4">
       <FormRadio
         {form}
         name="moved"
         label="Moved"
         items={['-1', '0', '1'] as const}
+        parse={(value) => parseInt(value) as -1 | 0 | 1}
+        revParse={(value) => (value ?? 0).toString()}
       >
         {#snippet children(value)}
-          <Moved variant={value} color={'black'} class="size-4" />
+          <Moved variant={value} class="size-4" />
         {/snippet}
       </FormRadio>
 
@@ -60,9 +65,10 @@
         name="isNew"
         label="New"
         type="checkbox"
-        class="ml-2"
+        
       />
     </div>
-    <Button type="submit">Save</Button>
+
+    <Button type="submit" class="mt-4">Save</Button>
   {/snippet}
 </FormWrapper>

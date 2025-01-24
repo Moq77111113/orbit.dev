@@ -28,23 +28,22 @@ export const rings = [
 		id: "rng-adopt",
 		name: "Adopt",
 
-		color: "hsl(100, 80% , 50%)",
+		color: "#00C853",
 	},
 	{
 		id: "rng-trial",
 		name: "Trial",
-
-		color: "hsl(210, 100%, 50%)",
+		color: "#00B8D9",
 	},
 	{
 		id: "rng-assess",
 		name: "Assess",
-		color: "hsl(30, 100%, 50%)",
+		color: "#FFAB00",
 	},
 	{
 		id: "rng-hold",
 		name: "Hold",
-		color: "hsl(0, 100%, 50%)",
+		color: "#FF5630",
 	},
 ] satisfies Ring[];
 

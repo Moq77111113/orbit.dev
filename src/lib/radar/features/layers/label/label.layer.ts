@@ -34,14 +34,14 @@ export class LabelLayer extends Layer<EnrichedSection, SVGGElement> {
 		for (const [idx, data] of this.data.entries()) {
 			const element = this.getOrCreate(data);
 
-			this.applyAttributes(element);
+			this.applyAttributes(element, idx);
 		}
 	}
 
 	get corners() {
-		const padding = Math.min(this.dimensions.radius / 4 + 10, 15);
-
-		const { width, height, radius } = this.dimensions;
+		const padding = 10;
+		const textWidth = 150 + padding;
+		const { width, height } = this.dimensions;
 
 		return [
 			{
@@ -49,40 +49,58 @@ export class LabelLayer extends Layer<EnrichedSection, SVGGElement> {
 				y: padding,
 			},
 			{
-				x: width - radius,
+				x: width - textWidth,
 				y: padding,
 			},
 			{
-				x: width - radius,
-				y: height / 2 + padding,
+				x: width - textWidth,
+				y: (height * 3) / 5 + padding,
 			},
 			{
 				x: padding,
-				y: height / 2 + padding,
+				y: (height * 3) / 5 + padding,
 			},
 		];
 	}
-
-	protected applyAttributes(group: Group<EnrichedSection>) {
+	#initialIndex(sectionIdx: number) {
+		return this.data.reduce((acc, curr, idx) => {
+			if (idx < sectionIdx) {
+				const ringEntries = curr.rings.reduce(
+					(entriesCount, ring) => entriesCount + ring.entries.length,
+					0,
+				);
+				return acc + ringEntries;
+			}
+			return acc;
+		}, 0);
+	}
+	protected applyAttributes(group: Group<EnrichedSection>, sectionIdx: number) {
 		const section = group.datum();
 		const positon = this.#position(section);
-		group.attr("transform", `translate(${positon.x}, ${positon.y})`);
 
+		group.attr("transform", `translate(${positon.x}, ${positon.y})`);
 		this.#fillSection(group);
 
-		let yOffset = 25;
-		for (const ring of section.rings.sort((a, b) => this.#sortRings(a, b))) {
-			if (!ring.entries.length) continue;
+		let index = this.#initialIndex(sectionIdx);
+
+		let yOffset = 24;
+
+		const nonEmptyRings = section.rings
+			.filter((ring) => ring.entries.length > 0)
+			.sort(this.#sortRings.bind(this));
+
+		for (const ring of nonEmptyRings) {
 			const ringGroup = this.#getOrCreateRing(group, ring);
 
 			this.#fillRing(ringGroup, yOffset);
-			yOffset += 10;
+			yOffset += 12;
 
 			for (const entry of ring.entries) {
+				index++;
 				const entryGroup = this.#getOrCreateEntry(ringGroup, entry);
-				this.#fillEntry(entryGroup, yOffset);
+				this.#fillEntry(entryGroup, index, yOffset);
 
-				yOffset += 15;
+				yOffset += 12;
 			}
 		}
 	}
@@ -98,14 +116,14 @@ export class LabelLayer extends Layer<EnrichedSection, SVGGElement> {
 	#position(section: Section) {
 		const itemsPerRow = 4;
 		const minHeight = 150;
-		const padding = this.dimensions.radius / 4 + 10;
+
 		const position = this.radar.sections.findIndex((s) => s.id === section.id);
 
 		if (position < 4) {
 			const corner = this.corners[position];
 			return {
-				x: corner.x + padding,
-				y: corner.y + padding,
+				x: corner.x,
+				y: corner.y,
 			};
 		}
 
@@ -113,10 +131,8 @@ export class LabelLayer extends Layer<EnrichedSection, SVGGElement> {
 		const col = Math.floor(adjustedPosition / itemsPerRow);
 		const row = adjustedPosition % itemsPerRow;
 
-		const availableWidth =
-			this.dimensions.width - (this.dimensions.height / 2 + padding);
-		const availableHeight =
-			this.dimensions.height - (this.dimensions.height / 2 + padding);
+		const availableWidth = this.dimensions.width - this.dimensions.height / 2;
+		const availableHeight = this.dimensions.height - this.dimensions.height / 2;
 
 		const remainingSections = this.radar.sections.length - 4;
 		const rowCount = Math.ceil(remainingSections / itemsPerRow);
@@ -124,8 +140,8 @@ export class LabelLayer extends Layer<EnrichedSection, SVGGElement> {
 		const sectionWidth = availableWidth / itemsPerRow;
 		const sectionHeight = Math.max(minHeight, availableHeight / rowCount);
 
-		const x = row * sectionWidth + padding;
-		const y = this.dimensions.height / 2 + padding * 4 + col * sectionHeight;
+		const x = row * sectionWidth;
+		const y = this.dimensions.height / 2 + col * sectionHeight;
 
 		return { x, y };
 	}
@@ -207,7 +223,7 @@ export class LabelLayer extends Layer<EnrichedSection, SVGGElement> {
 			.text((d) => d.name);
 	}
 
-	#fillEntry(entry: Group<Entry>, yOffset: number) {
+	#fillEntry(entry: Group<Entry>, idx: number, yOffset: number) {
 		entry
 			.attr("transform", `translate(10, ${yOffset})`)
 			.style("cursor", "pointer");
@@ -222,6 +238,6 @@ export class LabelLayer extends Layer<EnrichedSection, SVGGElement> {
 			.attr("dy", "0.32em")
 			.attr("font-size", "12px")
 			.attr("fill", this.config.theme.colors.text)
-			.text((d) => d.name);
+			.text((d) => [idx, d.name].join(". "));
 	}
 }

@@ -15,7 +15,7 @@ const defaultTheme = {
 		entries: 12,
 	},
 	sizes: {
-		entry: 40,
+		entry: 150,
 		strokeWidth: 1,
 	},
 } as const satisfies RadarTheme;

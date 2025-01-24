@@ -5,6 +5,9 @@ import { Tooltip } from "../base/tooltip/tooltip.js";
 
 import type { Attrbutes, D3Selection, EnrichedEntry } from "../base/types.js";
 
+import type {
+	RingId,
+} from "$lib/radar/core/elements/types.js";
 import { className, html } from "./helpers/dom.js";
 import { entrySymbol } from "./helpers/symbols.js";
 import { placementStrategies } from "./placement/strategy.js";
@@ -53,8 +56,37 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 			.attr("class", className(entry.id));
 	}
 
+	#sortRings(a: RingId, b: RingId) {
+		const aIdx = this.radar.rings.findIndex((r) => r.id === a);
+		const bIdx = this.radar.rings.findIndex((r) => r.id === b);
+		return aIdx - bIdx;
+	}
+
+	#entryIdx(entry: EnrichedEntry) {
+		const targetSectionIdx = this.radar.sections.findIndex(
+			(_) => _.id === entry.sectionId,
+		);
+
+		let index = 1;
+		for (let sectionIdx = 0; sectionIdx <= targetSectionIdx; sectionIdx++) {
+			const sectionId = this.radar.sections[sectionIdx].id;
+			const sectionEntries = this.radar.entries
+				.filter((e) => e.sectionId === sectionId)
+				.sort((a, b) => this.#sortRings(a.ringId, b.ringId));
+
+			if (sectionIdx === targetSectionIdx) {
+				index += sectionEntries.findIndex((e) => e.id === entry.id);
+				break;
+			}
+
+			index += sectionEntries.length;
+		}
+		return index;
+	}
 	protected applyAttributes(group: Selection) {
 		const entry = group.datum();
+
+		const index = this.#entryIdx(entry);
 
 		const { x, y } = this.#getPosition(entry);
 		group.attr("transform", `translate(${x}, ${y})`);
@@ -79,6 +111,23 @@ export class EntryLayer extends Layer<EnrichedEntry, SVGGElement> {
 		for (const [key, value] of attrs) {
 			path.attr(key, value);
 		}
+
+		let text = group.select<SVGTextElement>("text");
+		if (text.empty()) {
+			text = group.append("text");
+		}
+		const font = Math.floor(
+			Math.max(10, (4 / 100) * this.config.theme.sizes.entry),
+		);
+
+		text
+			.attr("y", "3")
+			.attr("text-anchor", "middle")
+			.style("fill", "white")
+			.style("font-size", `${font}px`)
+			.style("pointer-events", "none")
+			.style("user-select", "none")
+			.text(index.toString());
 
 		if (this.config.interactive) {
 			group.style("cursor", "pointer");

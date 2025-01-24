@@ -1,6 +1,6 @@
 import { register } from "$lib/radar/features/actions/register.js";
 
-import type { AppState } from "$lib/radar/state/types.js";
+
 
 type ExportPngData = SVGElement;
 
@@ -9,7 +9,7 @@ export const exportPng = register({
 	label: "Export Radar as PNG",
 	keywords: ["radar", "export", "png", "download"],
 	perform: (_state, svg: ExportPngData) => {
-		console.log(svg.outerHTML);
+
 		const svgData = new XMLSerializer().serializeToString(svg);
 		const canvas = document.createElement("canvas");
 		const ctx = canvas.getContext("2d");

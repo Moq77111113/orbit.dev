@@ -36,7 +36,7 @@
       onMouseDown(touches[0].clientX, touches[0].clientY);
       return;
     }
-    console.log('pinch');
+
     handlePinch(event);
   }
 

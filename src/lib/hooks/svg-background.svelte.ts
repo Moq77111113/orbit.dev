@@ -33,7 +33,7 @@ class SvgBackground {
 	#value = $state<string>("transparent");
 	constructor(protected readonly key = "orb.svg-bg") {
 		const storedValue = this.#storage.getItem(this.key);
-		console.log(storedValue);
+
 
 		this.change(storedValue || "transparent");
 	}

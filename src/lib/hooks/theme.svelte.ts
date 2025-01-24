@@ -24,7 +24,7 @@ class Theme {
 
 	#value = $state<ThemeValue>("system");
 	constructor(protected readonly key = "orb.theme") {
-		const storedValue = this.#storage.getItem(key);
+		const storedValue = this.#storage.getItem(this.key);
 
 		this.change(storedValue || "system");
 	}

@@ -16,10 +16,12 @@ import Trash from "lucide-svelte/icons/trash-2";
 import X from "lucide-svelte/icons/x";
 import GitHub from "./github.svelte";
 import Logo from "./logo.svelte";
+import Transparent from "./transparent.svelte";
 
 export const Icons = {
 	logo: Logo,
 	github: GitHub,
+	transparent: Transparent,
 	hamburger: Hamburger,
 	radar: Radar,
 	theme: Palette,

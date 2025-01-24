@@ -79,7 +79,7 @@
     role="img"
     aria-label="Tech radar visualization"
     style={`--bg: ${background}`}
-    class="font-serif bg-[--bg]"
+    class="font-serif bg-[--bg] rounded-lg shadow-[--bg] shadow-lg"
     
   />
   {@render children?.()}

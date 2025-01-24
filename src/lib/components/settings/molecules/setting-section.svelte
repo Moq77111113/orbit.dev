@@ -1,17 +1,17 @@
 <script lang="ts">
   import { cn } from '$lib/utils/ui.js';
-  import type { NavElement } from '../atoms/setting-item.svelte';
-  import NavItem from '../atoms/setting-item.svelte';
+  import type { Snippet } from 'svelte';
+
   type Props = {
-    links: NavElement[];
+    children: Snippet[];
     class?: string;
   };
 
-  const { links, class: clazz }: Props = $props();
+  const { children, class: clazz }: Props = $props();
 </script>
 
-<nav class={cn('grid gap-1', clazz)}>
-  {#each links as link (link.title)}
-    <NavItem navElement={link} />
+<section class={cn('grid gap-1', clazz)}>
+  {#each children as child}
+    {@render child()}
   {/each}
-</nav>
+</section>

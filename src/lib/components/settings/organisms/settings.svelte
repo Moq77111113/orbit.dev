@@ -2,13 +2,14 @@
   import RadarBackground from '$lib/components/shared/organisms/radar-background.svelte';
   import Theme from '$lib/components/shared/organisms/theme-switch.svelte';
   import { site } from '$lib/config/site.js';
-  import { Icons } from '../../../icons/index.js';
+  import { Icons } from '$lib/icons/index.js';
+  import NavLinks from '../molecules/nav-links.svelte';
   import SettingSection from '../molecules/setting-section.svelte';
 
   import SettingSections from '../molecules/setting-sections.svelte';
 
   const primary = {
-    component: SettingSection,
+    component: NavLinks,
     props: {
       links: [
         {
@@ -17,12 +18,17 @@
           onclick: () => {},
         },
         { title: 'Clear Radar', icon: Icons.trash, onclick: () => {} },
-        { title: 'Share', icon: Icons.share, onclick: () => {} },
+        {
+          title: 'Share',
+          icon: Icons.share,
+          onclick: () => {},
+          disabled: true,
+        },
       ],
     },
   };
   const links = {
-    component: SettingSection,
+    component: NavLinks,
     props: {
       links: site.links.map((_) => ({
         title: _.label,
@@ -33,14 +39,11 @@
   };
 
   const theme = {
-    component: Theme,
-    props: {},
-  };
-
-  const svgBackground = {
-    component: RadarBackground,
-    props: {},
+    component: SettingSection,
+    props: {
+      children: [Theme, RadarBackground],
+    },
   };
 </script>
 
-<SettingSections sections={[primary, links, theme, svgBackground]} />
+<SettingSections sections={[primary, links, theme]} />

@@ -31,8 +31,9 @@ class SvgBackground {
 	#storage = isBrowser ? window.localStorage : noopStorage;
 
 	#value = $state<string>("transparent");
-	constructor(key = "orb.svg-bg") {
-		const storedValue = this.#storage.getItem(key);
+	constructor(protected readonly key = "orb.svg-bg") {
+		const storedValue = this.#storage.getItem(this.key);
+		console.log(storedValue);
 
 		this.change(storedValue || "transparent");
 	}
@@ -42,13 +43,13 @@ class SvgBackground {
 			this.#clear();
 			return;
 		}
-
+		this.#storage.setItem(this.key, value);
 		this.#value = value;
 	}
 
 	#clear() {
 		this.#value = "transparent";
-		this.#storage.removeItem("theme");
+		this.#storage.removeItem(this.key);
 	}
 
 	get value() {

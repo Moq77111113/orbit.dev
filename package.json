@@ -1,0 +1,68 @@
+{
+  "name": "orbit.dev",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "test:unit": "vitest",
+    "test": "npm run test:unit -- --run",
+    "format": "biome format",
+    "lint": "biome lint"
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "!dist/**/*.spec.*"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "svelte": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js"
+    }
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@sveltejs/adapter-auto": "^3.3.1",
+    "@sveltejs/kit": "^2.16.1",
+    "@sveltejs/package": "^2.3.9",
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "@tailwindcss/typography": "^0.5.16",
+    "@types/d3": "^7.4.3",
+    "autoprefixer": "^10.4.20",
+    "bits-ui": "1.0.0-next.78",
+    "clsx": "^2.1.1",
+    "esbuild": "^0.24.2",
+    "formsnap": "^2.0.0",
+    "lucide-svelte": "^0.469.0",
+    "paneforge": "1.0.0-next.2",
+    "publint": "^0.2.12",
+    "svelte": "^5.19.2",
+    "svelte-check": "^4.1.4",
+    "sveltekit-superforms": "^2.23.1",
+    "tailwind-merge": "^2.6.0",
+    "tailwind-variants": "^0.3.1",
+    "tailwindcss": "^3.4.17",
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5.7.3",
+    "vaul-svelte": "1.0.0-next.3",
+    "vite": "^6.0.11",
+    "vitest": "^2.1.8",
+    "zod": "^3.24.1"
+  },
+  "dependencies": {
+    "d3": "^7.9.0",
+    "nanoid": "^5.0.9"
+  }
+}

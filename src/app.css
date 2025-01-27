@@ -1,0 +1,88 @@
+@import './fonts.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 20 14.3% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 14.3% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14.3% 4.1%;
+    --primary: 24.6 95% 53.1%;
+    --primary-foreground: 60 9.1% 97.8%;
+    --secondary: 60 4.8% 95.9%;
+    --secondary-foreground: 24 9.8% 10%;
+    --muted: 60 4.8% 95.9%;
+    --muted-foreground: 25 5.3% 44.7%;
+    --accent: 60 4.8% 95.9%;
+    --accent-foreground: 24 9.8% 10%;
+    --destructive: 0 72.22% 50.59%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 20 5.9% 90%;
+    --input: 20 5.9% 90%;
+    --ring: 24.6 95% 53.1%;
+    --radius: 0.75rem;
+  }
+  .dark {
+    --background: 20 14.3% 4.1%;
+    --foreground: 60 9.1% 97.8%;
+    --card: 20 14.3% 4.1%;
+    --card-foreground: 60 9.1% 97.8%;
+    --popover: 20 14.3% 4.1%;
+    --popover-foreground: 60 9.1% 97.8%;
+    --primary: 20.5 90.2% 48.2%;
+    --primary-foreground: 60 9.1% 97.8%;
+    --secondary: 12 6.5% 15.1%;
+    --secondary-foreground: 60 9.1% 97.8%;
+    --muted: 12 6.5% 15.1%;
+    --muted-foreground: 24 5.4% 63.9%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 60 9.1% 97.8%;
+    --destructive: 0 72.2% 50.6%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 12 6.5% 15.1%;
+    --input: 12 6.5% 15.1%;
+    --ring: 20.5 90.2% 48.2%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans tracking-tight antialiased;
+  }
+}
+
+@layer tooltip {
+  div.tooltip {
+    @apply font-serif absolute p-4  bg-white text-current border border-gray-300 rounded-lg pointer-events-none text-sm z-50 flex flex-col text-left space-y-3 min-w-52 max-w-xs  transition-all duration-200 opacity-0 scale-95 transform hover:opacity-100 hover:scale-100 shadow-xl;
+  }
+  div.tooltip h3 {
+    @apply font-semibold text-lg  tracking-wide;
+  }
+  div.tooltip p {
+    @apply text-xs;
+  }
+
+  div.tooltip .tags {
+    @apply text-xs text-gray-500 italic flex gap-2;
+  }
+  div.tooltip .tags span {
+    @apply p-2 bg-gray-200 rounded-full;
+  }
+  div.tooltip .new {
+    @apply bg-green-500 max-w-fit text-white px-2 py-1 rounded-full text-xs font-medium;
+  }
+  div.tooltip .moved.moved-up {
+    @apply rounded-full max-w-fit text-green-700 font-bold;
+  }
+  div.tooltip .moved.moved-down {
+    @apply rounded-full max-w-fit text-red-700 font-bold;
+  }
+}

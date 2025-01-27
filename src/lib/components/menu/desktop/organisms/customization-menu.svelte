@@ -9,7 +9,7 @@
 
 <PopoverMenu class={clazz}>
   {#snippet icon()}
-    <Icons.radar />
+    <Icons.plus />
     <span class="sr-only">{'Customization'}</span>
   {/snippet}
 

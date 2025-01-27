@@ -15,9 +15,10 @@
 
 <FormWrapper data={ring} {onSave} schema={ringForm}>
   {#snippet children(form)}
-    <FormInput {form} name="name" label="Name" />
-    <FormInput {form} name="color" label="Color" type="color" />
-
+    <div class="flex space-x-4">
+      <FormInput {form} name="name" label="Name" />
+      <FormInput {form} name="color" label="Color" type="color" />
+    </div>
     <Button type="submit" bind:ref={submit}>Save</Button>
   {/snippet}
 </FormWrapper>

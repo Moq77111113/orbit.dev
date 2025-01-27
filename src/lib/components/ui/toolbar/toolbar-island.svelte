@@ -39,7 +39,7 @@
       </div>
 
       {#key toolbar.current}
-        <div transition:slide|local={{ axis: 'x' }}>
+        <div transition:slide|local={{ axis: 'x' }} class="py-2">
           <toolbar.current.content />
         </div>
       {/key}

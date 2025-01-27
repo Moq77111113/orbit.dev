@@ -71,7 +71,7 @@
     zoom={handleZoom}
   >
     <ZoomControls
-      class="absolute bottom-0 right-0 mt-4 mr-4"
+      class="absolute md:bottom-4 md:left-4 md:mt-0 md:top-[unset] top-full  mt-2  flex-row md:flex-col"
       onZoom={handleZoom}
       onReset={() => svgController.reset()}
       scale={svgController.scale}

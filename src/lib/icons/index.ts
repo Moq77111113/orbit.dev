@@ -18,6 +18,9 @@ import Trash from "lucide-svelte/icons/trash-2";
 import X from "lucide-svelte/icons/x";
 import GitHub from "./github.svelte";
 import Logo from "./logo.svelte";
+import Braces from 'lucide-svelte/icons/braces';
+import ChevronEllipsis from 'lucide-svelte/icons/chevrons-left-right-ellipsis';
+import Image from 'lucide-svelte/icons/image';
 import Transparent from "./transparent.svelte";
 
 export const Icons = {
@@ -42,4 +45,7 @@ export const Icons = {
 	themedark: Moon,
 	themesys: ThemeSystem,
 	copy: Copy,
+	json: Braces,
+	svg: ChevronEllipsis,
+	png: Image
 };

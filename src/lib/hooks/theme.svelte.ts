@@ -53,6 +53,9 @@ class Theme {
 	}
 
 	#dispatch() {
+		if (!isBrowser) {
+			return;
+		}
 		document.documentElement.classList.remove("light", "dark");
 		if (this.#value !== "system") {
 			document.documentElement.classList.add(this.#value);

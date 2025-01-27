@@ -51,6 +51,7 @@
     {
       title: 'SVG',
       description: 'Export as a Scalable Vector Graphic',
+      icon: Icons.svg,
       export: (svg: SVGElement) => {
         orbit.execute(exportSvg, svg);
       },
@@ -61,6 +62,7 @@
     {
       title: 'PNG',
       description: 'Export as a Portable Network Graphic',
+      icon: Icons.png,
       export: (svg: SVGElement) => {
         orbit.execute(exportPng, { svg, background: background.value });
       },
@@ -68,6 +70,7 @@
     {
       title: 'JSON',
       description: 'Export as a JSON file in our custom format',
+      icon: Icons.json,
       export: () => {
         orbit.execute(exportJson, undefined);
       },

@@ -13,7 +13,7 @@
     Navigate the complex landscape of technology with an intelligent,
     collaborative tech radar that adapts to your team's evolving needs.
   </p>
-  <Button href={routes.new}>
-    Explore Radar <Icons.radar class="ml-2" />
+  <Button href={routes.new} data-sveltekit-preload-code="viewport">
+    Start your own ! <Icons.radar class="ml-2" />
   </Button>
 </div>

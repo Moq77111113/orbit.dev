@@ -4,6 +4,7 @@
 <h4 align="center">
    <picture>
       <img alt="Orbit" src="https://raw.githubusercontent.com/Moq77111113/orbit.dev/main/static/cover.svg" width="800" height="400" />
+      </picture>
  </h4>
 
 
@@ -13,7 +14,7 @@
   <a href="https://github.com/moq77111113/orbit.dev/blob/master/LICENSE">
     <img alt="MIT license." src="https://img.shields.io/badge/license-MIT-blue.svg"  />
   </a>
-  <a href="https://docs.excalidraw.com/docs/introduction/contributing">
+  <a href="https:/github.com/moq77111113/orbit.dev/blob/main/CONTRIBUTING.md">
     <img alt="PRs welcome!" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat"  />
   </a>
    <img alt="Status MVP" src="https://img.shields.io/badge/status-MVP-orange.svg"  />

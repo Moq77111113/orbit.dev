@@ -1,9 +1,36 @@
 # ORBIT
 
-Orbit is a web-based application allowing users to create and share tech radar diagrams. Create your own radar, add technologies, and share it with your team or the world.
+
+<h4 align="center">
+   <picture>
+      <img alt="Orbit" src="https://raw.githubusercontent.com/Moq77111113/orbit.dev/main/static/cover.svg" width="400" height="200" />
+ </h4>
 
 
 
+<br />
+<p align="center">
+  <a href="https://github.com/moq77111113/orbit.dev/blob/master/LICENSE">
+    <img alt="MIT license." src="https://img.shields.io/badge/license-MIT-blue.svg"  />
+  </a>
+  <a href="https://docs.excalidraw.com/docs/introduction/contributing">
+    <img alt="PRs welcome!" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat"  />
+  </a>
+   <img alt="Status MVP" src="https://img.shields.io/badge/status-MVP-orange.svg"  />
+</p>
+
+A modern, interactive technology radar powered by SvelteKit.
+
+## 🚀 Live Demo
+
+Visit [orbit.moqdev.space](https://orbit.moqdev.space) to see it in action.
+
+## ⚡ Current Status
+This is an MVP version with core features implemented. Expect frequent updates and improvements. Your feedback and suggestions are valuable for shaping the future of ORBIT.
+
+## 💡 Feedback & Suggestions
+Have ideas or found bugs? I'd love to hear from you:
+- Open an [issue](https://github.com/Moq77111113/orbit.dev/issues)
 
 ## Installation
 
@@ -36,14 +63,16 @@ To get started with ORBIT, follow these steps:
    ```
 
 
-## Contributing
+## 🤝 Contributing
 
 We welcome contributions! Please read our [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
-## License
+## 📝 icense
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
-## Acknowledgments
+## 🙏 Acknowledgments
 
+- [shadcn-svelte](https://shadcn-svelte.com/) by <u>huntabyte</u>
+- [D3.js](https://d3js.org/) for data visualization
 - [Excalidraw](https://github.com/excalidraw/excalidraw) for inspiration

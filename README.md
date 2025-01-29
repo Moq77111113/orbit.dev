@@ -33,7 +33,7 @@ This is an MVP version with core features implemented. Expect frequent updates a
 Have ideas or found bugs? I'd love to hear from you:
 - Open an [issue](https://github.com/Moq77111113/orbit.dev/issues)
 
-## Installation
+## 🛠️ Development
 
 To get started with ORBIT, follow these steps:
 
@@ -68,7 +68,7 @@ To get started with ORBIT, follow these steps:
 
 We welcome contributions! Please read our [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
-## 📝 icense
+## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 

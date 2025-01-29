@@ -58,4 +58,4 @@ jobs:
           key: ${{ secrets.KEY }}
           script: |
             cd /app/orbit.dev
-            docker stack deploy -c docker-compose.yml orbit.dev --with-registry-auth -d
+            docker stack deploy -c docker-compose.yml orbit-dev --with-registry-auth -d

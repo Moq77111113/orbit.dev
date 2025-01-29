@@ -13,13 +13,25 @@ RUN pnpm install --frozen-lockfile
 
 COPY --link . .
 
-RUN pnpm build && pnpm prune
+RUN pnpm build && pnpm prune --prod
 
 FROM pnpm AS app
+ENV NODE_ENV=production
 
+ARG BUILD_DATE
+ARG VERSION=1.0.0
+
+LABEL org.opencontainers.image.title="Orbit Tech Radar" \
+    org.opencontainers.image.description="Technology radar visualization tool" \
+    org.opencontainers.image.version=${VERSION} \
+    org.opencontainers.image.created=${BUILD_DATE} \
+    org.opencontainers.image.source="https://github.com/moq77111113/orbit.dev" \
+    org.opencontainers.image.licenses="MIT" \
+    maintainer="moq77111113"
 WORKDIR /app
-ENV PORT=5173
 
 COPY --from=builder /home/build ./
+COPY --from=builder /home/node_modules ./node_modules
+COPY --from=builder /home/package.json ./
 
 CMD ["node", "index.js"]

@@ -3,7 +3,7 @@
 
 <h4 align="center">
    <picture>
-      <img alt="Orbit" src="https://raw.githubusercontent.com/Moq77111113/orbit.dev/main/static/cover.svg" width="400" height="200" />
+      <img alt="Orbit" src="https://raw.githubusercontent.com/Moq77111113/orbit.dev/main/static/cover.svg" width="800" height="400" />
  </h4>
 
 

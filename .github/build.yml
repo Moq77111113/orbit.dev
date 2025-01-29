@@ -49,6 +49,13 @@ jobs:
           push: ${{github.event_name != 'pull_request'}}
           tags: ${{steps.metadata.outputs.tags}}
           labels: ${{steps.metadata.outputs.labels}}
+          platforms: linux/amd64,linux/arm64
+          context: .
+          build-args: |
+            BUILD_DATE=${{ github.event.head_commit.timestamp }}
+            VERSION=${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Deploy
         uses: appleboy/ssh-action@master

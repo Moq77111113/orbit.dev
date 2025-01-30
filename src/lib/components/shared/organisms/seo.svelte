@@ -1,6 +1,7 @@
 <script lang="ts">
-import { page } from "$app/state";
-import { site } from "$lib/config/site.js";
+import { dev } from '$app/environment';
+import { page } from '$app/state';
+import { site } from '$lib/config/site.js';
 
 const title = $derived(
 	page.data?.title ? `${page.data.title} | ${site.name}` : site.name,
@@ -33,5 +34,7 @@ const title = $derived(
 	<meta property="og:locale" content="EN_US" />
 	<link rel="shortcut icon" href="/favicon.png" />
 	<link rel="apple-touch-icon" href="/favicon.png" />
-	
+    {#if !dev}
+    <script defer data-domain="orbit.moqdev.space" src="https://pulse.moqdev.space/js/script.js"></script>
+	{/if}
 </svelte:head>

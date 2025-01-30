@@ -41,7 +41,7 @@ export class LabelLayer extends Layer<EnrichedSection, SVGGElement> {
 	get corners() {
 		const padding = 10;
 		const textWidth = 150 + padding;
-		const { width, height } = this.dimensions;
+		const { width, height, radius } = this.dimensions;
 
 		return [
 			{
@@ -54,11 +54,11 @@ export class LabelLayer extends Layer<EnrichedSection, SVGGElement> {
 			},
 			{
 				x: width - textWidth,
-				y: (height * 3) / 5 + padding,
+				y: height - radius /2 - padding,
 			},
 			{
 				x: padding,
-				y: (height * 3) / 5 + padding,
+				y: height - radius / 2 - padding,
 			},
 		];
 	}

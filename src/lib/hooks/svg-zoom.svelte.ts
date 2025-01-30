@@ -12,7 +12,7 @@ type Props = {
 const defaultProps = {
 	viewHeight: 800,
 	viewWidth: 1000,
-	aspectRatio: 0.8,
+	aspectRatio: 0.7,
 	maxWidth: 1000,
 	maxZoom: 3,
 	minZoom: 1,

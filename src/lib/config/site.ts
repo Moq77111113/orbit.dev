@@ -2,9 +2,9 @@ import { Icons } from "../icons/index.js";
 
 export const site = {
 	name: "Orbit.dev",
-	url: "",
-	og: "",
-	description: "Build and share you Tech Radar",
+	url: "https://orbit.moqdev.space",
+	og: "https://orbit.moqdev.space/cover.svg",
+	description: "Build and share your Tech Radar",
 	links: [
 		{
 			href: "https://github.com/moq77111113/orbit.dev",

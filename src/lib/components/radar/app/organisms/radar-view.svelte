@@ -1,82 +1,89 @@
 <script lang="ts">
-  import { ZoomController } from '$lib/hooks/svg-zoom.svelte.js';
-  import { useOrbit } from '$lib/radar/state/app-state.svelte.js';
-  import { RadarRenderer } from '$lib/radar/state/observers/renderer.svelte.js';
+import { ZoomController } from "$lib/hooks/svg-zoom.svelte.js";
+import { useOrbit } from "$lib/radar/state/app-state.svelte.js";
+import { RadarRenderer } from "$lib/radar/state/observers/renderer.svelte.js";
 
-  import { useBackgroundStore } from '$lib/hooks/svg-background.svelte.js';
-  import { onMount } from 'svelte';
-  import RadarSvg from '../molecules/radar-svg.svelte';
-  import ZoomControls from '../molecules/zoom-controls.svelte';
+import { IsMobile } from "$lib/hooks/is-mobile.svelte.js";
+import { useBackgroundStore } from "$lib/hooks/svg-background.svelte.js";
+import { onMount } from "svelte";
+import RadarSvg from "../molecules/radar-svg.svelte";
+import ZoomControls from "../molecules/zoom-controls.svelte";
 
-  const orbit = useOrbit();
-  const background = useBackgroundStore();
+const orbit = useOrbit();
+const background = useBackgroundStore();
 
-  type Props = { svg: SVGElement };
+type Props = { svg: SVGElement };
 
-  let { svg = $bindable() }: Props = $props();
-  const svgController = new ZoomController();
-  let renderer = $state<RadarRenderer>();
+let { svg = $bindable() }: Props = $props();
+const zoomController = new ZoomController();
+let renderer = $state<RadarRenderer>();
 
-  function handleResize() {
-    svgController.resize(
-      Math.min(svgController.maxWidth, window.innerWidth - 32)
-    );
-  }
+function handleResize() {
+	const targetWidth = Math.min(
+		zoomController.maxWidth,
+		window.innerWidth * 0.8,
+	);
 
-  function handleZoom(inside: boolean, position: { x: number; y: number }) {
-    svgController.handleZoom(
-      inside ? svgController.zoomStep : -svgController.zoomStep,
-      position
-    );
-  }
+	zoomController.resize(targetWidth);
+}
 
-  onMount(() => {
-    if (!renderer) {
-      renderer = new RadarRenderer({
-        target: svg,
-        container: { width: svgController.width, height: svgController.height },
-      });
-    }
+function handleZoom(inside: boolean, position: { x: number; y: number }) {
+	zoomController.handleZoom(
+		inside ? zoomController.zoomStep : -zoomController.zoomStep,
+		position,
+	);
+}
 
-    if (orbit.readonly) {
-      renderer.update(orbit.state);
-    } else {
-      orbit.addObserver(renderer);
-    }
+onMount(() => {
+	if (!renderer) {
+		renderer = new RadarRenderer({
+			target: svg,
+			container: { width: zoomController.width, height: zoomController.height },
+		});
+	}
 
-    orbit.bindVector(svg);
-    handleResize();
-  });
+	if (orbit.readonly) {
+		renderer.update(orbit.state);
+	} else {
+		orbit.addObserver(renderer);
+	}
+
+	orbit.bindVector(svg);
+	handleResize();
+});
 </script>
 
 <svelte:window
   onresize={handleResize}
-  onmousemove={(e) => svgController.handleMouseMove(e.clientX, e.clientY)}
-  onmouseup={() => svgController.handleMouseUp()}
-  onmouseleave={() => svgController.handleMouseUp()}
+  onmousemove={(e) => zoomController.handleMouseMove(e.clientX, e.clientY)}
+  onmouseup={() => zoomController.handleMouseUp()}
+  onmouseleave={() => zoomController.handleMouseUp()}
   ontouchmove={(e) =>
-    svgController.handleMouseMove(e.touches[0].clientX, e.touches[0].clientY)}
-  ontouchend={() => svgController.handleMouseUp()}
+    zoomController.handleMouseMove(e.touches[0].clientX, e.touches[0].clientY)}
+  ontouchend={() => zoomController.handleMouseUp()}
+/>
+
+<div class="flex flex-col-reverse gap-4">
+  <ZoomControls
+  class="flex-row"
+  onZoom={handleZoom}
+  onReset={() => zoomController.reset()}
+  scale={zoomController.scale}
+  max={zoomController.maxZoom}
+  min={zoomController.minZoom}
 />
 
 <div class="w-full flex justify-center relative">
   <RadarSvg
     bind:svg
-    width={svgController.width}
-    height={svgController.height}
-    viewBox={svgController.viewBox}
-    scale={svgController.scale}
-    onMouseDown={(x, y) => svgController.handleMouseDown(x, y)}
+    width={zoomController.width}
+    height={zoomController.height}
+    viewBox={zoomController.viewBox}
+    scale={zoomController.scale}
+    onMouseDown={(x, y) => zoomController.handleMouseDown(x, y)}
     background={background.value}
     zoom={handleZoom}
-  >
-    <ZoomControls
-      class="absolute md:bottom-4 md:left-4 md:mt-0 md:top-[unset] top-full  mt-2  flex-row md:flex-col"
-      onZoom={handleZoom}
-      onReset={() => svgController.reset()}
-      scale={svgController.scale}
-      max={svgController.maxZoom}
-      min={svgController.minZoom}
-    /></RadarSvg
-  >
+ />
+ 
+</div>
 </div>

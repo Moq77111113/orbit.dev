@@ -1,3 +1,5 @@
+import { IsMobile } from './is-mobile.svelte.js';
+
 type Props = {
 	viewWidth: number;
 	viewHeight: number;
@@ -32,7 +34,9 @@ export class ZoomController {
 
 	#viewBox = $state(`0 0 ${this.width} ${this.height}`);
 
-	constructor(protected readonly props: Props = defaultProps) {
+	protected readonly props: Props;
+	constructor(props?: Props) {
+		this.props = { ...defaultProps, ...props };
 		this.#width = this.props.initialWidth;
 		this.#aspectRatio = this.props.aspectRatio;
 		this.#height = this.#width * this.#aspectRatio;
@@ -138,6 +142,7 @@ export class ZoomController {
 	public handleMouseMove(x: number, y: number) {
 		if (!this.#dragging) return;
 
+	
 		const dx = (x - this.#dragStart.x) / this.#scale;
 		const dy = (y - this.#dragStart.y) / this.#scale;
 		this.#offset = {

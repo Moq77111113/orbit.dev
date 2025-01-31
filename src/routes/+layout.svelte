@@ -13,7 +13,7 @@ createBackgroundStore();
 </script>
 
 <Seo />
-<div class="relative flex min-h-screen flex-col">
+<div class="relative flex min-h-dvh flex-col">
   <Header />
 
   {@render children?.()}

@@ -1,13 +1,12 @@
 <script lang="ts">
-import { ZoomController } from "$lib/hooks/svg-zoom.svelte.js";
-import { useOrbit } from "$lib/radar/state/app-state.svelte.js";
-import { RadarRenderer } from "$lib/radar/state/observers/renderer.svelte.js";
+import { ZoomController } from '$lib/hooks/svg-zoom.svelte.js';
+import { useOrbit } from '$lib/radar/state/app-state.svelte.js';
+import { RadarRenderer } from '$lib/radar/state/observers/renderer.svelte.js';
 
-import { IsMobile } from "$lib/hooks/is-mobile.svelte.js";
-import { useBackgroundStore } from "$lib/hooks/svg-background.svelte.js";
-import { onMount } from "svelte";
-import RadarSvg from "../molecules/radar-svg.svelte";
-import ZoomControls from "../molecules/zoom-controls.svelte";
+import { useBackgroundStore } from '$lib/hooks/svg-background.svelte.js';
+import { onMount } from 'svelte';
+import RadarSvg from '../molecules/radar-svg.svelte';
+import ZoomControls from '../molecules/zoom-controls.svelte';
 
 const orbit = useOrbit();
 const background = useBackgroundStore();
@@ -19,10 +18,12 @@ const zoomController = new ZoomController();
 let renderer = $state<RadarRenderer>();
 
 function handleResize() {
-	const targetWidth = Math.min(
-		zoomController.maxWidth,
-		window.innerWidth * 0.8,
+	const vw = Math.min(
+		document.documentElement.clientWidth || 0,
+		window.innerWidth || 0,
 	);
+
+	const targetWidth = Math.min(zoomController.maxWidth, vw * 0.8);
 
 	zoomController.resize(targetWidth);
 }
@@ -49,6 +50,7 @@ onMount(() => {
 	}
 
 	orbit.bindVector(svg);
+
 	handleResize();
 });
 </script>
@@ -62,7 +64,6 @@ onMount(() => {
     zoomController.handleMouseMove(e.touches[0].clientX, e.touches[0].clientY)}
   ontouchend={() => zoomController.handleMouseUp()}
 />
-
 <div class="flex flex-col-reverse gap-4">
   <ZoomControls
   class="flex-row"

@@ -1,7 +1,11 @@
 FROM node:22-alpine3.20 AS pnpm
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
+
+RUN npm i -g corepack@latest
 RUN corepack enable
+RUN corepack prepare pnpm@10.2.0 --activate
+
 
 FROM pnpm AS builder
 

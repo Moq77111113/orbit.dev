@@ -23,6 +23,7 @@ import X from "lucide-svelte/icons/x";
 import GitHub from "./github.svelte";
 import Logo from "./logo.svelte";
 import Transparent from "./transparent.svelte";
+import Pencil from "lucide-svelte/icons/pencil-line";
 export const Icons = {
 	logo: Logo,
 	github: GitHub,
@@ -49,4 +50,5 @@ export const Icons = {
 	json: Braces,
 	svg: ChevronEllipsis,
 	png: Image,
+	pencil: Pencil
 };

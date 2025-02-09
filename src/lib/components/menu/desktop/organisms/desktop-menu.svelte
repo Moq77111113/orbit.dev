@@ -8,8 +8,8 @@
   <SettingsMenu class="absolute top-16 left-4 " />
   <WriteOnly
     ><CustomizationMenu
-      class="absolute bottom-16 right-4 [&_button]:bg-primary [&_button]:text-primary-foreground [&_button]:size-10
-      [&_button]:hover:bg-primary/90 [&_button]:hover:text-primary-foreground [&_button]:hover:shadow [&_button]:rounded-full"
+      class="absolute bottom-16 right-4 bg-primary text-primary-foreground size-12 [&_svg]:size-6
+      hover:bg-primary/90 hover:text-primary-foreground hover:shadow rounded-full"
     /></WriteOnly
   >
 </div>
